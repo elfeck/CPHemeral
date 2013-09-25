@@ -1,0 +1,20 @@
+﻿Build started 26.09.2013 00:45:39.
+     1>Project "D:\Projects\newCPHemeral\display\display.vcxproj" on node 2 (Rebuild target(s)).
+     1>ClCompile:
+         D:\Programme\VS2012\VC\bin\CL.exe /c /ID:\Projects\newCPHemeral\utils\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D DISPLAY_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt src\DLLImpl.cpp src\FreeglutDisplay.cpp src\FreeglutWindow.cpp
+         FreeglutWindow.cpp
+         FreeglutDisplay.cpp
+         DLLImpl.cpp
+         Generating Code...
+       Link:
+         D:\Programme\VS2012\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Projects\newCPHemeral\Debug\display.dll" /INCREMENTAL /NOLOGO glew32.lib glew32s.lib freeglut.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\Projects\newCPHemeral\Debug\display.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Projects\newCPHemeral\Debug\display.lib" /MACHINE:X86 /DLL Debug\DLLImpl.obj
+         Debug\FreeglutDisplay.obj
+         Debug\FreeglutWindow.obj
+         D:\Projects\newCPHemeral\Debug\utils.lib
+            Creating library D:\Projects\newCPHemeral\Debug\display.lib and object D:\Projects\newCPHemeral\Debug\display.exp
+         display.vcxproj -> D:\Projects\newCPHemeral\Debug\display.dll
+     1>Done Building Project "D:\Projects\newCPHemeral\display\display.vcxproj" (Rebuild target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:02.78
