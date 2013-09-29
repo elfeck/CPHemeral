@@ -10,7 +10,7 @@
 using namespace cph;
 
 ObjectImpl::ObjectImpl() :
-	id(-1), objectManager(0), components()
+	objectManager(0), components()
 {
 
 }
@@ -20,9 +20,7 @@ ObjectImpl::~ObjectImpl() {
 }
 
 void ObjectImpl::release() {
-	objectManager->releaseId(id);
-	id = -1;
-	components.clear();
+	objectManager->releaseObject(this);
 }
 
 void ObjectImpl::addComponent(Component* component) {
@@ -41,14 +39,6 @@ Component* ObjectImpl::getComponent(const char* name) const {
 		if(strcmp(components.at(i)->getName(), name) == 0) return components.at(i);
 	}
 	return 0;
-}
-
-int ObjectImpl::getId() const {
-	return id;
-}
-
-void ObjectImpl::setId(int id) {
-	this->id = id;
 }
 
 void ObjectImpl::setObjectManager(ObjectManagerImpl* objectManager) {

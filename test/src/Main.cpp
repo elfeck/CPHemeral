@@ -1,21 +1,25 @@
+#include <iostream>
+
 #include "ObjectManager.h"
 #include "Object.h"
 #include "RenderingComponent.h"
 #include "Display.h"
 #include "Window.h"
 
-
 using namespace cph;
 
 void mainCallback(long delta);
 void renderCallback(long delta);
 
-int main(int argc, char* argv[]) {
-	Window* window = createWindow();
-	Display* display = createDisplay();
+Display* display = 0;
+Window* window = 0;
 
-	window->setSize(480, 360);
-	window->setPosition(1000, 200);
+int main(int argc, char* argv[]) {
+	window = createWindow();
+	display = createDisplay();
+
+	window->setSize(480, 320);
+	window->setPosition(500, 200);
 	window->setTitle("Test");
 	window->initWindow(&argc, argv);
 
@@ -24,19 +28,18 @@ int main(int argc, char* argv[]) {
 	display->setRenderFunc(renderCallback);
 	display->initDisplay(window);
 
+
+	ObjectManager* objectManager = createObjectManager(10);
+	Object* o1 = objectManager->createObject();
+	Object* o2 = objectManager->createObject();
+	o1->release();
+	o2->release();
+	deleteObjectManager(objectManager);
+	
 	display->enterMainLoop();
 
 	deleteWindow(window);
 	deleteDisplay(display);
-
-	/*
-	ObjectManager* objectManager = createObjectManager(10);
-	Object* o1 = objectManager->registerObject();
-	Object* o2 = objectManager->registerObject();
-	o1->release();
-	o2->release();
-	deleteObjectManager(objectManager);
-	*/
 
 	return 0;
 }

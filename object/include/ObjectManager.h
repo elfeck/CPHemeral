@@ -18,12 +18,14 @@ struct ObjectManager {
 	virtual void addSystem(ObjectSystem* system) = 0;
 	virtual void removeSystem(ObjectSystem* system) = 0;
 
-	virtual Object* registerObject() = 0;
+	virtual Object* createObject() = 0;
+
+	virtual ~ObjectManager() = 0;
 
 };
 
 extern "C" {
-	CPH_OBJECT_DLL ObjectManager* createObjectManager(int size = 1024);
+	CPH_OBJECT_DLL ObjectManager* createObjectManager(int size);
 	CPH_OBJECT_DLL void deleteObjectManager(ObjectManager* objectManager);
 }
 

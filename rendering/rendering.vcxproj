@@ -14,6 +14,7 @@
     <ProjectGuid>{74B64D08-ACAC-4077-8FD2-A6CC8925E1BB}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>rendering</RootNamespace>
+    <ProjectName>rendering</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -53,7 +54,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;RENDERING_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Projects\n_CPHemeral\object\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Projects\newCPHemeral\utils\include;D:\Projects\newCPHemeral\object\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -82,10 +83,26 @@
     <ProjectReference Include="..\object\object.vcxproj">
       <Project>{8f304102-a3b5-46c7-99b3-1377af53e89d}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\utils\utils.vcxproj">
+      <Project>{f8231e3e-a235-45ee-8a24-1bc889f77b31}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\RenderingComponent.h" />
     <ClInclude Include="include\RenderingSystem.h" />
+    <ClInclude Include="include\Uniform.h" />
+    <ClInclude Include="include\Vertex.h" />
+    <ClInclude Include="src\RenderingComponentImpl.h" />
+    <ClInclude Include="src\RenderingSystemImpl.h" />
+    <ClInclude Include="src\UniformImpl.h" />
+    <ClInclude Include="src\VertexImpl.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\DLLImpl.cpp" />
+    <ClCompile Include="src\RenderingComponentImpl.cpp" />
+    <ClCompile Include="src\RenderingSystemImpl.cpp" />
+    <ClCompile Include="src\UniformImpl.cpp" />
+    <ClCompile Include="src\VertexImpl.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

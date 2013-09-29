@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "utils", "utils\utils.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rendering", "rendering\rendering.vcxproj", "{74B64D08-ACAC-4077-8FD2-A6CC8925E1BB}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "math", "math\math.vcxproj", "{8F857833-ED87-4854-B648-F34C2C4AC5DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -37,6 +39,10 @@ Global
 		{74B64D08-ACAC-4077-8FD2-A6CC8925E1BB}.Debug|Win32.Build.0 = Debug|Win32
 		{74B64D08-ACAC-4077-8FD2-A6CC8925E1BB}.Release|Win32.ActiveCfg = Release|Win32
 		{74B64D08-ACAC-4077-8FD2-A6CC8925E1BB}.Release|Win32.Build.0 = Release|Win32
+		{8F857833-ED87-4854-B648-F34C2C4AC5DE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8F857833-ED87-4854-B648-F34C2C4AC5DE}.Debug|Win32.Build.0 = Debug|Win32
+		{8F857833-ED87-4854-B648-F34C2C4AC5DE}.Release|Win32.ActiveCfg = Release|Win32
+		{8F857833-ED87-4854-B648-F34C2C4AC5DE}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

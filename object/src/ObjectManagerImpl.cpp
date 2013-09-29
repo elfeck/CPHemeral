@@ -6,20 +6,19 @@
 using namespace cph;
 
 ObjectManagerImpl::ObjectManagerImpl(int size) :
-	size(size), objectArray(new ObjectImpl[size]), objectPool(size), systems()
+	size(size), objectPool(1, size), systems()
 {
-	for(int i = 0; i < size; i++) objectArray[i].setObjectManager(this);
+	objectPool.preAllocate(1);
 }
 
 ObjectManagerImpl::~ObjectManagerImpl() {
-	delete[] objectArray;
+
 }
 
-Object* ObjectManagerImpl::registerObject() {
-	if(objectPool.isEmpty()) return 0;
-	int id = objectPool.aquire();
-	objectArray[id].setId(id);
-	return &objectArray[id];
+Object* ObjectManagerImpl::createObject() {
+	ObjectImpl* obj = objectPool.allocate();
+	obj->setObjectManager(this);
+	return obj;
 }
 
 void ObjectManagerImpl::addSystem(ObjectSystem* system) {
@@ -30,7 +29,7 @@ void ObjectManagerImpl::removeSystem(ObjectSystem* system) {
 	systems.erase(std::remove(systems.begin(), systems.end(), system), systems.end());
 }
 
-void ObjectManagerImpl::releaseId(int id) {
-	objectPool.release(id);
+void ObjectManagerImpl::releaseObject(ObjectImpl* object) {
+	objectPool.release(object);
 }
 

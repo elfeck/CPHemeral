@@ -27,6 +27,8 @@ struct Window {
 	virtual void setTitle(const char* title) = 0;
 	virtual void setIcon(const char* iconPath) = 0;
 
+	virtual ~Window() = 0;
+
 };
 
 extern "C" {

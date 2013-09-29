@@ -11,11 +11,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\GlobalUtils.cpp" />
     <ClCompile Include="src\IntPool.cpp" />
     <ClCompile Include="src\TimeUnit.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\GlobalUtils.h" />
     <ClInclude Include="include\IntPool.h" />
+    <ClInclude Include="include\MemPool.h" />
     <ClInclude Include="include\TimeUnit.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

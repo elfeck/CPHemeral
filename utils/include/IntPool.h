@@ -18,7 +18,9 @@ public:
 
 	int aquire();
 	void release(int value);
+
 	bool isEmpty() const;
+	int last() const;
 };
 
 }

@@ -2,7 +2,7 @@
 #define OBJECT_MANAGER_IMPL_H_
 
 #include <vector>
-#include "IntPool.h"
+#include "MemPool.h"
 
 #include "../include/ObjectManager.h"
 #include "../include/Object.h"
@@ -16,21 +16,19 @@ class ObjectManagerImpl : public ObjectManager {
 
 private:
 	const int size;
-	ObjectImpl* objectArray;
-	IntPool objectPool;
+	MemPool<ObjectImpl> objectPool;
 
 	std::vector<ObjectSystem*> systems;
 
 public:
 	ObjectManagerImpl(int size);
-	~ObjectManagerImpl();
+	virtual ~ObjectManagerImpl();
 
 	virtual void addSystem(ObjectSystem* system);
 	virtual void removeSystem(ObjectSystem* system);
 
-	virtual Object* registerObject();
-
-	void releaseId(int id);
+	virtual Object* createObject();
+	void releaseObject(ObjectImpl* object);
 
 };
 

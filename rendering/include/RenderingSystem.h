@@ -16,13 +16,14 @@ namespace cph {
 struct RenderingSystem : public ObjectSystem {
 
 	virtual void execute(long delta) = 0;
+	virtual RenderingComponent* createComponent() = 0;
 
-	virtual RenderingComponent* registerComponent() = 0;
+	virtual ~RenderingSystem() = 0;
 
 };
 
 extern "C" {
-	CPH_RENDERING_DLL RenderingSystem* createRenderingSystem();
+	CPH_RENDERING_DLL RenderingSystem* createRenderingSystem(int size);
 	CPH_RENDERING_DLL void deleteRenderingSystem(RenderingSystem* renderingSystem);
 }
 

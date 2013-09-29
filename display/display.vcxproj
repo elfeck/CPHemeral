@@ -14,6 +14,7 @@
     <ProjectGuid>{2F38E64A-A35C-4354-A348-8B3E04722252}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>display</RootNamespace>
+    <ProjectName>display</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -82,13 +83,13 @@
   <ItemGroup>
     <ClInclude Include="include\Display.h" />
     <ClInclude Include="include\Window.h" />
-    <ClInclude Include="src\FreeglutDisplay.h" />
-    <ClInclude Include="src\FreeglutWindow.h" />
+    <ClInclude Include="src\DisplayImpl.h" />
+    <ClInclude Include="src\WindowImpl.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\DLLImpl.cpp" />
-    <ClCompile Include="src\FreeglutDisplay.cpp" />
-    <ClCompile Include="src\FreeglutWindow.cpp" />
+    <ClCompile Include="src\DisplayImpl.cpp" />
+    <ClCompile Include="src\WindowImpl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\utils\utils.vcxproj">

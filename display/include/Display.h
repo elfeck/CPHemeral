@@ -24,6 +24,7 @@ struct Display {
 
 	virtual bool isKeyPressed(unsigned char keyId) const = 0;
 	virtual bool isKeyReleased(unsigned char keyId) const = 0;
+	virtual bool isMouseInWindow() const = 0;
 
 	virtual int getMouseX() const = 0;
 	virtual int getMouseY() const = 0;
@@ -32,9 +33,9 @@ struct Display {
 	virtual bool isDebug() const = 0;
 	virtual void setDebug(bool debug) = 0;
 
+	virtual ~Display() = 0;
+
 };
-
-
 
 extern "C" {	
 	CPH_DISPLAY_DLL Display* createDisplay();

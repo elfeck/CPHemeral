@@ -13,7 +13,6 @@ class ObjectManagerImpl;
 class ObjectImpl : public Object {
 
 private:
-	int id;
 	ObjectManagerImpl* objectManager;
 
 	std::vector<Component*> components;
@@ -27,9 +26,6 @@ public:
 	virtual void removeComponent(Component* component);
 	virtual Component* getComponent(const char* name) const;
 
-	int getId() const;
-
-	void setId(int id);
 	void setObjectManager(ObjectManagerImpl* objectManager);	
 };
 

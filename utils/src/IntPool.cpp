@@ -14,7 +14,7 @@ IntPool::~IntPool() {
 }
 
 int IntPool::aquire() {
-	for(int i = 0; i < poolSize; i++) {
+	for(std::vector<int>::size_type i = 0; i < poolSize; i++) {
 		if(intPool.at(i) == 1) {
 			intPool.at(i) = 0;
 			return i;
@@ -29,4 +29,12 @@ void IntPool::release(int value) {
 
 bool IntPool::isEmpty() const {
 	return intPool.at(poolSize - 1) == 0;
+}
+
+int IntPool::last() const {
+	int last = 0;
+	for(std::vector<int>::size_type i = 0; i < poolSize; i++) {
+		if(intPool.at(i) == 0) last = i;
+	}
+	return last;
 }

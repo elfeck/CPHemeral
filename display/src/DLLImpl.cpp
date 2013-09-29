@@ -1,26 +1,36 @@
 #include "../include/Display.h"
 #include "../include/Window.h"
 
-#include "FreeglutDisplay.h"
-#include "FreeglutWindow.h"
+#include "DisplayImpl.h"
+#include "WindowImpl.h"
 
 
 
 cph::Display* cph::createDisplay() {
-	Display* display = new cph::FreeglutDisplay();
-	FreeglutDisplay::setCurrentDisplay(display);
+	Display* display = new cph::DisplayImpl();
+	DisplayImpl::setCurrentDisplay(display);
 	return display;
 }
 
 void cph::deleteDisplay(cph::Display* display) {
-	if(FreeglutDisplay::getCurrentDisplay() == display) FreeglutDisplay::setCurrentDisplay(0);
+	if(DisplayImpl::getCurrentDisplay() == display) DisplayImpl::setCurrentDisplay(0);
 	delete display;
 }
 
 cph::Window* cph::createWindow() {
-	return new cph::FreeglutWindow();
+	return new cph::WindowImpl();
 }
 
 void cph::deleteWindow(cph::Window* window) {
 	delete window;
 }
+
+cph::Display::~Display() {
+
+}
+
+cph::Window::~Window() {
+
+}
+
+
