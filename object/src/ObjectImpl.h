@@ -21,7 +21,7 @@ public:
 	ObjectImpl();
 	~ObjectImpl();
 
-	virtual void release();
+	virtual void destroy();
 	virtual void addComponent(Component* component);
 	virtual void removeComponent(Component* component);
 	virtual Component* getComponent(const char* name) const;

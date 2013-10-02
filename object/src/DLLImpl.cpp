@@ -2,8 +2,8 @@
 #include "ObjectManagerImpl.h"
 
 
-cph::ObjectManager* cph::createObjectManager(int size) {
-	return new cph::ObjectManagerImpl(size);
+cph::ObjectManager* cph::createObjectManager() {
+	return new cph::ObjectManagerImpl();
 }
 
 void cph::deleteObjectManager(cph::ObjectManager* objectManager) {

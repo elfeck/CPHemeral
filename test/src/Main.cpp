@@ -3,8 +3,11 @@
 #include "ObjectManager.h"
 #include "Object.h"
 #include "RenderingComponent.h"
+#include "RenderingSystem.h"
 #include "Display.h"
 #include "Window.h"
+
+#include "Vec1f.h"
 
 using namespace cph;
 
@@ -28,16 +31,26 @@ int main(int argc, char* argv[]) {
 	display->setRenderFunc(renderCallback);
 	display->initDisplay(window);
 
+	ObjectManager* objectManager = createObjectManager();
+	RenderingSystem* renderingSystem = createRenderingSystem();
+	objectManager->addSystem(renderingSystem);
 
-	ObjectManager* objectManager = createObjectManager(10);
 	Object* o1 = objectManager->createObject();
-	Object* o2 = objectManager->createObject();
-	o1->release();
-	o2->release();
-	deleteObjectManager(objectManager);
+	RenderingComponent* rcomp1 = renderingSystem->createComponent();
+	o1->addComponent(rcomp1);
+	Vertex* v1 = rcomp1->addVertex();
+	Uniform* u1 = rcomp1->addUniform();
+	v1->addAttributeVec("bla", 0);
+	u1->addUniformVec("bla", 0);
+	v1->destroy();
+	u1->destroy();
+	o1->removeComponent(rcomp1);
+	rcomp1->destroy();
+	o1->destroy();
 	
 	display->enterMainLoop();
 
+	deleteObjectManager(objectManager);
 	deleteWindow(window);
 	deleteDisplay(display);
 

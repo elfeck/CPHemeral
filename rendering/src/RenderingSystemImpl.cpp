@@ -3,25 +3,42 @@
 
 using namespace cph;
 
-RenderingSystemImpl::RenderingSystemImpl(int size) :
-	componentArray(new RenderingComponentImpl[size]), componentPool(size)
+RenderingSystemImpl::RenderingSystemImpl() :
+	componentAlloc(), vertexAlloc(), uniformAlloc()
 {
 
 }
 
 RenderingSystemImpl::~RenderingSystemImpl() {
-	delete[] componentArray;
-}
 
-void RenderingSystemImpl::execute(long delta) {
-	// Render VAOs directly
 }
 
 RenderingComponent* RenderingSystemImpl::createComponent() {
-	if(componentPool.isEmpty()) return 0;
-	return &componentArray[componentPool.aquire()];
+	RenderingComponentImpl* comp = componentAlloc.allocate();
+	comp->setSystem(this);
+	return comp;
 }
 
-void RenderingSystemImpl::releaseId(int id) {
-	componentPool.release(id);
+void RenderingSystemImpl::execute(long delta) {
+
+}
+
+VertexImpl* RenderingSystemImpl::allocVertex() {
+	return vertexAlloc.allocate();
+}
+
+UniformImpl* RenderingSystemImpl::allocUniform() {
+	return uniformAlloc.allocate();
+}
+
+void RenderingSystemImpl::releaseComponent(RenderingComponentImpl* component) {
+	componentAlloc.release(component);
+}
+
+void RenderingSystemImpl::releaseVertex(VertexImpl* vertex) {
+	vertexAlloc.release(vertex);
+}
+
+void RenderingSystemImpl::releaseUniform(UniformImpl* uniform) {
+	uniformAlloc.release(uniform);
 }

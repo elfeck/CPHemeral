@@ -16,10 +16,12 @@
     <ClCompile Include="src\TimeUnit.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\BatchAllocator.h" />
+    <ClInclude Include="include\PoolAllocator.h" />
     <ClInclude Include="include\GlobalUtils.h" />
     <ClInclude Include="include\IntPool.h" />
-    <ClInclude Include="include\MemPool.h" />
     <ClInclude Include="include\TimeUnit.h" />
+    <ClInclude Include="include\UniqueAllocator.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F8231E3E-A235-45EE-8A24-1BC889F77B31}</ProjectGuid>

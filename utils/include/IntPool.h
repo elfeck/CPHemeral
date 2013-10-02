@@ -21,6 +21,8 @@ public:
 
 	bool isEmpty() const;
 	int last() const;
+	int getSize() const;
+	void resize(int newSize);
 };
 
 }

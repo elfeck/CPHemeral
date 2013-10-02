@@ -16,11 +16,11 @@ ObjectImpl::ObjectImpl() :
 }
 
 ObjectImpl::~ObjectImpl() {
-
+	
 }
 
-void ObjectImpl::release() {
-	objectManager->releaseObject(this);
+void ObjectImpl::destroy() {
+	objectManager->destroyObject(this);
 }
 
 void ObjectImpl::addComponent(Component* component) {

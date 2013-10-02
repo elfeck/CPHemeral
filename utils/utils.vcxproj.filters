@@ -35,7 +35,13 @@
     <ClInclude Include="include\GlobalUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\MemPool.h">
+    <ClInclude Include="include\UniqueAllocator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PoolAllocator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\BatchAllocator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

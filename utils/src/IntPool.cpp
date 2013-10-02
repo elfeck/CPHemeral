@@ -38,3 +38,14 @@ int IntPool::last() const {
 	}
 	return last;
 }
+
+int IntPool::getSize() const {
+	return poolSize;
+}
+
+void IntPool::resize(int newSize) {
+	int toAdd = newSize - poolSize;
+	for(int i = 0; i < toAdd; i++) {
+		intPool.push_back(1);
+	}
+}

@@ -53,7 +53,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Projects\newCPHemeral\rendering\include;D:\Projects\newCPHemeral\object\include;D:\Projects\newCPHemeral\display\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Projects\newCPHemeral\math\include;D:\Projects\newCPHemeral\rendering\include;D:\Projects\newCPHemeral\object\include;D:\Projects\newCPHemeral\display\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -85,11 +85,14 @@
     <ProjectReference Include="..\display\display.vcxproj">
       <Project>{2f38e64a-a35c-4354-a348-8b3e04722252}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\math\math.vcxproj">
+      <Project>{8f857833-ed87-4854-b648-f34c2c4ac5de}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\object\object.vcxproj">
       <Project>{8f304102-a3b5-46c7-99b3-1377af53e89d}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\utils\utils.vcxproj">
-      <Project>{f8231e3e-a235-45ee-8a24-1bc889f77b31}</Project>
+    <ProjectReference Include="..\rendering\rendering.vcxproj">
+      <Project>{74b64d08-acac-4077-8fd2-a6cc8925e1bb}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

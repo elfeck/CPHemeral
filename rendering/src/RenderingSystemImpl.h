@@ -1,10 +1,10 @@
 #ifndef RENDERING_SYSTEM_IMPL_H_
 #define RENDERING_SYSTEM_IMPL_H_
 
-#include "../include/RenderingSystem.h"
-#include "../include/RenderingComponent.h"
-#include "IntPool.h"
+#include "UniqueAllocator.h"
 
+#include "../include/RenderingSystem.h"
+#include "VertexImpl.h"
 #include "RenderingComponentImpl.h"
 
 
@@ -13,17 +13,23 @@ namespace cph {
 class RenderingSystemImpl : public RenderingSystem {
 
 private:
-	RenderingComponentImpl* componentArray;
-	IntPool componentPool;
+	UniqueAllocator<RenderingComponentImpl> componentAlloc;
+	UniqueAllocator<VertexImpl> vertexAlloc;
+	UniqueAllocator<UniformImpl> uniformAlloc;
 
 public:
-	RenderingSystemImpl(int size);
+	RenderingSystemImpl();
 	~RenderingSystemImpl();
 
-	virtual void execute(long delta);
 	virtual RenderingComponent* createComponent();
+	virtual void execute(long delta);
 
-	void releaseId(int id);
+	VertexImpl* allocVertex();
+	UniformImpl* allocUniform();
+
+	void releaseComponent(RenderingComponentImpl* component);
+	void releaseVertex(VertexImpl* vertex);
+	void releaseUniform(UniformImpl* uniform);
 
 };
 

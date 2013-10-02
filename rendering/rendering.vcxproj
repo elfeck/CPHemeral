@@ -54,7 +54,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;RENDERING_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Projects\newCPHemeral\utils\include;D:\Projects\newCPHemeral\object\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Projects\newCPHemeral\math\include;D:\Projects\newCPHemeral\utils\include;D:\Projects\newCPHemeral\object\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -80,6 +80,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ProjectReference Include="..\math\math.vcxproj">
+      <Project>{8f857833-ed87-4854-b648-f34c2c4ac5de}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\object\object.vcxproj">
       <Project>{8f304102-a3b5-46c7-99b3-1377af53e89d}</Project>
     </ProjectReference>

@@ -8,7 +8,7 @@ struct Component {
 
 	virtual const char* getName() const = 0;
 
-	virtual void release() = 0;
+	virtual void destroy() = 0;
 
 };
 

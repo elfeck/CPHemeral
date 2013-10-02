@@ -5,10 +5,10 @@
 
 using namespace cph;
 
-ObjectManagerImpl::ObjectManagerImpl(int size) :
-	size(size), objectPool(1, size), systems()
+ObjectManagerImpl::ObjectManagerImpl() :
+	objectAlloc(), systems()
 {
-	objectPool.preAllocate(1);
+
 }
 
 ObjectManagerImpl::~ObjectManagerImpl() {
@@ -16,7 +16,7 @@ ObjectManagerImpl::~ObjectManagerImpl() {
 }
 
 Object* ObjectManagerImpl::createObject() {
-	ObjectImpl* obj = objectPool.allocate();
+	ObjectImpl* obj = objectAlloc.allocate();
 	obj->setObjectManager(this);
 	return obj;
 }
@@ -29,7 +29,7 @@ void ObjectManagerImpl::removeSystem(ObjectSystem* system) {
 	systems.erase(std::remove(systems.begin(), systems.end(), system), systems.end());
 }
 
-void ObjectManagerImpl::releaseObject(ObjectImpl* object) {
-	objectPool.release(object);
+void ObjectManagerImpl::destroyObject(ObjectImpl* object) {
+	objectAlloc.release(object);
 }
 

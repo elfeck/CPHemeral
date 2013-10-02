@@ -3,15 +3,15 @@
 #include "RenderingSystemImpl.h"
 
 
-cph::RenderingSystem* cph::createRenderingSystem(int size) {
-	return new RenderingSystemImpl(size);
+cph::RenderingSystem* cph::createRenderingSystem() {
+	return new RenderingSystemImpl();
 }
 
 void cph::deleteRenderingSystem(cph::RenderingSystem* renderingSystem) {
 	delete renderingSystem;
 }
 
-virtual cph::RenderingSystem::~RenderingSystem() {
+cph::RenderingSystem::~RenderingSystem() {
 
 }
 

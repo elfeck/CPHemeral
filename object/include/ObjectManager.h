@@ -25,7 +25,7 @@ struct ObjectManager {
 };
 
 extern "C" {
-	CPH_OBJECT_DLL ObjectManager* createObjectManager(int size);
+	CPH_OBJECT_DLL ObjectManager* createObjectManager();
 	CPH_OBJECT_DLL void deleteObjectManager(ObjectManager* objectManager);
 }
 

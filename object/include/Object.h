@@ -8,7 +8,7 @@ namespace cph {
 
 struct Object {
 
-	virtual void release() = 0;
+	virtual void destroy() = 0;
 
 	virtual void addComponent(Component* component) = 0;
 	virtual void removeComponent(Component* component) = 0;
