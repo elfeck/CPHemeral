@@ -9,13 +9,14 @@
 
 #include "ObjectSystem.h"
 #include "RenderingComponent.h"
+#include "ObjectManager.h"
 
 
 namespace cph {
 
 struct RenderingSystem : public ObjectSystem {
 
-	virtual void execute(long delta) = 0;
+	virtual void execute(ObjectManager* objectManager, long delta) = 0;
 
 	virtual RenderingComponent* createComponent() = 0;
 

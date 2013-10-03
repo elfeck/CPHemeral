@@ -3,8 +3,10 @@
 
 #include <string>
 #include <vector>
+#include "SingleIdAllocator.h"
 
 #include "../include/RenderingComponent.h"
+#include "opengl/VaoEntry.h"
 
 #include "VertexImpl.h"
 #include "UniformImpl.h"
@@ -17,28 +19,33 @@ class RenderingSystemImpl;
 class RenderingComponentImpl : public RenderingComponent {
 
 private:
-	std::string name;
+	static SingleIdAllocator<VertexImpl> vertexAlloc;
+	static SingleIdAllocator<UniformImpl> uniformAlloc;
+
+	const int id;
+	const std::string name;
 	RenderingSystemImpl* system;
 
-	std::vector<VertexImpl*> vertices;
-	std::vector<UniformImpl*> uniforms;
+	VaoEntry vaoEntry;
 
 public:
-	RenderingComponentImpl();
+	RenderingComponentImpl(int id);
 	~RenderingComponentImpl();
 
 	virtual Vertex* addVertex();
 	virtual Uniform* addUniform();
+	virtual void removeVertex(Vertex* vertex);
+	virtual void removeUniform(Uniform* uniform);
 
 	virtual void setShader(const char* path);
 	virtual void setViewport(int x, int y, int width, int height);
 	virtual void setScissor(int x, int y, int width, int height);
+	virtual void setVisible(bool visible);
 
 	virtual const char* getName() const;
+	virtual int getId() const;
+	
 	virtual void destroy();
-
-	void removeVertex(VertexImpl* vertex);
-	void removeUniform(UniformImpl* uniform);
 
 	void setSystem(RenderingSystemImpl* system);
 

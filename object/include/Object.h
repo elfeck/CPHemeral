@@ -13,6 +13,7 @@ struct Object {
 	virtual void addComponent(Component* component) = 0;
 	virtual void removeComponent(Component* component) = 0;
 
+	virtual bool hasComponent(const char* name) const = 0;
 	virtual Component* getComponent(const char* name) const = 0;
 
 };

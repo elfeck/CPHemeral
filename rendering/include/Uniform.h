@@ -13,7 +13,7 @@ struct Uniform {
 	virtual void addUniformMat(const char* name, Matf* mat) = 0;
 	virtual void removeUniform(const char* name) = 0;
 
-	virtual void destroy() = 0;
+	virtual int getId() const = 0;
 
 };
 

@@ -1,9 +1,12 @@
 #ifndef RENDERING_SYSTEM_IMPL_H_
 #define RENDERING_SYSTEM_IMPL_H_
 
-#include "UniqueAllocator.h"
-
+#include "opengl/VaoManager.h"
+#include "opengl/VaoEntry.h"
 #include "../include/RenderingSystem.h"
+
+#include "SingleAllocator.h"
+#include "SingleIdAllocator.h"
 #include "VertexImpl.h"
 #include "RenderingComponentImpl.h"
 
@@ -13,23 +16,18 @@ namespace cph {
 class RenderingSystemImpl : public RenderingSystem {
 
 private:
-	UniqueAllocator<RenderingComponentImpl> componentAlloc;
-	UniqueAllocator<VertexImpl> vertexAlloc;
-	UniqueAllocator<UniformImpl> uniformAlloc;
+	SingleIdAllocator<RenderingComponentImpl> componentAlloc;
+
+	VaoManager vaoManager;
 
 public:
 	RenderingSystemImpl();
 	~RenderingSystemImpl();
 
 	virtual RenderingComponent* createComponent();
-	virtual void execute(long delta);
-
-	VertexImpl* allocVertex();
-	UniformImpl* allocUniform();
+	virtual void execute(ObjectManager* objectManager, long delta);
 
 	void releaseComponent(RenderingComponentImpl* component);
-	void releaseVertex(VertexImpl* vertex);
-	void releaseUniform(UniformImpl* uniform);
 
 };
 

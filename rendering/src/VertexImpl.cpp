@@ -1,13 +1,12 @@
 #include <algorithm>
 
 #include "VertexImpl.h"
-#include "RenderingComponentImpl.h"
 
 
 using namespace cph;
 
-VertexImpl::VertexImpl() :
-	vecAttribs(), matAttribs(), primitiveIndices(), component(0)
+VertexImpl::VertexImpl(int id) :
+	id(id), vecAttribs(), matAttribs(), primitiveIndices()
 {
 
 }
@@ -39,10 +38,6 @@ void VertexImpl::removePrimitiveIndex(int index) {
 	primitiveIndices.erase(std::remove(primitiveIndices.begin(), primitiveIndices.end(), index), primitiveIndices.end());
 }
 
-void VertexImpl::destroy() {
-	component->removeVertex(this);
-}
-
-void VertexImpl::setComponent(RenderingComponentImpl* component) {
-	this->component = component;
+int VertexImpl::getId() const {
+	return id;
 }

@@ -2,6 +2,7 @@
 #define UNIFORM_IMPL_H_
 
 #include <map>
+#include <gl/glew.h>
 #include "Vecf.h"
 #include "Matf.h"
 
@@ -10,27 +11,25 @@
 
 namespace cph {
 
-class RenderingComponentImpl;
-
 class UniformImpl : public Uniform {
 
 private:
+	const int id;
 	std::map<std::string, Vecf*> vecUniforms;
 	std::map<std::string, Matf*> matUniforms;
-
-	RenderingComponentImpl* component;
+	std::map<std::string, GLint> locations;
 
 public:
-	UniformImpl();
+	UniformImpl(int id);
 	~UniformImpl();
 
 	virtual void addUniformVec(const char* name, Vecf* vec);
 	virtual void addUniformMat(const char* name, Matf* mat);
 	virtual void removeUniform(const char* name);
 
-	virtual void destroy();
-
-	void setComponent(RenderingComponentImpl* component);
+	virtual int getId() const;
+	
+	void uploadGL(GLuint programHandle);
 
 };
 

@@ -6,7 +6,7 @@
 using namespace cph;
 
 ObjectManagerImpl::ObjectManagerImpl() :
-	objectAlloc(), systems()
+	objectAlloc()
 {
 
 }
@@ -21,12 +21,12 @@ Object* ObjectManagerImpl::createObject() {
 	return obj;
 }
 
-void ObjectManagerImpl::addSystem(ObjectSystem* system) {
-	systems.push_back(system);
+Object* ObjectManagerImpl::at(int index) const {
+	return objectAlloc.at(index);
 }
 
-void ObjectManagerImpl::removeSystem(ObjectSystem* system) {
-	systems.erase(std::remove(systems.begin(), systems.end(), system), systems.end());
+int ObjectManagerImpl::size() const {
+	return objectAlloc.size();
 }
 
 void ObjectManagerImpl::destroyObject(ObjectImpl* object) {

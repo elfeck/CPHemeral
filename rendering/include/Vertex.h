@@ -16,7 +16,7 @@ struct Vertex {
 	virtual void addPrimitiveIndex(int index) = 0;
 	virtual void removePrimitiveIndex(int index) = 0;
 
-	virtual void destroy() = 0;
+	virtual int getId() const = 0;
 };
 
 }

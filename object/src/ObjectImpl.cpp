@@ -24,21 +24,19 @@ void ObjectImpl::destroy() {
 }
 
 void ObjectImpl::addComponent(Component* component) {
-	for(std::vector<Component*>::size_type i = 0; i < components.size(); i++) {
-		if(strcmp(components.at(i)->getName(), component->getName()) == 0) return;
-	}
-	components.push_back(component);
+	components.insert(std::make_pair(component->getName(), component));
 }
 
 void ObjectImpl::removeComponent(Component* component) {
-	components.erase(std::remove(components.begin(), components.end(), component), components.end());
+	components.erase(component->getName());
+}
+
+bool ObjectImpl::hasComponent(const char* name) const {
+	return components.count(name) == 1;
 }
 
 Component* ObjectImpl::getComponent(const char* name) const {
-	for(std::vector<Component*>::size_type i = 0; i < components.size(); i++) {
-		if(strcmp(components.at(i)->getName(), name) == 0) return components.at(i);
-	}
-	return 0;
+	return components.at(name);
 }
 
 void ObjectImpl::setObjectManager(ObjectManagerImpl* objectManager) {

@@ -17,6 +17,9 @@ void renderCallback(long delta);
 Display* display = 0;
 Window* window = 0;
 
+ObjectManager* scene1 = 0;
+RenderingSystem* renderingSystem = 0;
+
 int main(int argc, char* argv[]) {
 	window = createWindow();
 	display = createDisplay();
@@ -31,26 +34,27 @@ int main(int argc, char* argv[]) {
 	display->setRenderFunc(renderCallback);
 	display->initDisplay(window);
 
-	ObjectManager* objectManager = createObjectManager();
-	RenderingSystem* renderingSystem = createRenderingSystem();
-	objectManager->addSystem(renderingSystem);
-
-	Object* o1 = objectManager->createObject();
-	RenderingComponent* rcomp1 = renderingSystem->createComponent();
-	o1->addComponent(rcomp1);
-	Vertex* v1 = rcomp1->addVertex();
-	Uniform* u1 = rcomp1->addUniform();
-	v1->addAttributeVec("bla", 0);
-	u1->addUniformVec("bla", 0);
-	v1->destroy();
-	u1->destroy();
-	o1->removeComponent(rcomp1);
-	rcomp1->destroy();
-	o1->destroy();
+	scene1 = createObjectManager();
+	renderingSystem = createRenderingSystem();
 	
+	// ################
+	Object* obj1 = scene1->createObject();
+	Object* obj2 = scene1->createObject();
+	Object* obj3 = scene1->createObject();
+	Object* obj4 = scene1->createObject();
+	RenderingComponent* ren1 = renderingSystem->createComponent();
+	RenderingComponent* ren2 = renderingSystem->createComponent();
+
+	obj1->addComponent(ren1);
+	obj2->addComponent(ren1);
+	obj3->addComponent(ren2);
+	// ################
+
 	display->enterMainLoop();
 
-	deleteObjectManager(objectManager);
+	deleteRenderingSystem(renderingSystem);
+	deleteObjectManager(scene1);
+
 	deleteWindow(window);
 	deleteDisplay(display);
 
@@ -62,5 +66,5 @@ void mainCallback(long delta) {
 }
 
 void renderCallback(long delta) {
-
+	renderingSystem->execute(scene1, delta);
 }

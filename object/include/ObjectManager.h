@@ -7,7 +7,6 @@
 #define CPH_OBJECT_DLL _declspec(dllimport)
 #endif
 
-#include "ObjectSystem.h"
 #include "Object.h"
 
 
@@ -15,10 +14,9 @@ namespace cph {
 
 struct ObjectManager {
 
-	virtual void addSystem(ObjectSystem* system) = 0;
-	virtual void removeSystem(ObjectSystem* system) = 0;
-
 	virtual Object* createObject() = 0;
+	virtual Object* at(int index) const = 0;
+	virtual int size() const = 0;
 
 	virtual ~ObjectManager() = 0;
 

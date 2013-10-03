@@ -12,19 +12,16 @@
 
 namespace cph {
 
-class RenderingComponentImpl;
-
 class VertexImpl : public Vertex {
 
 private:
-	RenderingComponentImpl* component;
-
+	const int id;
 	std::map<std::string, Vecf*> vecAttribs;
 	std::map<std::string, Matf*> matAttribs;
 	std::vector<int> primitiveIndices;
 
 public:
-	VertexImpl();
+	VertexImpl(int id);
 	~VertexImpl();
 
 	virtual void addAttributeVec(const char* name, Vecf* vec);
@@ -34,9 +31,7 @@ public:
 	virtual void addPrimitiveIndex(int index);
 	virtual void removePrimitiveIndex(int index);
 
-	virtual void destroy();
-
-	void setComponent(RenderingComponentImpl* component);
+	virtual int getId() const;
 
 };
 

@@ -35,13 +35,13 @@
     <ClInclude Include="include\GlobalUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\UniqueAllocator.h">
+    <ClInclude Include="include\SingleAllocator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\PoolAllocator.h">
+    <ClInclude Include="include\SingleMappedAllocator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\BatchAllocator.h">
+    <ClInclude Include="include\SingleIdAllocator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

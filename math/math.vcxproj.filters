@@ -42,33 +42,39 @@
     <ClInclude Include="include\Vecf.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Rectf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Vecf.cpp">
+    <ClCompile Include="src\primitive\Vecf.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Mat2f.cpp">
+    <ClCompile Include="src\primitive\Mat2f.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Mat3f.cpp">
+    <ClCompile Include="src\primitive\Mat3f.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Mat4f.cpp">
+    <ClCompile Include="src\primitive\Mat4f.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Matf.cpp">
+    <ClCompile Include="src\primitive\Matf.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Vec1f.cpp">
+    <ClCompile Include="src\primitive\Vec1f.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Vec2f.cpp">
+    <ClCompile Include="src\primitive\Vec2f.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Vec3f.cpp">
+    <ClCompile Include="src\primitive\Vec3f.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Vec4f.cpp">
+    <ClCompile Include="src\primitive\Vec4f.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\geom\Rectf.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
