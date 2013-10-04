@@ -1,10 +1,11 @@
 #include "RenderingSystemImpl.h"
+#include "../include/ObjectQueue.h"
 
 
 using namespace cph;
 
-RenderingSystemImpl::RenderingSystemImpl() :
-	componentAlloc(), vaoManager()
+RenderingSystemImpl::RenderingSystemImpl(std::uint8_t id) :
+	componentAlloc(), sysId(id), vaoManager()
 {
 
 }
@@ -16,21 +17,21 @@ RenderingSystemImpl::~RenderingSystemImpl() {
 RenderingComponent* RenderingSystemImpl::createComponent() {
 	RenderingComponentImpl* comp = componentAlloc.allocate();
 	comp->setSystem(this);
+	comp->setSysId(sysId);
 	return comp;
 }
 
+std::uint8_t RenderingSystemImpl::getSysId() const {
+	return sysId;
+}
+
 void RenderingSystemImpl::execute(ObjectManager* objectManager, long delta) {
-	Object* currentObject = 0;
-	RenderingComponentImpl* currentComponent = 0;
-	for(int i = 0; i < objectManager->size(); i++) {
-		currentObject = objectManager->at(i);
-		if(currentObject->hasComponent("rendering")) {
-			currentComponent = componentAlloc.at(currentObject->getComponent("rendering")->getId());
-			// do stuff with it
-		}
+	ObjectQueue* queue = objectManager->tempGetObjectsWith(sysId);
+	while(queue->hasElements()) {
+		queue->pop();
 	}
 }
 
 void RenderingSystemImpl::releaseComponent(RenderingComponentImpl* component) {
-	componentAlloc.release(component->getId());
+	componentAlloc.release(component->getCompId());
 }

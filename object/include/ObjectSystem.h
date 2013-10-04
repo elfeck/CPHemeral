@@ -9,6 +9,7 @@ namespace cph {
 struct ObjectSystem {
 
 	virtual void execute(ObjectManager* objectManager, long delta) = 0;
+	virtual std::uint8_t getSysId() const = 0;
 
 };
 

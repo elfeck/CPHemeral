@@ -2,12 +2,13 @@
 #define OBJECT_MANAGER_IMPL_H_
 
 #include <vector>
-#include "SingleAllocator.h"
+#include "SingleIdAllocator.h"
 
 #include "../include/ObjectManager.h"
 #include "../include/Object.h"
 
 #include "ObjectImpl.h"
+#include "ObjectQueueImpl.h"
 
 
 namespace cph {
@@ -15,15 +16,16 @@ namespace cph {
 class ObjectManagerImpl : public ObjectManager {
 
 private:
-	SingleAllocator<ObjectImpl> objectAlloc;
+	SingleIdAllocator<ObjectImpl> objectAlloc;
+	ObjectQueueImpl objectQueue;
+
 
 public:
 	ObjectManagerImpl();
 	virtual ~ObjectManagerImpl();
 
 	virtual Object* createObject();
-	virtual Object* at(int index) const;
-	virtual int size() const;
+	virtual ObjectQueue* tempGetObjectsWith(std::uint64_t sysIds);
 
 	void destroyObject(ObjectImpl* object);
 

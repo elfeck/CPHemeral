@@ -37,11 +37,11 @@ std::string VaoEntry::getShaderPath() {
 }
 
 void VaoEntry::setViewportRect(int x, int y, int width, int height) {
-	viewportRect.setRect(x, y, width, height);
+	viewportRect.setRect(static_cast<float>(x), static_cast<float>(y), static_cast<float>(width), static_cast<float>(height));
 }
 
 void VaoEntry::setScissorRect(int x, int y, int width, int height) {
-	scissorRect.setRect(x, y, width, height);
+	scissorRect.setRect(static_cast<float>(x), static_cast<float>(y), static_cast<float>(width), static_cast<float>(height));
 }
 
 void VaoEntry::setShader(std::string path) {

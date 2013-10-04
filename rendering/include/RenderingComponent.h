@@ -21,8 +21,8 @@ struct RenderingComponent : public Component {
 	virtual void setScissor(int x, int y, int width, int height) = 0;
 	virtual void setVisible(bool visible) = 0;
 
-	virtual const char* getName() const = 0;
-	virtual int getId() const = 0;
+	virtual std::uint8_t getSysId() const = 0;
+	virtual std::uint32_t getCompId() const = 0;
 
 };
 

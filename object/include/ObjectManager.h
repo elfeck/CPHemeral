@@ -8,6 +8,7 @@
 #endif
 
 #include "Object.h"
+#include "ObjectQueue.h"
 
 
 namespace cph {
@@ -15,8 +16,7 @@ namespace cph {
 struct ObjectManager {
 
 	virtual Object* createObject() = 0;
-	virtual Object* at(int index) const = 0;
-	virtual int size() const = 0;
+	virtual ObjectQueue* tempGetObjectsWith(std::uint64_t sysIds) = 0;
 
 	virtual ~ObjectManager() = 0;
 

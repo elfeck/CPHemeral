@@ -79,8 +79,10 @@
   <ItemGroup>
     <ClInclude Include="include\Component.h" />
     <ClInclude Include="include\Object.h" />
+    <ClInclude Include="include\ObjectQueue.h" />
     <ClInclude Include="include\ObjectManager.h" />
     <ClInclude Include="include\ObjectSystem.h" />
+    <ClInclude Include="src\ObjectQueueImpl.h" />
     <ClInclude Include="src\ObjectImpl.h" />
     <ClInclude Include="src\ObjectManagerImpl.h" />
   </ItemGroup>
@@ -88,6 +90,7 @@
     <ClCompile Include="src\DLLImpl.cpp" />
     <ClCompile Include="src\ObjectImpl.cpp" />
     <ClCompile Include="src\ObjectManagerImpl.cpp" />
+    <ClCompile Include="src\ObjectQueueImpl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\utils\utils.vcxproj">

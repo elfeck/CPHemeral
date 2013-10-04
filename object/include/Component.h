@@ -1,13 +1,15 @@
 #ifndef COMPONENT_H_
 #define COMPONENT_H_
 
+#include <cstdint>
+
 
 namespace cph {
 
 struct Component {
 
-	virtual const char* getName() const = 0;
-	virtual int getId() const = 0;
+	virtual std::uint8_t getSysId() const = 0;
+	virtual std::uint32_t getCompId() const = 0;
 
 	virtual void destroy() = 0;
 

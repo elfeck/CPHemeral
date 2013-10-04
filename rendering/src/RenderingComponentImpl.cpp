@@ -9,8 +9,8 @@ using namespace cph;
 SingleIdAllocator<VertexImpl> RenderingComponentImpl::vertexAlloc;
 SingleIdAllocator<UniformImpl> RenderingComponentImpl::uniformAlloc;
 
-RenderingComponentImpl::RenderingComponentImpl(int id) :
-	name("rendering"), id(id), system(0), vaoEntry()
+RenderingComponentImpl::RenderingComponentImpl(std::uint32_t id) :
+	sysId(0), compId(id), system(0), vaoEntry()
 {
 
 }
@@ -51,12 +51,12 @@ void RenderingComponentImpl::setVisible(bool visible) {
 	vaoEntry.setVisible(visible);
 }
 
-const char* RenderingComponentImpl::getName() const {
-	return name.c_str();
+std::uint8_t RenderingComponentImpl::getSysId() const {
+	return sysId;
 }
 
-int RenderingComponentImpl::getId() const {
-	return id;
+std::uint32_t RenderingComponentImpl::getCompId() const {
+	return compId;
 }
 
 void RenderingComponentImpl::destroy() {
@@ -65,4 +65,8 @@ void RenderingComponentImpl::destroy() {
 
 void RenderingComponentImpl::setSystem(RenderingSystemImpl* system) {
 	this->system = system;
+}
+
+void RenderingComponentImpl::setSysId(std::uint8_t id) {
+	sysId = id;
 }

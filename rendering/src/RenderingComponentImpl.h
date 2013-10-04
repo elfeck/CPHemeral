@@ -21,15 +21,15 @@ class RenderingComponentImpl : public RenderingComponent {
 private:
 	static SingleIdAllocator<VertexImpl> vertexAlloc;
 	static SingleIdAllocator<UniformImpl> uniformAlloc;
-
-	const int id;
-	const std::string name;
+	
+	const std::uint32_t compId;
+	std::uint8_t sysId;
 	RenderingSystemImpl* system;
 
 	VaoEntry vaoEntry;
 
 public:
-	RenderingComponentImpl(int id);
+	RenderingComponentImpl(std::uint32_t id);
 	~RenderingComponentImpl();
 
 	virtual Vertex* addVertex();
@@ -42,12 +42,13 @@ public:
 	virtual void setScissor(int x, int y, int width, int height);
 	virtual void setVisible(bool visible);
 
-	virtual const char* getName() const;
-	virtual int getId() const;
+	virtual std::uint8_t getSysId() const;
+	virtual std::uint32_t getCompId() const;
 	
 	virtual void destroy();
 
 	void setSystem(RenderingSystemImpl* system);
+	void setSysId(std::uint8_t id);
 
 };
 

@@ -3,6 +3,7 @@
 
 #include <map>
 #include <string>
+#include <cstdint>
 
 #include "../include/Object.h"
 
@@ -14,20 +15,23 @@ class ObjectManagerImpl;
 class ObjectImpl : public Object {
 
 private:
+	const std::uint32_t objId;
 	ObjectManagerImpl* objectManager;
 
-	std::map<std::string, Component*> components;
+	std::map<std::uint8_t, Component*> components;
 
 public:
-	ObjectImpl();
+	ObjectImpl(std::uint32_t id);
 	~ObjectImpl();
 
 	virtual void destroy();
 	virtual void addComponent(Component* component);
 	virtual void removeComponent(Component* component);
 
-	virtual bool hasComponent(const char* name) const;
-	virtual Component* getComponent(const char* name) const;
+	virtual bool hasComponent(std::uint8_t sysId) const;
+	virtual Component* getComponent(std::uint8_t sysId) const;
+
+	virtual std::uint32_t getObjId() const;
 
 	void setObjectManager(ObjectManagerImpl* objectManager);	
 };

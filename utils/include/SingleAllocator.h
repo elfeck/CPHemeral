@@ -20,7 +20,6 @@ public:
 	~SingleAllocator() { }
 
 	T1* allocate();
-	T1* at(int index) const;
 	int size() const;
 	void release(T1* mem);
 
@@ -31,11 +30,6 @@ T1* SingleAllocator<T1>::allocate() {
 	T1* mem = new T1();
 	memVector.emplace_back(std::unique_ptr<T1>(mem));
 	return mem;
-}
-
-template<typename T1> inline
-T1* SingleAllocator<T1>::at(int index) const {
-	return memVector.at(index).get();
 }
 
 template<typename T1> inline

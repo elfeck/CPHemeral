@@ -17,14 +17,16 @@ class RenderingSystemImpl : public RenderingSystem {
 
 private:
 	SingleIdAllocator<RenderingComponentImpl> componentAlloc;
+	const std::uint8_t sysId;
 
 	VaoManager vaoManager;
 
 public:
-	RenderingSystemImpl();
+	RenderingSystemImpl(std::uint8_t id);
 	~RenderingSystemImpl();
 
 	virtual RenderingComponent* createComponent();
+	virtual std::uint8_t getSysId() const;
 	virtual void execute(ObjectManager* objectManager, long delta);
 
 	void releaseComponent(RenderingComponentImpl* component);

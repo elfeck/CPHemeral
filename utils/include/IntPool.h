@@ -10,7 +10,7 @@ class IntPool {
 
 private:
 	int poolSize;
-	std::vector<int> intPool;
+	std::vector<char> intPool;
 
 public:
 	IntPool(int size);

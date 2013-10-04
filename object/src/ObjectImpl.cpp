@@ -9,8 +9,8 @@
 
 using namespace cph;
 
-ObjectImpl::ObjectImpl() :
-	objectManager(0), components()
+ObjectImpl::ObjectImpl(std::uint32_t id) :
+	objId(id), objectManager(0), components()
 {
 
 }
@@ -24,21 +24,25 @@ void ObjectImpl::destroy() {
 }
 
 void ObjectImpl::addComponent(Component* component) {
-	components.insert(std::make_pair(component->getName(), component));
+	components.insert(std::make_pair(component->getSysId(), component));
 }
 
 void ObjectImpl::removeComponent(Component* component) {
-	components.erase(component->getName());
+	components.erase(component->getSysId());
 }
 
-bool ObjectImpl::hasComponent(const char* name) const {
-	return components.count(name) == 1;
+bool ObjectImpl::hasComponent(std::uint8_t sysId) const {
+	return components.count(sysId) == 1;
 }
 
-Component* ObjectImpl::getComponent(const char* name) const {
-	return components.at(name);
+Component* ObjectImpl::getComponent(std::uint8_t sysId) const {
+	return components.at(sysId);
 }
 
 void ObjectImpl::setObjectManager(ObjectManagerImpl* objectManager) {
 	this->objectManager = objectManager;
+}
+
+std::uint32_t ObjectImpl::getObjId() const {
+	return objId;
 }

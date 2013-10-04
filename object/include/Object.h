@@ -13,8 +13,10 @@ struct Object {
 	virtual void addComponent(Component* component) = 0;
 	virtual void removeComponent(Component* component) = 0;
 
-	virtual bool hasComponent(const char* name) const = 0;
-	virtual Component* getComponent(const char* name) const = 0;
+	virtual bool hasComponent(std::uint8_t sysId) const = 0;
+	virtual Component* getComponent(std::uint8_t sysId) const = 0;
+
+	virtual std::uint32_t getObjId() const = 0;
 
 };
 

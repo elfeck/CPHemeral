@@ -35,7 +35,7 @@ int main(int argc, char* argv[]) {
 	display->initDisplay(window);
 
 	scene1 = createObjectManager();
-	renderingSystem = createRenderingSystem();
+	renderingSystem = createRenderingSystem(0x01);
 	
 	// ################
 	Object* obj1 = scene1->createObject();
