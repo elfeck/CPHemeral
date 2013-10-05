@@ -16,7 +16,7 @@ namespace cph {
 struct ObjectManager {
 
 	virtual Object* createObject() = 0;
-	virtual ObjectQueue* tempGetObjectsWith(std::uint64_t sysIds) = 0;
+	virtual ObjectQueue* tempGetObjectsWith(std::uint8_t sysId) = 0;
 
 	virtual ~ObjectManager() = 0;
 

@@ -4,7 +4,7 @@
 using namespace cph;
 
 VaoManager::VaoManager() :
-	vaoAlloc()
+	vaoAlloc(), prevComponents()
 {
 
 }
@@ -13,10 +13,8 @@ VaoManager::~VaoManager() {
 
 }
 
-void VaoManager::processVaoEntryGL(VaoEntry* entry) {
-	for(int i = 0; i < vaoAlloc.size(); i++) {
+void VaoManager::processVaoEntryGL(std::uint32_t compId, VaoEntry* entry) {
 
-	}
 }
 
 void VaoManager::drawGL() {

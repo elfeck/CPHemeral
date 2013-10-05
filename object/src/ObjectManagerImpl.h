@@ -25,7 +25,7 @@ public:
 	virtual ~ObjectManagerImpl();
 
 	virtual Object* createObject();
-	virtual ObjectQueue* tempGetObjectsWith(std::uint64_t sysIds);
+	virtual ObjectQueue* tempGetObjectsWith(std::uint8_t sysId);
 
 	void destroyObject(ObjectImpl* object);
 
