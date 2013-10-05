@@ -14,15 +14,15 @@ class VaoManager {
 
 private:
 	SingleAllocator<Vao> vaoAlloc;
-	std::unordered_set<std::uint32_t> prevComponents;
 
 public:
 	VaoManager();
 	~VaoManager();
 
-	void processVaoEntryGL(std::uint32_t compId, VaoEntry* vaoEntry);
+	void cleanVaoEntry(VaoEntry* entry);
+	void processVaoEntry(VaoEntry* entry);
+	
 	void drawGL();
-
 };
 
 }

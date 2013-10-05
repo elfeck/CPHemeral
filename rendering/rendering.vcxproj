@@ -109,6 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\DLLImpl.cpp" />
+    <ClCompile Include="src\opengl\ShaderProgram.cpp" />
     <ClCompile Include="src\opengl\Vao.cpp" />
     <ClCompile Include="src\opengl\VaoEntry.cpp" />
     <ClCompile Include="src\opengl\VaoManager.cpp" />

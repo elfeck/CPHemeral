@@ -23,9 +23,12 @@ public:
 	Vao();
 	~Vao();
 
+	void addVaoEntry(VaoEntry* entry);
+	void removeVaoEntry(VaoEntry* entry);
+
 	bool hasShader(std::string shaderPath);
 
-	void drawGL(std::vector<VaoEntry*> entries);
+	void drawGL();
 
 };
 

@@ -49,6 +49,7 @@ public:
 
 	void setSystem(RenderingSystemImpl* system);
 	void setSysId(std::uint8_t id);
+	VaoEntry* getVaoEntry();
 
 };
 

@@ -1,10 +1,13 @@
+#include "GlobalUtils.h"
+
 #include "VaoManager.h"
+#include "ShaderProgram.h"
 
 
 using namespace cph;
 
 VaoManager::VaoManager() :
-	vaoAlloc(), prevComponents()
+	vaoAlloc()
 {
 
 }
@@ -13,11 +16,31 @@ VaoManager::~VaoManager() {
 
 }
 
-void VaoManager::processVaoEntryGL(std::uint32_t compId, VaoEntry* entry) {
+void VaoManager::processVaoEntry(VaoEntry* entry) {
+	if(!entry->isAdded()) {
+		for(SingleAllocator<Vao>::iterator it = vaoAlloc.begin(); it != vaoAlloc.end(); ++it) {
+			if(it->hasShader(entry->getShaderPath())) {
+				it->addVaoEntry(entry);
+				return;
+			}
+		}
+		if(fileExists(entry->getShaderPath() + ".vert") && fileExists(entry->getShaderPath() + ".frag")) {
+			ShaderProgram shaderProgram(entry->getShaderPath());
+		}
+	}
+}
 
+void VaoManager::cleanVaoEntry(VaoEntry* entry) {
+	for(SingleAllocator<Vao>::iterator it = vaoAlloc.begin(); it != vaoAlloc.end(); ++it) {
+		if(it->hasShader(entry->getShaderPath())) {
+			it->removeVaoEntry(entry);
+			break;
+		}
+	}
 }
 
 void VaoManager::drawGL() {
-
+	for(SingleAllocator<Vao>::iterator it = vaoAlloc.begin(); it != vaoAlloc.end(); ++it) {
+		it->drawGL();
+	}
 }
-

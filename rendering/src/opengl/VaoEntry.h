@@ -19,7 +19,7 @@ private:
 
 	Rectf viewportRect, scissorRect;
 	std::string shaderPath;
-	bool visible;
+	bool visible, added;
 
 	int indexOffset;
 
@@ -34,6 +34,7 @@ public:
 	void removeUniform(UniformImpl* uniform);
 
 	std::string getShaderPath();
+	bool isAdded();
 
 	void setViewportRect(int x, int y, int width, int height);
 	void setScissorRect(int x, int y, int width, int height);

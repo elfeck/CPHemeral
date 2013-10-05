@@ -5,8 +5,6 @@
 #include <memory>
 #include <cstdint>
 
-#include "SingleMappedAllocator.h"
-
 
 namespace cph {
 

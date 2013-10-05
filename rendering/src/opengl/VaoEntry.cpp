@@ -7,7 +7,7 @@ using namespace cph;
 
 VaoEntry::VaoEntry() :
 	vertices(), uniforms(), viewportRect(-1, -1, -1, -1), scissorRect(-1, -1, -1, -1),
-	shaderPath(""), visible(false)
+	shaderPath(""), visible(false), added(false)
 {
 
 }
@@ -34,6 +34,10 @@ void VaoEntry::removeUniform(UniformImpl* uniform) {
 
 std::string VaoEntry::getShaderPath() {
 	return shaderPath;
+}
+
+bool VaoEntry::isAdded() {
+	return added;
 }
 
 void VaoEntry::setViewportRect(int x, int y, int width, int height) {

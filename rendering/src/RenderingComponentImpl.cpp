@@ -70,3 +70,7 @@ void RenderingComponentImpl::setSystem(RenderingSystemImpl* system) {
 void RenderingComponentImpl::setSysId(std::uint8_t id) {
 	sysId = id;
 }
+
+VaoEntry* RenderingComponentImpl::getVaoEntry() {
+	return &vaoEntry;
+}

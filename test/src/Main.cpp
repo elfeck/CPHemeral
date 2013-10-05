@@ -39,15 +39,10 @@ int main(int argc, char* argv[]) {
 	
 	// ################
 	Object* obj1 = scene1->createObject();
-	Object* obj2 = scene1->createObject();
-	Object* obj3 = scene1->createObject();
-	Object* obj4 = scene1->createObject();
 	RenderingComponent* ren1 = renderingSystem->createComponent();
-	RenderingComponent* ren2 = renderingSystem->createComponent();
+	ren1->setShader("D:/Projects/newCPHemeral/test/res/test");
 
 	obj1->addComponent(ren1);
-	obj2->addComponent(ren1);
-	obj3->addComponent(ren2);
 	// ################
 
 	display->enterMainLoop();

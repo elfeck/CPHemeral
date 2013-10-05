@@ -19,4 +19,8 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="res\test.vert" />
+    <None Include="res\test.frag" />
+  </ItemGroup>
 </Project>

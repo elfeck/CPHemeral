@@ -27,11 +27,14 @@ std::uint8_t RenderingSystemImpl::getSysId() const {
 
 void RenderingSystemImpl::execute(ObjectManager* objectManager, long delta) {
 	ObjectQueue* queue = objectManager->tempGetObjectsWith(sysId);
+	RenderingComponentImpl* comp = 0;
 	while(queue->hasElements()) {
-		queue->pop();
+		comp = componentAlloc.at(queue->pop()->getComponent(sysId)->getCompId());
+		vaoManager.processVaoEntry(comp->getVaoEntry());
 	}
 }
 
 void RenderingSystemImpl::releaseComponent(RenderingComponentImpl* component) {
+	vaoManager.cleanVaoEntry(component->getVaoEntry());
 	componentAlloc.release(component->getCompId());
 }

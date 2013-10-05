@@ -17,7 +17,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\SingleIdAllocator.h" />
-    <ClInclude Include="include\SingleMappedAllocator.h" />
     <ClInclude Include="include\GlobalUtils.h" />
     <ClInclude Include="include\IntPool.h" />
     <ClInclude Include="include\TimeUnit.h" />

@@ -38,9 +38,6 @@
     <ClInclude Include="include\SingleAllocator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\SingleMappedAllocator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\SingleIdAllocator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
