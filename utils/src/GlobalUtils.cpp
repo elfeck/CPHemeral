@@ -29,7 +29,19 @@ std::vector<std::string> cph::stringSplit(std::string source, char delimiter) {
 	return vec;
 }
 
+std::string cph::stringUntil(std::string source, std::string delimiter) {
+	int index = source.find(delimiter);
+	if(index < 0) return source;
+	return std::string(source).replace(index, source.length() - 1, "");
+}
+
 std::string cph::floatToString(float value) {
+	std::ostringstream ss;
+	ss << value;
+	return ss.str();
+}
+
+std::string cph::intToString(int value) {
 	std::ostringstream ss;
 	ss << value;
 	return ss.str();

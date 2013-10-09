@@ -26,6 +26,8 @@ void VaoManager::processVaoEntry(VaoEntry* entry) {
 		}
 		if(fileExists(entry->getShaderPath() + ".vert") && fileExists(entry->getShaderPath() + ".frag")) {
 			ShaderProgram shaderProgram(entry->getShaderPath());
+			// ~
+			entry->setAdded(true);
 		}
 	}
 }

@@ -56,6 +56,10 @@ void VaoEntry::setVisible(bool visible) {
 	this->visible = visible;
 }
 
+void VaoEntry::setAdded(bool added) {
+	this->added = added;
+}
+
 void VaoEntry::viewportGL() {
 	// glViewport(static_cast<GLint>(viewportRect.getX()), static_cast<GLint>(viewportRect.getY()), 
 	//	static_cast<GLsizei>(viewportRect.getWidth()), static_cast<GLsizei>(viewportRect.getHeight()));

@@ -2,6 +2,9 @@
 #define SHADER_PROGRAM_H_
 
 #include <string>
+#include <set>
+
+#include "AttributeFormat.h"
 
 
 namespace cph {
@@ -9,6 +12,7 @@ namespace cph {
 class ShaderProgram {
 
 private:
+	std::set<AttributeFormat> attribFormat;
 	std::string vertSource, fragSource;
 
 	void processVertexShader();

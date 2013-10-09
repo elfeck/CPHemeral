@@ -96,12 +96,15 @@
     <ClInclude Include="include\RenderingSystem.h" />
     <ClInclude Include="include\Uniform.h" />
     <ClInclude Include="include\Vertex.h" />
+    <ClInclude Include="src\opengl\AttributeFormat.h" />
     <ClInclude Include="src\opengl\ShaderProgram.h" />
     <ClInclude Include="src\opengl\Vao.h" />
     <ClInclude Include="src\opengl\VaoEntry.h" />
     <ClInclude Include="src\opengl\VaoManager.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="src\opengl\VertexAttribute.h" />
+    <ClInclude Include="src\opengl\VertexFormat.h" />
     <ClInclude Include="src\RenderingComponentImpl.h" />
     <ClInclude Include="src\RenderingSystemImpl.h" />
     <ClInclude Include="src\UniformImpl.h" />
@@ -109,10 +112,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\DLLImpl.cpp" />
+    <ClCompile Include="src\opengl\AttributeFormat.cpp" />
     <ClCompile Include="src\opengl\ShaderProgram.cpp" />
     <ClCompile Include="src\opengl\Vao.cpp" />
     <ClCompile Include="src\opengl\VaoEntry.cpp" />
     <ClCompile Include="src\opengl\VaoManager.cpp" />
+    <ClCompile Include="src\opengl\VertexAttribute.cpp" />
+    <ClCompile Include="src\opengl\VertexFormat.cpp" />
     <ClCompile Include="src\RenderingComponentImpl.cpp" />
     <ClCompile Include="src\RenderingSystemImpl.cpp" />
     <ClCompile Include="src\UniformImpl.cpp" />

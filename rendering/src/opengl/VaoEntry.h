@@ -40,6 +40,7 @@ public:
 	void setScissorRect(int x, int y, int width, int height);
 	void setShader(std::string path);
 	void setVisible(bool visible);
+	void setAdded(bool added);
 
 	void viewportGL();
 	void scissorGL();
