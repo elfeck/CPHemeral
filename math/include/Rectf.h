@@ -13,10 +13,10 @@ public:
 	Rectf(float x = 0, float y = 0, float width = 0, float height = 0);
 	~Rectf();
 
-	float getX();
-	float getY();
-	float getWidth();
-	float getHeight();
+	float getX() const;
+	float getY() const;
+	float getWidth() const;
+	float getHeight() const;
 
 	void setX(float x);
 	void setY(float y);

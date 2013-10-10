@@ -7,6 +7,7 @@
 
 #include "VaoEntry.h"
 #include "ShaderProgram.h"
+#include "VertexFormat.h"
 
 
 namespace cph {
@@ -15,20 +16,28 @@ class Vao {
 
 private:
 	GLuint vaoHandle, vboHandle, iboHandle;
-	GLenum usage, mode;
+	GLenum usage;
 
 	std::map<std::string, ShaderProgram> shaderPrograms;
+	std::vector<VaoEntry*> entries;
+	VertexFormat vertexFormat;
+
+	void bindVboGL();
+	void bindIboGL();
 
 public:
 	Vao();
 	~Vao();
 
-	void addVaoEntry(VaoEntry* entry);
+	void addVaoEntry(VaoEntry* entry, ShaderProgram* program = 0);
 	void removeVaoEntry(VaoEntry* entry);
 
-	bool hasShader(std::string shaderPath);
+	bool hasShader(std::string shaderId) const;
+	bool supportsShader(ShaderProgram& program) const;
 
-	void drawGL();
+	void initGL(ShaderProgram initialProgram);
+	void updateGL();
+	void drawGL() const;
 
 };
 

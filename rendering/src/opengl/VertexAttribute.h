@@ -21,9 +21,10 @@ public:
 	VertexAttribute(AttributeFormat format, GLsizei stride = 0, GLint offset = 0, GLboolean normalized = GL_FALSE);
 	~VertexAttribute();
 
-	void bindVertexPointerGL();
-	void bindAttribLociationGL(GLuint programHandle);
+	void bindVertexPointerGL() const;
+	void bindAttribLociationGL(GLuint programHandle) const;
 
+	std::string getName() const;
 	GLuint getIndex() const;
 	GLint getSize() const;
 	int getByteSize() const;

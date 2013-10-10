@@ -47,6 +47,14 @@ void RenderingComponentImpl::setScissor(int x, int y, int width, int height) {
 	vaoEntry.setScissorRect(x, y, width, height);
 }
 
+void RenderingComponentImpl::setRenderingMode(RenderingMode mode) {
+	switch(mode) {
+	case TRIANGLES: vaoEntry.setMode(GL_TRIANGLES); break;
+	case LINES: vaoEntry.setMode(GL_LINES); break;
+	case POINTS: vaoEntry.setMode(GL_POINTS); break;
+	}
+}
+
 void RenderingComponentImpl::setVisible(bool visible) {
 	vaoEntry.setVisible(visible);
 }

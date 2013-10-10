@@ -6,7 +6,7 @@
 using namespace cph;
 
 ShaderProgram::ShaderProgram(std::string shaderPath) :
-	attribFormat(), vertSource(fileToString(shaderPath + ".vert")), fragSource(fileToString(shaderPath + ".frag"))
+	attribFormat(), shaderId(shaderPath), vertSource(fileToString(shaderPath + ".vert")), fragSource(fileToString(shaderPath + ".frag"))
 {
 	processVertexShader();
 }
@@ -45,22 +45,22 @@ void ShaderProgram::processVertexShader() {
 		if(processedTokens.at(i).find("float") == 0) {
 			processedTokens.at(i).replace(0, 5, "");
 			while(processedTokens.at(i).at(0) == ' ') processedTokens.at(i).replace(0, 1, "");
-			attribFormat.insert(AttributeFormat(i, 1, GL_FLOAT, "__attrib_fv1_" + intToString(vec1Count++), 
+			attribFormat.insert(AttributeFormat(i, 1, GL_FLOAT, "_attrib_fv1_" + intToString(vec1Count++), 
 				stringUntil(processedTokens.at(i), ";")));
 		} else if(processedTokens.at(i).find("vec2") == 0) {
 			processedTokens.at(i).replace(0, 4, "");
 			while(processedTokens.at(i).at(0) == ' ') processedTokens.at(i).replace(0, 1, "");
-			attribFormat.insert(AttributeFormat(i, 2, GL_FLOAT, "__attrib_fv2_" + intToString(vec2Count++),
+			attribFormat.insert(AttributeFormat(i, 2, GL_FLOAT, "_attrib_fv2_" + intToString(vec2Count++),
 				stringUntil(processedTokens.at(i), ";")));
 		} else if(processedTokens.at(i).find("vec3") == 0) {
 			processedTokens.at(i).replace(0, 4, "");
 			while(processedTokens.at(i).at(0) == ' ') processedTokens.at(i).replace(0, 1, "");
-			attribFormat.insert(AttributeFormat(i, 3, GL_FLOAT, "__attrib_fv3_" + intToString(vec3Count++), 
+			attribFormat.insert(AttributeFormat(i, 3, GL_FLOAT, "_attrib_fv3_" + intToString(vec3Count++), 
 				stringUntil(processedTokens.at(i), ";")));
 		} else if(processedTokens.at(i).find("vec4") == 0) {
 			processedTokens.at(i).replace(0, 4, "");
 			while(processedTokens.at(i).at(0) == ' ') processedTokens.at(i).replace(0, 1, "");
-			attribFormat.insert(AttributeFormat(i, 4, GL_FLOAT, "__attrib_fv4_" + intToString(vec4Count++), 
+			attribFormat.insert(AttributeFormat(i, 4, GL_FLOAT, "_attrib_fv4_" + intToString(vec4Count++), 
 				stringUntil(processedTokens.at(i), ";")));
 		}
 	}
@@ -73,3 +73,10 @@ void ShaderProgram::processVertexShader() {
 	std::cout << vertSource << std::endl;
 }
 
+std::string ShaderProgram::getShaderId() const {
+	return shaderId;
+}
+
+const std::set<AttributeFormat>& ShaderProgram::getAttritbuteFormat() const {
+	return attribFormat;
+}

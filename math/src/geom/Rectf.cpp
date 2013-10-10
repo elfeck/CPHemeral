@@ -13,19 +13,19 @@ Rectf::~Rectf() {
 
 }
 
-float Rectf::getX() {
+float Rectf::getX() const {
 	return x;
 }
 
-float Rectf::getY() {
+float Rectf::getY() const {
 	return y;
 }
 
-float Rectf::getWidth() {
+float Rectf::getWidth() const {
 	return width;
 }
 
-float Rectf::getHeight() {
+float Rectf::getHeight() const {
 	return height;
 }
 

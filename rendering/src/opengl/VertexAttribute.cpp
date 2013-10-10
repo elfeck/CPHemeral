@@ -13,13 +13,17 @@ VertexAttribute::~VertexAttribute() {
 
 }
 
-void VertexAttribute::bindVertexPointerGL() {
+void VertexAttribute::bindVertexPointerGL() const {
 	glEnableVertexAttribArray(format.getIndex());
 	glVertexAttribPointer(format.getIndex(), format.getSize(), format.getType(), normalized, stride, reinterpret_cast<GLvoid*>(offset));
 }
 
-void VertexAttribute::bindAttribLociationGL(GLuint programHandle) {
+void VertexAttribute::bindAttribLociationGL(GLuint programHandle) const {
 	glBindAttribLocation(programHandle, format.getIndex(), format.getName().c_str());
+}
+
+std::string VertexAttribute::getName() const {
+	return format.getName();
 }
 
 GLuint VertexAttribute::getIndex() const {

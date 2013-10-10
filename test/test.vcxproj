@@ -58,6 +58,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -96,8 +97,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\test.frag" />
-    <None Include="res\test.vert" />
+    <None Include="res\test1.frag" />
+    <None Include="res\test1.vert" />
+    <None Include="res\test2.frag" />
+    <None Include="res\test2.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

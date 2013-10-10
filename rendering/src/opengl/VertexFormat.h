@@ -2,6 +2,7 @@
 #define VERTEX_FORMAT_H_
 
 #include <map>
+#include <set>
 #include <gl\glew.h>
 
 #include "VertexAttribute.h"
@@ -22,6 +23,9 @@ public:
 
 	void addVertexAttribute(VertexAttribute attrib);
 	void removeVertexAttribute(VertexAttribute attrib);
+
+	bool isCompatible(const std::set<AttributeFormat>& attributeFormat) const;
+	void bindVertexAttributesGL() const;
 
 };
 
