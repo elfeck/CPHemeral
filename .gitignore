@@ -3,5 +3,6 @@ Debug/
 *.sln
 *.vcxproj
 *.vcxproj.user
+*.vcxproj.filters
 *.v11.suo
 *.opensdf
