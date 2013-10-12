@@ -2,7 +2,7 @@
 
 #include "RenderingSystemImpl.h"
 #include "RenderingComponentImpl.h"
-#include "prmi/PrmiVec1fImpl.h"
+#include "primitive/PrmiVec4fImpl.h"
 
 
 using namespace cph;
@@ -55,4 +55,9 @@ void RenderingComponentImpl::setSysId(std::uint8_t id) {
 
 VaoEntry* RenderingComponentImpl::getVaoEntry() {
 	return &vaoEntry;
+}
+
+void bla() {
+	PrmiVec4f* vec = new PrmiVec4fImpl();
+	vec->get();
 }

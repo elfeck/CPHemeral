@@ -45,8 +45,8 @@ public:
 	void release(T2* mem);
 	int size() const;
 
-	iterator begin();
-	iterator end();
+	iterator begin() const;
+	iterator end() const;
 };
 
 template<typename T2> inline
@@ -84,12 +84,12 @@ int SingleIdAllocator<T2>::size() const {
 }
 
 template<typename T2> inline
-typename SingleIdAllocator<T2>::iterator SingleIdAllocator<T2>::begin() {
+typename SingleIdAllocator<T2>::iterator SingleIdAllocator<T2>::begin() const {
 	return SingleIdAllocator<T2>::iterator(memMap.begin());
 }
 
 template<typename T2> inline
-typename SingleIdAllocator<T2>::iterator SingleIdAllocator<T2>::end() {
+typename SingleIdAllocator<T2>::iterator SingleIdAllocator<T2>::end() const {
 	return SingleIdAllocator<T2>::iterator(memMap.end());
 }
 

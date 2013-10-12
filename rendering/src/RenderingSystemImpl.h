@@ -5,7 +5,6 @@
 #include "opengl/VaoEntry.h"
 #include "../include/RenderingSystem.h"
 
-#include "SingleAllocator.h"
 #include "SingleIdAllocator.h"
 #include "RenderingComponentImpl.h"
 
@@ -16,6 +15,7 @@ class RenderingSystemImpl : public RenderingSystem {
 
 private:
 	SingleIdAllocator<RenderingComponentImpl> componentAlloc;
+
 	const std::uint8_t sysId;
 
 	VaoManager vaoManager;
