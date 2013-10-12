@@ -2,12 +2,10 @@
 
 #include "RenderingSystemImpl.h"
 #include "RenderingComponentImpl.h"
+#include "prmi/PrmiVec1fImpl.h"
 
 
 using namespace cph;
-
-SingleIdAllocator<VertexImpl> RenderingComponentImpl::vertexAlloc;
-SingleIdAllocator<UniformImpl> RenderingComponentImpl::uniformAlloc;
 
 RenderingComponentImpl::RenderingComponentImpl(std::uint32_t id) :
 	sysId(0), compId(id), system(0), vaoEntry()
@@ -17,22 +15,6 @@ RenderingComponentImpl::RenderingComponentImpl(std::uint32_t id) :
 
 RenderingComponentImpl::~RenderingComponentImpl() {
 
-}
-
-Vertex* RenderingComponentImpl::addVertex() {
-	return vertexAlloc.allocate();
-}
-
-Uniform* RenderingComponentImpl::addUniform() {
-	return uniformAlloc.allocate();
-}
-
-void RenderingComponentImpl::removeVertex(Vertex* vertex) {
-	vertexAlloc.release(vertex->getId());
-}
-
-void RenderingComponentImpl::removeUniform(Uniform* uniform) {
-	uniformAlloc.release(uniform->getId());
 }
 
 void RenderingComponentImpl::setShader(const char* path) {
@@ -45,14 +27,6 @@ void RenderingComponentImpl::setViewport(int x, int y, int width, int height) {
 
 void RenderingComponentImpl::setScissor(int x, int y, int width, int height) {
 	vaoEntry.setScissorRect(x, y, width, height);
-}
-
-void RenderingComponentImpl::setRenderingMode(RenderingMode mode) {
-	switch(mode) {
-	case TRIANGLES: vaoEntry.setMode(GL_TRIANGLES); break;
-	case LINES: vaoEntry.setMode(GL_LINES); break;
-	case POINTS: vaoEntry.setMode(GL_POINTS); break;
-	}
 }
 
 void RenderingComponentImpl::setVisible(bool visible) {

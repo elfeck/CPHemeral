@@ -7,7 +7,6 @@
 
 #include "SingleAllocator.h"
 #include "SingleIdAllocator.h"
-#include "VertexImpl.h"
 #include "RenderingComponentImpl.h"
 
 

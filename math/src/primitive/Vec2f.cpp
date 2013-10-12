@@ -13,26 +13,25 @@ Vec2f::~Vec2f() {
 
 }
 
-
-Vec2f* Vec2f::addVec2f(Vec2f* vec) {
+Vec2f* Vec2f::addVec2f(const Vec2f* vec) {
 	x += vec->x;
 	y += vec->y;
 	return this;
 }
 
-Vec2f* Vec2f::subVec2f(Vec2f* vec) {
+Vec2f* Vec2f::subVec2f(const Vec2f* vec) {
 	x -= vec->x;
 	y -= vec->y;
 	return this;
 }
 
-Vec2f* Vec2f::mulVec2f(Vec2f* vec) {
+Vec2f* Vec2f::mulVec2f(const Vec2f* vec) {
 	x *= vec->x;
 	y *= vec->y;
 	return this;
 }
 
-Vec2f* Vec2f::divVec2f(Vec2f* vec) {
+Vec2f* Vec2f::divVec2f(const Vec2f* vec) {
 	if(vec->x != 0 && vec->y != 0) {
 		x /= vec->x;
 		y /= vec->y;
@@ -40,7 +39,7 @@ Vec2f* Vec2f::divVec2f(Vec2f* vec) {
 	return this;
 }
 
-Vec2f* Vec2f::mulMat2f(Mat2f* mat) {
+Vec2f* Vec2f::mulMat2f(const Mat2f* mat) {
 	Vec2f vec = Vec2f(*this);
 	float rowSum = 0;
 	for(int m = 0; m < getDim(); m++) {
@@ -53,26 +52,25 @@ Vec2f* Vec2f::mulMat2f(Mat2f* mat) {
 	return this;
 }
 
-
-Vec2f* Vec2f::addVec2f(Vec2f vec) {
+Vec2f* Vec2f::addVec2f(const Vec2f& vec) {
 	x += vec.x;
 	y += vec.y;
 	return this;
 }
 
-Vec2f* Vec2f::subVec2f(Vec2f vec) {
+Vec2f* Vec2f::subVec2f(const Vec2f& vec) {
 	x -= vec.x;
 	y -= vec.y;
 	return this;
 }
 
-Vec2f* Vec2f::mulVec2f(Vec2f vec) {
+Vec2f* Vec2f::mulVec2f(const Vec2f& vec) {
 	x *= vec.x;
 	y *= vec.y;
 	return this;
 }
 
-Vec2f* Vec2f::divVec2f(Vec2f vec) {
+Vec2f* Vec2f::divVec2f(const Vec2f& vec) {
 	if(vec.x != 0 && vec.y != 0) {
 		x /= vec.x;
 		y /= vec.y;
@@ -80,7 +78,7 @@ Vec2f* Vec2f::divVec2f(Vec2f vec) {
 	return this;
 }
 
-Vec2f* Vec2f::mulMat2f(Mat2f mat) {
+Vec2f* Vec2f::mulMat2f(const Mat2f& mat) {
 	Vec2f vec = Vec2f(*this);
 	float rowSum = 0;
 	for(int m = 0; m < getDim(); m++) {
@@ -92,7 +90,6 @@ Vec2f* Vec2f::mulMat2f(Mat2f mat) {
 	}
 	return this;
 }
-
 
 Vec2f* Vec2f::addVec2f(float vx, float vy) {
 	x += vx;
@@ -120,12 +117,11 @@ Vec2f* Vec2f::divVec2f(float vx, float vy) {
 	return this;
 }
 
-
-float Vec2f::dot(Vec2f* vec) {
+float Vec2f::dot(const Vec2f* vec) const {
 	return x * vec->x + y * vec->y;
 }
 
-float Vec2f::dot(Vec2f vec) {
+float Vec2f::dot(const Vec2f& vec) const {
 	return x * vec.x + y * vec.y;
 }
 
@@ -148,6 +144,13 @@ Vec2f* Vec2f::negate() {
 	return mulScalar(-1.0f);
 }
 
+float Vec2f::getX() const {
+	return x;
+}
+
+float Vec2f::getY() const {
+	return y;
+}
 
 Vec2f* Vec2f::setX(float newX) {
 	x = newX;
@@ -165,26 +168,23 @@ Vec2f* Vec2f::setXY(float newX, float newY) {
 	return this;
 }
 
-Vec2f* Vec2f::setVec(Vec2f* vec) {
+Vec2f* Vec2f::setVec(const Vec2f* vec) {
 	x = vec->x;
 	y = vec->y;
 	return this;
 }
 
-Vec2f* Vec2f::setVec(Vec2f vec) {
+Vec2f* Vec2f::setVec(const Vec2f& vec) {
 	x = vec.x;
 	y = vec.y;
 	return this;
 }
 
-float Vec2f::getX() {
-	return x;
+float Vec2f::getN(int n) const {
+	if(n == 0) return x;
+	if(n == 1) return y;
+	return 0;
 }
-
-float Vec2f::getY() {
-	return y;
-}
-
 
 Vecf* Vec2f::setN(int n, float value) {
 	if(n == 0) x = value;
@@ -192,59 +192,47 @@ Vecf* Vec2f::setN(int n, float value) {
 	return this;
 }
 
-float Vec2f::getN(int n) {
-	if(n == 0) return x;
-	if(n == 1) return y;
-	return 0;
-}
-
-int Vec2f::getDim() {
+int Vec2f::getDim() const {
 	return 2;
 }
 
-Vec2f* Vec2f::copyInto(Vec2f* raw) {
+Vec2f Vec2f::copy() const {
+	return Vec2f(*this);
+}
+
+Vec2f* Vec2f::copyInto(Vec2f* raw) const {
 	return raw->setVec(this);
 }
 
-
-void Vec2f::operator+=(Vec2f* vec) {
+void Vec2f::operator+=(const Vec2f* vec) {
 	addVec2f(vec);
 }
 
-void Vec2f::operator-=(Vec2f* vec) {
+void Vec2f::operator-=(const Vec2f* vec) {
 	subVec2f(vec);
 }
 
-void Vec2f::operator*=(Vec2f* vec) {
+void Vec2f::operator*=(const Vec2f* vec) {
 	mulVec2f(vec);
 }
 
-void Vec2f::operator/=(Vec2f* vec) {
+void Vec2f::operator/=(const Vec2f* vec) {
 	divVec2f(vec);
 }
 
-void Vec2f::operator*=(Mat2f* mat) {
-	mulMat2f(mat);
-}
-
-
-void Vec2f::operator+=(Vec2f vec) {
+void Vec2f::operator+=(const Vec2f& vec) {
 	addVec2f(vec);
 }
 
-void Vec2f::operator-=(Vec2f vec) {
+void Vec2f::operator-=(const Vec2f& vec) {
 	subVec2f(vec);
 }
 
-void Vec2f::operator*=(Vec2f vec) {
+void Vec2f::operator*=(const Vec2f& vec) {
 	mulVec2f(vec);
 }
 
-void Vec2f::operator/=(Vec2f vec) {
+void Vec2f::operator/=(const Vec2f& vec) {
 	divVec2f(vec);
-}
-
-void Vec2f::operator*=(Mat2f mat) {
-	mulMat2f(mat);
 }
 

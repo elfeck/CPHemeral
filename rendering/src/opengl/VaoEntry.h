@@ -5,17 +5,12 @@
 #include <vector>
 #include "Rectf.h"
 
-#include "../VertexImpl.h"
-#include "../UniformImpl.h"
-
 
 namespace cph {
 
 class VaoEntry {
 
 private:
-	std::vector<VertexImpl*> vertices;
-	std::vector<UniformImpl*> uniforms;
 
 	Rectf viewportRect, scissorRect;
 	std::string shaderPath;
@@ -27,12 +22,6 @@ private:
 public:
 	VaoEntry();
 	~VaoEntry();
-
-	void addVertex(VertexImpl* vertex);
-	void removeVertex(VertexImpl* vertex);
-
-	void addUniform(UniformImpl* uniform);
-	void removeUniform(UniformImpl* uniform);
 
 	std::string getShaderPath() const;
 	GLenum getMode() const;

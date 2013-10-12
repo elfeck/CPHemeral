@@ -7,8 +7,6 @@
 #include "Display.h"
 #include "Window.h"
 
-#include "Vec1f.h"
-
 using namespace cph;
 
 void mainCallback(long delta);
@@ -38,17 +36,7 @@ int main(int argc, char* argv[]) {
 	renderingSystem = createRenderingSystem(0x01);
 	
 	// ################
-	Object* obj1 = scene1->createObject();
-	RenderingComponent* ren1 = renderingSystem->createComponent();
-	ren1->setShader("D:/Projects/newCPHemeral/test/res/test1");
-	ren1->setRenderingMode(TRIANGLES);
-	obj1->addComponent(ren1);
 
-	Object* obj2 = scene1->createObject();
-	RenderingComponent* ren2 = renderingSystem->createComponent();
-	ren2->setShader("D:/Projects/newCPHemeral/test/res/test2");
-	ren2->setRenderingMode(LINES);
-	obj2->addComponent(ren2);
 	// ################
 
 	display->enterMainLoop();

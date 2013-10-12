@@ -29,12 +29,18 @@ Mat4f::Mat4f(std::vector<float> values) :
 	}
 }
 
+Mat4f::Mat4f(const Mat4f& other) :
+	Matf(std::vector<std::vector<float>>(4, std::vector<float>(4, 0.0f)))
+{
+	setMat(&other);
+}
+
+
 Mat4f::~Mat4f() {
 
 }
 
-
-Mat4f* Mat4f::addMat4f(Mat4f* mat) {
+Mat4f* Mat4f::addMat4f(const Mat4f* mat) {
 	if(!isValid() || !mat->isValid()) return this;
 	for(int n = 0; n < getDim(); n++) {
 		for(int m = 0; m < getDim(); m++) {
@@ -44,7 +50,7 @@ Mat4f* Mat4f::addMat4f(Mat4f* mat) {
 	return this;
 }
 
-Mat4f* Mat4f::subMat4f(Mat4f* mat) {
+Mat4f* Mat4f::subMat4f(const Mat4f* mat) {
 	if(!isValid() || !mat->isValid()) return this;
 	for(int n = 0; n < getDim(); n++) {
 		for(int m = 0; m < getDim(); m++) {
@@ -54,7 +60,7 @@ Mat4f* Mat4f::subMat4f(Mat4f* mat) {
 	return this;
 }
 
-Mat4f* Mat4f::mulMat4f(Mat4f* mat) {
+Mat4f* Mat4f::mulMat4f(const Mat4f* mat) {
 	if(!isValid() || !mat->isValid()) return this;
 	std::vector<float> currentRow(getDim(), 0.0f);
 	for(int m = 0; m < getDim(); m++) {
@@ -69,12 +75,11 @@ Mat4f* Mat4f::mulMat4f(Mat4f* mat) {
 	return this;
 }
 
-Mat4f* Mat4f::mulMat4fLeft(Mat4f* mat) {
+Mat4f* Mat4f::mulMat4fLeft(const Mat4f* mat) {
 	return setMat(setMat(mat->copy().mulMat4f(this)));
 }
 
-
-Mat4f* Mat4f::addMat4f(Mat4f mat) {
+Mat4f* Mat4f::addMat4f(const Mat4f& mat) {
 	if(!isValid() || !mat.isValid()) return this;
 	for(int n = 0; n < getDim(); n++) {
 		for(int m = 0; m < getDim(); m++) {
@@ -84,7 +89,7 @@ Mat4f* Mat4f::addMat4f(Mat4f mat) {
 	return this;
 }
 
-Mat4f* Mat4f::subMat4f(Mat4f mat) {
+Mat4f* Mat4f::subMat4f(const Mat4f& mat) {
 	if(!isValid() || !mat.isValid()) return this;
 	for(int n = 0; n < getDim(); n++) {
 		for(int m = 0; m < getDim(); m++) {
@@ -94,7 +99,7 @@ Mat4f* Mat4f::subMat4f(Mat4f mat) {
 	return this;
 }
 
-Mat4f* Mat4f::mulMat4f(Mat4f mat) {
+Mat4f* Mat4f::mulMat4f(const Mat4f& mat) {
 	if(!isValid() || !mat.isValid()) return this;
 	std::vector<float> currentRow(getDim(), 0.0f);
 	for(int m = 0; m < getDim(); m++) {
@@ -109,11 +114,9 @@ Mat4f* Mat4f::mulMat4f(Mat4f mat) {
 	return this;
 }
 
-Mat4f* Mat4f::mulMat4fLeft(Mat4f mat) {
+Mat4f* Mat4f::mulMat4fLeft(const Mat4f& mat) {
 	return setMat(setMat(mat.copy().mulMat4f(this)));
 }
-
-
 
 Mat4f* Mat4f::mulScalar(float value) {
 	if(!isValid()) return this;
@@ -129,10 +132,6 @@ Mat4f* Mat4f::negate() {
 	return mulScalar(-1.0f);
 }
 
-Mat4f* Mat4f::invert() {
-	return this;
-}
-
 Mat4f* Mat4f::transpose() {
 	if(!isValid()) return this;
 	float temp = 0;
@@ -145,7 +144,6 @@ Mat4f* Mat4f::transpose() {
 	}
 	return this;
 }
-
 
 Mat4f* Mat4f::setNM(int n, int m, float value) {
 	if(!isValid() || !inRange(n, m)) return this;
@@ -167,7 +165,7 @@ Mat4f* Mat4f::setRow(int m, std::vector<float> row) {
 	return this;
 }
 
-Mat4f* Mat4f::setMat(Mat4f* mat) {
+Mat4f* Mat4f::setMat(const Mat4f* mat) {
 	if(!isValid() || !mat->isValid()) return this;
 	for(int n = 0; n < getDim(); n++) {
 		for(int m = 0; m < getDim(); m++) {
@@ -177,7 +175,7 @@ Mat4f* Mat4f::setMat(Mat4f* mat) {
 	return this;
 }
 
-Mat4f* Mat4f::setMat(Mat4f mat) {
+Mat4f* Mat4f::setMat(const Mat4f& mat) {
 	if(!isValid() || !mat.isValid()) return this;
 	for(int n = 0; n < getDim(); n++) {
 		for(int m = 0; m < getDim(); m++) {
@@ -187,47 +185,44 @@ Mat4f* Mat4f::setMat(Mat4f mat) {
 	return this;
 }
 
-
-float Mat4f::det() {
+float Mat4f::det() const {
 	if(!isValid()) return 0;
 	//TODO: !
 	return 0;
 }
 
-int Mat4f::getDim() {
+int Mat4f::getDim() const {
 	return 4;
 }
 
-Mat4f Mat4f::copy() {
+Mat4f Mat4f::copy() const {
 	return *(Mat4f().setMat(this));
 }
 
-Mat4f* Mat4f::copyInto(Mat4f* raw) {
+Mat4f* Mat4f::copyInto(Mat4f* raw) const {
 	return raw->setMat(this);
 }
 
-
-void Mat4f::operator+=(Mat4f* mat) {
+void Mat4f::operator+=(const Mat4f* mat) {
 	addMat4f(mat);
 }
 
-void Mat4f::operator-=(Mat4f* mat) {
+void Mat4f::operator-=(const Mat4f* mat) {
 	subMat4f(mat);
 }
 
-void Mat4f::operator*=(Mat4f* mat) {
+void Mat4f::operator*=(const Mat4f* mat) {
 	mulMat4f(mat);
 }
 
-
-void Mat4f::operator+=(Mat4f mat) {
+void Mat4f::operator+=(const Mat4f& mat) {
 	addMat4f(mat);
 }
 
-void Mat4f::operator-=(Mat4f mat) {
+void Mat4f::operator-=(const Mat4f& mat) {
 	subMat4f(mat);
 }
 
-void Mat4f::operator*=(Mat4f mat) {
+void Mat4f::operator*=(const Mat4f& mat) {
 	mulMat4f(mat);
 }

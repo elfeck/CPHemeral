@@ -7,7 +7,7 @@ using namespace cph;
 
 Vao::Vao() :
 	vaoHandle(0), vboHandle(0), iboHandle(0),
-	usage(GL_STATIC_DRAW), entries(), shaderPrograms(), vertexFormat()
+	usage(GL_STATIC_DRAW), entries(), shaderPrograms(), bufferFormat()
 {
 
 }
@@ -40,14 +40,14 @@ bool Vao::hasShader(std::string shaderId) const {
 }
 
 bool Vao::supportsShader(ShaderProgram& shader) const {
-	return vertexFormat.isCompatible(shader.getAttritbuteFormat());
+	return bufferFormat.isCompatible(shader.getAttritbuteFormat());
 }
 
 void Vao::initGL(ShaderProgram initialProgram) {
 	shaderPrograms.insert(std::make_pair(initialProgram.getShaderId(), initialProgram));
 	for(std::set<AttributeFormat>::iterator it = initialProgram.getAttritbuteFormat().begin();
 		it != initialProgram.getAttritbuteFormat().end(); ++it) {
-		vertexFormat.addVertexAttribute(VertexAttribute(*it));
+		bufferFormat.addVertexAttribute(VertexAttribute(*it));
 	}
 	if(vaoHandle == 0) {
 		glGenVertexArrays(1, &vaoHandle);
@@ -63,7 +63,7 @@ void Vao::initGL(ShaderProgram initialProgram) {
 
 void Vao::bindVboGL() {
 	glBindBuffer(GL_ARRAY_BUFFER, vboHandle);
-	vertexFormat.bindVertexAttributesGL();
+	bufferFormat.bindVertexAttributesGL();
 }
 
 void Vao::bindIboGL() {

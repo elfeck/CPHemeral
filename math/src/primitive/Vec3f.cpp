@@ -13,29 +13,28 @@ Vec3f::~Vec3f() {
 
 }
 
-
-Vec3f* Vec3f::addVec3f(Vec3f* vec) {
+Vec3f* Vec3f::addVec3f(const Vec3f* vec) {
 	x += vec->x;
 	y += vec->y;
 	z += vec->z;
 	return this;
 }
 
-Vec3f* Vec3f::subVec3f(Vec3f* vec) {
+Vec3f* Vec3f::subVec3f(const Vec3f* vec) {
 	x -= vec->x;
 	y -= vec->y;
 	z -= vec->z;
 	return this;
 }
 
-Vec3f* Vec3f::mulVec3f(Vec3f* vec) {
+Vec3f* Vec3f::mulVec3f(const Vec3f* vec) {
 	x *= vec->x;
 	y *= vec->y;
 	z *= vec->z;
 	return this;
 }
 
-Vec3f* Vec3f::divVec3f(Vec3f* vec) {
+Vec3f* Vec3f::divVec3f(const Vec3f* vec) {
 	if(vec->x != 0 && vec->y != 0 && vec->z != 0) {
 		x /= vec->x;
 		y /= vec->y;
@@ -44,7 +43,7 @@ Vec3f* Vec3f::divVec3f(Vec3f* vec) {
 	return this;
 }
 
-Vec3f* Vec3f::mulMat3f(Mat3f* mat) {
+Vec3f* Vec3f::mulMat3f(const Mat3f* mat) {
 	Vec3f vec = Vec3f(*this);
 	float rowSum = 0;
 	for(int m = 0; m < getDim(); m++) {
@@ -57,29 +56,28 @@ Vec3f* Vec3f::mulMat3f(Mat3f* mat) {
 	return this;
 }
 
-
-Vec3f* Vec3f::addVec3f(Vec3f vec) {
+Vec3f* Vec3f::addVec3f(const Vec3f& vec) {
 	x += vec.x;
 	y += vec.y;
 	z += vec.z;
 	return this;
 }
 
-Vec3f* Vec3f::subVec3f(Vec3f vec) {
+Vec3f* Vec3f::subVec3f(const Vec3f& vec) {
 	x -= vec.x;
 	y -= vec.y;
 	z -= vec.z;
 	return this;
 }
 
-Vec3f* Vec3f::mulVec3f(Vec3f vec) {
+Vec3f* Vec3f::mulVec3f(const Vec3f& vec) {
 	x *= vec.x;
 	y *= vec.y;
 	z *= vec.z;
 	return this;
 }
 
-Vec3f* Vec3f::divVec3f(Vec3f vec) {
+Vec3f* Vec3f::divVec3f(const Vec3f& vec) {
 	if(vec.x != 0 && vec.y != 0 && vec.z != 0) {
 		x /= vec.x;
 		y /= vec.y;
@@ -88,7 +86,7 @@ Vec3f* Vec3f::divVec3f(Vec3f vec) {
 	return this;
 }
 
-Vec3f* Vec3f::mulMat3f(Mat3f mat) {
+Vec3f* Vec3f::mulMat3f(const Mat3f& mat) {
 	Vec3f vec = Vec3f(*this);
 	float rowSum = 0;
 	for(int m = 0; m < getDim(); m++) {
@@ -101,7 +99,6 @@ Vec3f* Vec3f::mulMat3f(Mat3f mat) {
 	return this;
 }
 
-	
 Vec3f* Vec3f::addVec3f(float vx, float vy, float vz) {
 	x += vx;
 	y += vy;
@@ -131,13 +128,12 @@ Vec3f* Vec3f::divVec3f(float vx, float vy, float vz) {
 	}
 	return this;
 }
-
 	
-float Vec3f::dot(Vec3f* vec) {
+float Vec3f::dot(const Vec3f* vec) const {
 	return x * vec->x + y * vec->y + z * vec->z;
 }
 
-float Vec3f::dot(Vec3f vec) {
+float Vec3f::dot(const Vec3f& vec) const {
 	return x * vec.x + y * vec.y + z * vec.z;
 }
 
@@ -161,6 +157,17 @@ Vec3f* Vec3f::negate() {
 	return mulScalar(-1.0f);
 }
 
+float Vec3f::getX() const {
+	return x;
+}
+
+float Vec3f::getY() const {
+	return y;
+}
+
+float Vec3f::getZ() const {
+	return z;
+}
 
 Vec3f* Vec3f::setX(float newX) {
 	x = newX;
@@ -184,32 +191,26 @@ Vec3f* Vec3f::setXYZ(float newX, float newY, float newZ) {
 	return this;
 }
 
-Vec3f* Vec3f::setVec(Vec3f* vec) {
+Vec3f* Vec3f::setVec(const Vec3f* vec) {
 	x = vec->x;
 	y = vec->y;
 	z = vec->z;
 	return this;
 }
 
-Vec3f* Vec3f::setVec(Vec3f vec) {
+Vec3f* Vec3f::setVec(const Vec3f& vec) {
 	x = vec.x;
 	y = vec.y;
 	z = vec.z;
 	return this;
 }
 
-float Vec3f::getX() {
-	return x;
+float Vec3f::getN(int n) const {
+	if(n == 0) return x;
+	if(n == 1) return y;
+	if(n == 2) return z;
+	return 0;
 }
-
-float Vec3f::getY() {
-	return y;
-}
-
-float Vec3f::getZ() {
-	return z;
-}
-
 
 Vecf* Vec3f::setN(int n, float value) {
 	if(n == 0) x = value;
@@ -218,59 +219,54 @@ Vecf* Vec3f::setN(int n, float value) {
 	return this;
 }
 
-float Vec3f::getN(int n) {
-	if(n == 0) return x;
-	if(n == 1) return y;
-	if(n == 2) return z;
-	return 0;
-}
-
-int Vec3f::getDim() {
+int Vec3f::getDim() const {
 	return 3;
 }
 
-Vec3f* Vec3f::copyInto(Vec3f* raw) {
+Vec3f Vec3f::copy() const {
+	return Vec3f(*this);
+}
+
+Vec3f* Vec3f::copyInto(Vec3f* raw) const {
 	return raw->setVec(this);
 }
 
-
-void Vec3f::operator+=(Vec3f* vec) {
+void Vec3f::operator+=(const Vec3f* vec) {
 	addVec3f(vec);
 }
 
-void Vec3f::operator-=(Vec3f* vec) {
+void Vec3f::operator-=(const Vec3f* vec) {
 	subVec3f(vec);
 }
 
-void Vec3f::operator*=(Vec3f* vec) {
+void Vec3f::operator*=(const Vec3f* vec) {
 	mulVec3f(vec);
 }
 
-void Vec3f::operator/=(Vec3f* vec) {
+void Vec3f::operator/=(const Vec3f* vec) {
 	divVec3f(vec);
 }
 
-void Vec3f::operator*=(Mat3f* mat) {
+void Vec3f::operator*=(const Mat3f* mat) {
 	mulMat3f(mat);
 }
 
-
-void Vec3f::operator+=(Vec3f vec) {
+void Vec3f::operator+=(const Vec3f& vec) {
 	addVec3f(vec);
 }
 
-void Vec3f::operator-=(Vec3f vec) {
+void Vec3f::operator-=(const Vec3f& vec) {
 	subVec3f(vec);
 }
 
-void Vec3f::operator*=(Vec3f vec) {
+void Vec3f::operator*=(const Vec3f& vec) {
 	mulVec3f(vec);
 }
 
-void Vec3f::operator/=(Vec3f vec) {
+void Vec3f::operator/=(const Vec3f& vec) {
 	divVec3f(vec);
 }
 
-void Vec3f::operator*=(Mat3f mat) {
+void Vec3f::operator*=(const Mat3f& mat) {
 	mulMat3f(mat);
 }

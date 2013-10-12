@@ -7,7 +7,7 @@
 
 #include "VaoEntry.h"
 #include "ShaderProgram.h"
-#include "VertexFormat.h"
+#include "BufferFormat.h"
 
 
 namespace cph {
@@ -20,7 +20,7 @@ private:
 
 	std::map<std::string, ShaderProgram> shaderPrograms;
 	std::vector<VaoEntry*> entries;
-	VertexFormat vertexFormat;
+	BufferFormat bufferFormat;
 
 	void bindVboGL();
 	void bindIboGL();

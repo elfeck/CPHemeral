@@ -1,5 +1,5 @@
-#ifndef VERTEX_FORMAT_H_
-#define VERTEX_FORMAT_H_
+#ifndef BUFFER_FORMAT_H_
+#define BUFFER_FORMAT_H_
 
 #include <map>
 #include <set>
@@ -10,7 +10,7 @@
 
 namespace cph {
 
-class VertexFormat {
+class BufferFormat {
 
 private:
 	std::map<GLuint, VertexAttribute> attributes;
@@ -18,8 +18,8 @@ private:
 	void computeOffsets();
 
 public:
-	VertexFormat();
-	~VertexFormat();
+	BufferFormat();
+	~BufferFormat();
 
 	void addVertexAttribute(VertexAttribute attrib);
 	void removeVertexAttribute(VertexAttribute attrib);

@@ -28,12 +28,18 @@ Mat2f::Mat2f(std::vector<float> values) :
 	}
 }
 
+Mat2f::Mat2f(const Mat2f& other) :
+	Matf(std::vector<std::vector<float>>(2, std::vector<float>(2, 0.0f)))
+{
+	setMat(&other);
+}
+
+
 Mat2f::~Mat2f() {
 
 }
 
-
-Mat2f* Mat2f::addMat2f(Mat2f* mat) {
+Mat2f* Mat2f::addMat2f(const Mat2f* mat) {
 	if(!isValid() || !mat->isValid()) return this;
 	for(int n = 0; n < getDim(); n++) {
 		for(int m = 0; m < getDim(); m++) {
@@ -43,7 +49,7 @@ Mat2f* Mat2f::addMat2f(Mat2f* mat) {
 	return this;
 }
 
-Mat2f* Mat2f::subMat2f(Mat2f* mat) {
+Mat2f* Mat2f::subMat2f(const Mat2f* mat) {
 	if(!isValid() || !mat->isValid()) return this;
 	for(int n = 0; n < getDim(); n++) {
 		for(int m = 0; m < getDim(); m++) {
@@ -53,7 +59,7 @@ Mat2f* Mat2f::subMat2f(Mat2f* mat) {
 	return this;
 }
 
-Mat2f* Mat2f::mulMat2f(Mat2f* mat) {
+Mat2f* Mat2f::mulMat2f(const Mat2f* mat) {
 	if(!isValid() || !mat->isValid()) return this;
 	std::vector<float> currentRow(getDim(), 0.0f);
 	for(int m = 0; m < getDim(); m++) {
@@ -68,12 +74,11 @@ Mat2f* Mat2f::mulMat2f(Mat2f* mat) {
 	return this;
 }
 
-Mat2f* Mat2f::mulMat2fLeft(Mat2f* mat) {
+Mat2f* Mat2f::mulMat2fLeft(const Mat2f* mat) {
 	return setMat(setMat(mat->copy().mulMat2f(this)));
 }
 
-	
-Mat2f* Mat2f::addMat2f(Mat2f mat) {
+Mat2f* Mat2f::addMat2f(const Mat2f& mat) {
 	if(!isValid() || !mat.isValid()) return this;
 	for(int n = 0; n < getDim(); n++) {
 		for(int m = 0; m < getDim(); m++) {
@@ -83,7 +88,7 @@ Mat2f* Mat2f::addMat2f(Mat2f mat) {
 	return this;
 }
 
-Mat2f* Mat2f::subMat2f(Mat2f mat) {
+Mat2f* Mat2f::subMat2f(const Mat2f& mat) {
 	if(!isValid() || !mat.isValid()) return this;
 	for(int n = 0; n < getDim(); n++) {
 		for(int m = 0; m < getDim(); m++) {
@@ -93,11 +98,11 @@ Mat2f* Mat2f::subMat2f(Mat2f mat) {
 	return this;
 }
 
-Mat2f* Mat2f::mulMat2f(Mat2f mat) {
+Mat2f* Mat2f::mulMat2f(const Mat2f& mat) {
 	if(!isValid() || !mat.isValid()) return this;
 	std::vector<float> currentRow(getDim(), 0.0f);
 	for(int m = 0; m < getDim(); m++) {
-		std::fill_n(currentRow.begin(), getDim(), 0.0f);
+		std::fill_n(currentRow.begin(), getDim(), 0.0f); 
 		for(int n = 0; n < getDim(); n++) {
 			for(int i = 0; i < getDim(); i++) {
 				currentRow.at(n) += matrix.at(i).at(m) * mat.getNM(n, i);
@@ -108,10 +113,9 @@ Mat2f* Mat2f::mulMat2f(Mat2f mat) {
 	return this;
 }
 
-Mat2f* Mat2f::mulMat2fLeft(Mat2f mat) {
-	return setMat(mat.copy().mulMat2f(this));
+Mat2f* Mat2f::mulMat2fLeft(const Mat2f& mat) {
+	return setMat(setMat(mat.copy().mulMat2f(this)));
 }
-
 
 Mat2f* Mat2f::mulScalar(float value) {
 	if(!isValid()) return this;
@@ -127,10 +131,6 @@ Mat2f* Mat2f::negate() {
 	return mulScalar(-1.0f);
 }
 
-Mat2f* Mat2f::invert() {
-	return this;
-}
-
 Mat2f* Mat2f::transpose() {
 	if(!isValid()) return this;
 	float temp = 0;
@@ -143,7 +143,6 @@ Mat2f* Mat2f::transpose() {
 	}
 	return this;
 }
-
 
 Mat2f* Mat2f::setNM(int n, int m, float value) {
 	if(!isValid() || !inRange(n, m)) return this;
@@ -165,7 +164,7 @@ Mat2f* Mat2f::setRow(int m, std::vector<float> row) {
 	return this;
 }
 
-Mat2f* Mat2f::setMat(Mat2f* mat) {
+Mat2f* Mat2f::setMat(const Mat2f* mat) {
 	if(!isValid() || !mat->isValid()) return this;
 	for(int n = 0; n < getDim(); n++) {
 		for(int m = 0; m < getDim(); m++) {
@@ -175,7 +174,7 @@ Mat2f* Mat2f::setMat(Mat2f* mat) {
 	return this;
 }
 
-Mat2f* Mat2f::setMat(Mat2f mat) {
+Mat2f* Mat2f::setMat(const Mat2f& mat) {
 	if(!isValid() || !mat.isValid()) return this;
 	for(int n = 0; n < getDim(); n++) {
 		for(int m = 0; m < getDim(); m++) {
@@ -185,45 +184,43 @@ Mat2f* Mat2f::setMat(Mat2f mat) {
 	return this;
 }
 
-
-float Mat2f::det() {
+float Mat2f::det() const {
 	if(!isValid()) return 0;
 	return matrix.at(0).at(0) * matrix.at(1).at(1) - matrix.at(1).at(0) * matrix.at(0).at(1);
 }
 
-int Mat2f::getDim() {
+int Mat2f::getDim() const {
 	return 2;
 }
 
-Mat2f Mat2f::copy() {
+Mat2f Mat2f::copy() const {
 	return *(Mat2f().setMat(this));
 }
 
-Mat2f* Mat2f::copyInto(Mat2f* raw) {
+Mat2f* Mat2f::copyInto(Mat2f* raw) const {
 	return raw->setMat(this);
 }
 
-
-void Mat2f::operator+=(Mat2f* mat) {
+void Mat2f::operator+=(const Mat2f* mat) {
 	addMat2f(mat);
 }
 
-void Mat2f::operator-=(Mat2f* mat) {
+void Mat2f::operator-=(const Mat2f* mat) {
 	subMat2f(mat);
 }
 
-void Mat2f::operator*=(Mat2f* mat) {
+void Mat2f::operator*=(const Mat2f* mat) {
 	mulMat2f(mat);
 }
 
-void Mat2f::operator+=(Mat2f mat) {
+void Mat2f::operator+=(const Mat2f& mat) {
 	addMat2f(mat);
 }
 
-void Mat2f::operator-=(Mat2f mat) {
+void Mat2f::operator-=(const Mat2f& mat) {
 	subMat2f(mat);
 }
 
-void Mat2f::operator*=(Mat2f mat) {
+void Mat2f::operator*=(const Mat2f& mat) {
 	mulMat2f(mat);
 }

@@ -13,8 +13,7 @@ Vec4f::~Vec4f() {
 
 }
 
-
-Vec4f* Vec4f::addVec4f(Vec4f* vec) {
+Vec4f* Vec4f::addVec4f(const Vec4f* vec) {
 	x += vec->x;
 	y += vec->y;
 	z += vec->z;
@@ -22,7 +21,7 @@ Vec4f* Vec4f::addVec4f(Vec4f* vec) {
 	return this;
 }
 
-Vec4f* Vec4f::subVec4f(Vec4f* vec) {
+Vec4f* Vec4f::subVec4f(const Vec4f* vec) {
 	x -= vec->x;
 	y -= vec->y;
 	z -= vec->z;
@@ -30,7 +29,7 @@ Vec4f* Vec4f::subVec4f(Vec4f* vec) {
 	return this;
 }
 
-Vec4f* Vec4f::mulVec4f(Vec4f* vec) {
+Vec4f* Vec4f::mulVec4f(const Vec4f* vec) {
 	x *= vec->x;
 	y *= vec->y;
 	z *= vec->z;
@@ -38,7 +37,7 @@ Vec4f* Vec4f::mulVec4f(Vec4f* vec) {
 	return this;
 }
 
-Vec4f* Vec4f::divVec4f(Vec4f* vec) {
+Vec4f* Vec4f::divVec4f(const Vec4f* vec) {
 	if(vec->x != 0 && vec->y != 0 && vec->z != 0 && vec->w != 0) {
 		x /= vec->x;
 		y /= vec->y;
@@ -48,7 +47,7 @@ Vec4f* Vec4f::divVec4f(Vec4f* vec) {
 	return this;
 }
 
-Vec4f* Vec4f::mulMat4f(Mat4f* mat) {
+Vec4f* Vec4f::mulMat4f(const Mat4f* mat) {
 	Vec4f vec = Vec4f(*this);
 	float rowSum = 0;
 	for(int m = 0; m < getDim(); m++) {
@@ -61,8 +60,7 @@ Vec4f* Vec4f::mulMat4f(Mat4f* mat) {
 	return this;
 }
 
-
-Vec4f* Vec4f::addVec4f(Vec4f vec) {
+Vec4f* Vec4f::addVec4f(const Vec4f& vec) {
 	x += vec.x;
 	y += vec.y;
 	z += vec.z;
@@ -70,7 +68,7 @@ Vec4f* Vec4f::addVec4f(Vec4f vec) {
 	return this;
 }
 
-Vec4f* Vec4f::subVec4f(Vec4f vec) {
+Vec4f* Vec4f::subVec4f(const Vec4f& vec) {
 	x -= vec.x;
 	y -= vec.y;
 	z -= vec.z;
@@ -78,7 +76,7 @@ Vec4f* Vec4f::subVec4f(Vec4f vec) {
 	return this;
 }
 
-Vec4f* Vec4f::mulVec4f(Vec4f vec) {
+Vec4f* Vec4f::mulVec4f(const Vec4f& vec) {
 	x *= vec.x;
 	y *= vec.y;
 	z *= vec.z;
@@ -86,7 +84,7 @@ Vec4f* Vec4f::mulVec4f(Vec4f vec) {
 	return this;
 }
 
-Vec4f* Vec4f::divVec4f(Vec4f vec) {
+Vec4f* Vec4f::divVec4f(const Vec4f& vec) {
 	if(vec.x != 0 && vec.y != 0 && vec.z != 0 && vec.w != 0) {
 		x /= vec.x;
 		y /= vec.y;
@@ -96,7 +94,7 @@ Vec4f* Vec4f::divVec4f(Vec4f vec) {
 	return this;
 }
 
-Vec4f* Vec4f::mulMat4f(Mat4f mat) {
+Vec4f* Vec4f::mulMat4f(const Mat4f& mat) {
 	Vec4f vec = Vec4f(*this);
 	float rowSum = 0;
 	for(int m = 0; m < getDim(); m++) {
@@ -108,8 +106,6 @@ Vec4f* Vec4f::mulMat4f(Mat4f mat) {
 	}
 	return this;
 }
-
-
 	
 Vec4f* Vec4f::addVec4f(float vx, float vy, float vz, float vw) {
 	x += vx;
@@ -144,13 +140,12 @@ Vec4f* Vec4f::divVec4f(float vx, float vy, float vz, float vw) {
 	}
 	return this;
 }
-
 	
-float Vec4f::dot(Vec4f* vec) {
+float Vec4f::dot(const Vec4f* vec) const {
 	return x * vec->x + y * vec->y + z * vec->z + w * vec->w;
 }
 
-float Vec4f::dot(Vec4f vec) {
+float Vec4f::dot(const Vec4f& vec) const {
 	return x * vec.x + y * vec.y + z * vec.z + w * vec.w;
 }
 
@@ -175,6 +170,21 @@ Vec4f* Vec4f::negate() {
 	return mulScalar(-1.0f);
 }
 
+float Vec4f::getX() const {
+	return x;
+}
+
+float Vec4f::getY() const {
+	return y;
+}
+
+float Vec4f::getZ() const {
+	return z;
+}
+
+float Vec4f::getW() const {
+	return w;
+}
 
 Vec4f* Vec4f::setX(float newX) {
 	x = newX;
@@ -204,7 +214,7 @@ Vec4f* Vec4f::setXYZW(float newX, float newY, float newZ, float newW) {
 	return this;
 }
 
-Vec4f* Vec4f::setVec(Vec4f* vec) {
+Vec4f* Vec4f::setVec(const Vec4f* vec) {
 	x = vec->x;
 	y = vec->y;
 	z = vec->z;
@@ -212,7 +222,7 @@ Vec4f* Vec4f::setVec(Vec4f* vec) {
 	return this;
 }
 
-Vec4f* Vec4f::setVec(Vec4f vec) {
+Vec4f* Vec4f::setVec(const Vec4f& vec) {
 	x = vec.x;
 	y = vec.y;
 	z = vec.z;
@@ -220,22 +230,13 @@ Vec4f* Vec4f::setVec(Vec4f vec) {
 	return this;
 }
 
-float Vec4f::getX() {
-	return x;
+float Vec4f::getN(int n) const {
+	if(n == 0) return x;
+	if(n == 1) return y;
+	if(n == 2) return z;
+	if(n == 3) return w;
+	return 0;
 }
-
-float Vec4f::getY() {
-	return y;
-}
-
-float Vec4f::getZ() {
-	return z;
-}
-
-float Vec4f::getW() {
-	return w;
-}
-
 
 Vecf* Vec4f::setN(int n, float value) {
 	if(n == 0) x = value;
@@ -245,60 +246,54 @@ Vecf* Vec4f::setN(int n, float value) {
 	return this;
 }
 
-float Vec4f::getN(int n) {
-	if(n == 0) return x;
-	if(n == 1) return y;
-	if(n == 2) return z;
-	if(n == 3) return w;
-	return 0;
-}
-
-int Vec4f::getDim() {
+int Vec4f::getDim() const {
 	return 4;
 }
 
-Vec4f* Vec4f::copyInto(Vec4f* raw) {
+Vec4f Vec4f::copy() const {
+	return Vec4f(*this);
+}
+
+Vec4f* Vec4f::copyInto(Vec4f* raw) const {
 	return raw->setVec(this);
 }
 
-
-void Vec4f::operator+=(Vec4f* vec) {
+void Vec4f::operator+=(const Vec4f* vec) {
 	addVec4f(vec);
 }
 
-void Vec4f::operator-=(Vec4f* vec) {
+void Vec4f::operator-=(const Vec4f* vec) {
 	subVec4f(vec);
 }
 
-void Vec4f::operator*=(Vec4f* vec) {
+void Vec4f::operator*=(const Vec4f* vec) {
 	mulVec4f(vec);
 }
 
-void Vec4f::operator/=(Vec4f* vec) {
+void Vec4f::operator/=(const Vec4f* vec) {
 	divVec4f(vec);
 }
 
-void Vec4f::operator*=(Mat4f* mat) {
+void Vec4f::operator*=(const Mat4f* mat) {
 	mulMat4f(mat);
 }
 
-
-void Vec4f::operator+=(Vec4f vec) {
+void Vec4f::operator+=(const Vec4f& vec) {
 	addVec4f(vec);
 }
 
-void Vec4f::operator-=(Vec4f vec) {
+void Vec4f::operator-=(const Vec4f& vec) {
 	subVec4f(vec);
 }
 
-void Vec4f::operator*=(Vec4f vec) {
+void Vec4f::operator*=(const Vec4f& vec) {
 	mulVec4f(vec);
 }
 
-void Vec4f::operator/=(Vec4f vec) {
+void Vec4f::operator/=(const Vec4f& vec) {
 	divVec4f(vec);
 }
 
-void Vec4f::operator*=(Mat4f mat) {
+void Vec4f::operator*=(const Mat4f& mat) {
 	mulMat4f(mat);
 }

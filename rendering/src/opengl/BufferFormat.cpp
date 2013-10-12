@@ -1,19 +1,19 @@
-#include "VertexFormat.h"
+#include "BufferFormat.h"
 
 
 using namespace cph;
 
-VertexFormat::VertexFormat() :
+BufferFormat::BufferFormat() :
 	attributes()
 {
 
 }
 
-VertexFormat::~VertexFormat() {
+BufferFormat::~BufferFormat() {
 
 }
 
-void VertexFormat::computeOffsets() {
+void BufferFormat::computeOffsets() {
 	int offset = 0;
 	int stride = 0;
 	for(std::map<GLuint, VertexAttribute>::iterator it = attributes.begin(); it != attributes.end(); ++it) {
@@ -26,17 +26,17 @@ void VertexFormat::computeOffsets() {
 	}
 }
 
-void VertexFormat::addVertexAttribute(VertexAttribute attrib) {
+void BufferFormat::addVertexAttribute(VertexAttribute attrib) {
 	attributes.insert(std::make_pair(attrib.getIndex(), attrib));
 	computeOffsets();
 }
 
-void VertexFormat::removeVertexAttribute(VertexAttribute attrib) {
+void BufferFormat::removeVertexAttribute(VertexAttribute attrib) {
 	attributes.erase(attrib.getIndex());
 	computeOffsets();
 }
 
-bool VertexFormat::isCompatible(const std::set<AttributeFormat>& attributeFormat) const {
+bool BufferFormat::isCompatible(const std::set<AttributeFormat>& attributeFormat) const {
 	bool found = false;
 	for(std::set<AttributeFormat>::iterator it1 = attributeFormat.begin(); it1 != attributeFormat.end(); ++it1) {
 		found = false;
@@ -48,7 +48,7 @@ bool VertexFormat::isCompatible(const std::set<AttributeFormat>& attributeFormat
 	return true;
 }
 
-void VertexFormat::bindVertexAttributesGL() const {
+void BufferFormat::bindVertexAttributesGL() const {
 	for(std::map<GLuint, VertexAttribute>::const_iterator it = attributes.begin(); it != attributes.end(); ++it) {
 		it->second.bindVertexPointerGL();
 	}

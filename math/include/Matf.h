@@ -12,20 +12,20 @@ class Matf {
 protected:
 	std::vector<std::vector<float>> matrix;
 
-	bool isValid();
-	bool inRange(int n, int m);
+	bool isValid() const;
+	bool inRange(int n, int m) const;
 
 public:
 	Matf(std::vector<std::vector<float>> matrix = std::vector<std::vector<float>>());
 	virtual ~Matf();
 
-	float getNM(int n, int m);
-	std::vector<std::vector<float>>* raw();
-	float* toArray(float* raw);
-	std::string toString();
+	float getNM(int n, int m) const;
+	const std::vector<std::vector<float>>& raw() const;
+	float* toArray(float* raw) const;
+	std::string toString() const;
 
-	virtual float det() = 0;
-	virtual int getDim() = 0;
+	virtual float det() const = 0;
+	virtual int getDim() const = 0;
 
 };
 

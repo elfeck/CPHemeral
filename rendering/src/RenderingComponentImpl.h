@@ -8,9 +8,6 @@
 #include "../include/RenderingComponent.h"
 #include "opengl/VaoEntry.h"
 
-#include "VertexImpl.h"
-#include "UniformImpl.h"
-
 
 namespace cph {
 
@@ -19,8 +16,6 @@ class RenderingSystemImpl;
 class RenderingComponentImpl : public RenderingComponent {
 
 private:
-	static SingleIdAllocator<VertexImpl> vertexAlloc;
-	static SingleIdAllocator<UniformImpl> uniformAlloc;
 	
 	const std::uint32_t compId;
 	std::uint8_t sysId;
@@ -32,15 +27,9 @@ public:
 	RenderingComponentImpl(std::uint32_t id);
 	~RenderingComponentImpl();
 
-	virtual Vertex* addVertex();
-	virtual Uniform* addUniform();
-	virtual void removeVertex(Vertex* vertex);
-	virtual void removeUniform(Uniform* uniform);
-
 	virtual void setShader(const char* path);
 	virtual void setViewport(int x, int y, int width, int height);
 	virtual void setScissor(int x, int y, int width, int height);
-	virtual void setRenderingMode(RenderingMode mode);
 	virtual void setVisible(bool visible);
 
 	virtual std::uint8_t getSysId() const;
@@ -51,6 +40,8 @@ public:
 	void setSystem(RenderingSystemImpl* system);
 	void setSysId(std::uint8_t id);
 	VaoEntry* getVaoEntry();
+
+	void bla();
 
 };
 

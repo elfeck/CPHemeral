@@ -29,12 +29,17 @@ Mat3f::Mat3f(std::vector<float> values) :
 	}
 }
 
+Mat3f::Mat3f(const Mat3f& other) :
+	Matf(std::vector<std::vector<float>>(3, std::vector<float>(3, 0.0f)))
+{
+	setMat(&other);
+}
+
 Mat3f::~Mat3f() {
 
 }
 
-
-Mat3f* Mat3f::addMat3f(Mat3f* mat) {
+Mat3f* Mat3f::addMat3f(const Mat3f* mat) {
 	if(!isValid() || !mat->isValid()) return this;
 	for(int n = 0; n < getDim(); n++) {
 		for(int m = 0; m < getDim(); m++) {
@@ -44,7 +49,7 @@ Mat3f* Mat3f::addMat3f(Mat3f* mat) {
 	return this;
 }
 
-Mat3f* Mat3f::subMat3f(Mat3f* mat) {
+Mat3f* Mat3f::subMat3f(const Mat3f* mat) {
 	if(!isValid() || !mat->isValid()) return this;
 	for(int n = 0; n < getDim(); n++) {
 		for(int m = 0; m < getDim(); m++) {
@@ -54,7 +59,7 @@ Mat3f* Mat3f::subMat3f(Mat3f* mat) {
 	return this;
 }
 
-Mat3f* Mat3f::mulMat3f(Mat3f* mat) {
+Mat3f* Mat3f::mulMat3f(const Mat3f* mat) {
 	if(!isValid() || !mat->isValid()) return this;
 	std::vector<float> currentRow(getDim(), 0.0f);
 	for(int m = 0; m < getDim(); m++) {
@@ -69,12 +74,11 @@ Mat3f* Mat3f::mulMat3f(Mat3f* mat) {
 	return this;
 }
 
-Mat3f* Mat3f::mulMat3fLeft(Mat3f* mat) {
+Mat3f* Mat3f::mulMat3fLeft(const Mat3f* mat) {
 	return setMat(setMat(mat->copy().mulMat3f(this)));
 }
 
-
-Mat3f* Mat3f::addMat3f(Mat3f mat) {
+Mat3f* Mat3f::addMat3f(const Mat3f& mat) {
 	if(!isValid() || !mat.isValid()) return this;
 	for(int n = 0; n < getDim(); n++) {
 		for(int m = 0; m < getDim(); m++) {
@@ -84,7 +88,7 @@ Mat3f* Mat3f::addMat3f(Mat3f mat) {
 	return this;
 }
 
-Mat3f* Mat3f::subMat3f(Mat3f mat) {
+Mat3f* Mat3f::subMat3f(const Mat3f& mat) {
 	if(!isValid() || !mat.isValid()) return this;
 	for(int n = 0; n < getDim(); n++) {
 		for(int m = 0; m < getDim(); m++) {
@@ -94,7 +98,7 @@ Mat3f* Mat3f::subMat3f(Mat3f mat) {
 	return this;
 }
 
-Mat3f* Mat3f::mulMat3f(Mat3f mat) {
+Mat3f* Mat3f::mulMat3f(const Mat3f& mat) {
 	if(!isValid() || !mat.isValid()) return this;
 	std::vector<float> currentRow(getDim(), 0.0f);
 	for(int m = 0; m < getDim(); m++) {
@@ -109,7 +113,7 @@ Mat3f* Mat3f::mulMat3f(Mat3f mat) {
 	return this;
 }
 
-Mat3f* Mat3f::mulMat3fLeft(Mat3f mat) {
+Mat3f* Mat3f::mulMat3fLeft(const Mat3f& mat) {
 	return setMat(setMat(mat.copy().mulMat3f(this)));
 }
 
@@ -127,10 +131,6 @@ Mat3f* Mat3f::negate() {
 	return mulScalar(-1.0f);
 }
 
-Mat3f* Mat3f::invert() {
-	return this;
-}
-
 Mat3f* Mat3f::transpose() {
 	if(!isValid()) return this;
 	float temp = 0;
@@ -143,7 +143,6 @@ Mat3f* Mat3f::transpose() {
 	}
 	return this;
 }
-
 
 Mat3f* Mat3f::setNM(int n, int m, float value) {
 	if(!isValid() || !inRange(n, m)) return this;
@@ -165,7 +164,7 @@ Mat3f* Mat3f::setRow(int m, std::vector<float> row) {
 	return this;
 }
 
-Mat3f* Mat3f::setMat(Mat3f* mat) {
+Mat3f* Mat3f::setMat(const Mat3f* mat) {
 	if(!isValid() || !mat->isValid()) return this;
 	for(int n = 0; n < getDim(); n++) {
 		for(int m = 0; m < getDim(); m++) {
@@ -175,7 +174,7 @@ Mat3f* Mat3f::setMat(Mat3f* mat) {
 	return this;
 }
 
-Mat3f* Mat3f::setMat(Mat3f mat) {
+Mat3f* Mat3f::setMat(const Mat3f& mat) {
 	if(!isValid() || !mat.isValid()) return this;
 	for(int n = 0; n < getDim(); n++) {
 		for(int m = 0; m < getDim(); m++) {
@@ -185,8 +184,7 @@ Mat3f* Mat3f::setMat(Mat3f mat) {
 	return this;
 }
 
-
-float Mat3f::det() {
+float Mat3f::det() const {
 	if(!isValid()) return 0;
 	float det = 0;
 	float prod = 1;
@@ -208,40 +206,39 @@ float Mat3f::det() {
 	return det;
 }
 
-int Mat3f::getDim() {
+int Mat3f::getDim() const {
 	return 3;
 }
 
 
-Mat3f Mat3f::copy() {
+Mat3f Mat3f::copy() const {
 	return *(Mat3f().setMat(this));
 }
 
-Mat3f* Mat3f::copyInto(Mat3f* raw) {
+Mat3f* Mat3f::copyInto(Mat3f* raw) const {
 	return raw->setMat(this);
 }
 
-void Mat3f::operator+=(Mat3f* mat) {
+void Mat3f::operator+=(const Mat3f* mat) {
 	addMat3f(mat);
 }
 
-void Mat3f::operator-=(Mat3f* mat) {
+void Mat3f::operator-=(const Mat3f* mat) {
 	subMat3f(mat);
 }
 
-void Mat3f::operator*=(Mat3f* mat) {
+void Mat3f::operator*=(const Mat3f* mat) {
 	mulMat3f(mat);
 }
 
-
-void Mat3f::operator+=(Mat3f mat) {
+void Mat3f::operator+=(const Mat3f& mat) {
 	addMat3f(mat);
 }
 
-void Mat3f::operator-=(Mat3f mat) {
+void Mat3f::operator-=(const Mat3f& mat) {
 	subMat3f(mat);
 }
 
-void Mat3f::operator*=(Mat3f mat) {
+void Mat3f::operator*=(const Mat3f& mat) {
 	mulMat3f(mat);
 }

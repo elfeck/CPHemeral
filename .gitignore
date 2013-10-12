@@ -5,4 +5,5 @@ Debug/
 *.vcxproj.user
 *.vcxproj.filters
 *.v11.suo
+*.suo
 *.opensdf

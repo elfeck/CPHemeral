@@ -12,13 +12,13 @@ public:
 	Vecf();
 	virtual ~Vecf();
 
-	float length();
-	std::string toString();
-	float* toArray(float* raw);
+	float length() const;
+	std::string toString() const;
+	float* toArray(float* raw) const;
 	
+	virtual float getN(int n) const = 0;
 	virtual Vecf* setN(int  n, float value) = 0;
-	virtual float getN(int n) = 0;
-	virtual int getDim() = 0;
+	virtual int getDim() const = 0;
 };
 
 }

@@ -13,8 +13,7 @@ Vecf::~Vecf() {
 
 }
 
-
-float Vecf::length() {
+float Vecf::length() const {
 	float sum = 0;
 	
 	for(int i = 0; i < getDim(); i++) {
@@ -23,7 +22,7 @@ float Vecf::length() {
 	return std::sqrt(sum);
 }
 
-std::string Vecf::toString() {
+std::string Vecf::toString() const {
 	std::string string = "(";
 	for(int i = 0; i < getDim(); i++) {
 		string += floatToString(getN(i));
@@ -33,7 +32,7 @@ std::string Vecf::toString() {
 	return string;
 }
 
-float* Vecf::toArray(float* raw) {
+float* Vecf::toArray(float* raw) const {
 	bool valid = true;
 	for(int i = 0; i < getDim(); i++) {
 		valid = valid && raw[i] == 0;
