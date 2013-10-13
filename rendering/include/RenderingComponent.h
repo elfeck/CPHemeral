@@ -1,6 +1,10 @@
 #ifndef RENDERING_COMPONENT_H_
 #define RENDERING_COMPONENT_H_
 
+#include "RenderGeom.h"
+#include "Primitive.h"
+#include "RenderVertex.h"
+#include "RenderUniform.h"
 #include "Component.h"
 
 
@@ -8,13 +12,27 @@ namespace cph {
 
 struct RenderingComponent : public Component {
 
+	virtual PrmiVec4f* createVec4f(const char* name = "", float x = 0.0f, float y = 0.0f, 
+		float z = 0.0f, float w = 0.0f) = 0;
+
+	virtual RenderGeom* createGeom() = 0;
+	virtual RenderVertex* createVertex() = 0;
+	virtual RenderUniform* createUniform() = 0;
+
+	virtual void destroyPrimitive(Primitive* prmi) = 0;
+	virtual void destroyGeom(RenderGeom* geom) = 0;
+	virtual void destroyVertex(RenderVertex* vertex) = 0;
+	virtual void destroyUniform(RenderUniform* uniform) = 0;
+
 	virtual void setShader(const char* path) = 0;
 	virtual void setViewport(int x, int y, int width, int height) = 0;
 	virtual void setScissor(int x, int y, int width, int height) = 0;
 	virtual void setVisible(bool visible) = 0;
 
 	virtual std::uint8_t getSysId() const = 0;
-	virtual std::uint32_t getCompId() const = 0;
+	virtual std::uint32_t getUniqueId() const = 0;
+
+	virtual void destroy() = 0;
 
 };
 

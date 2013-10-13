@@ -41,8 +41,8 @@ public:
 	int size() const;
 	void release(T1* mem);
 
-	iterator begin() const;
-	iterator end() const;
+	iterator begin();
+	iterator end();
 
 };
 
@@ -70,12 +70,12 @@ void SingleAllocator<T1>::release(T1* mem) {
 }
 
 template<typename T1> inline
-typename SingleAllocator<T1>::iterator SingleAllocator<T1>::begin() const {
+typename SingleAllocator<T1>::iterator SingleAllocator<T1>::begin() {
 	return SingleAllocator<T1>::iterator(memVector.begin());
 }
 
 template<typename T1> inline
-typename SingleAllocator<T1>::iterator SingleAllocator<T1>::end() const {
+typename SingleAllocator<T1>::iterator SingleAllocator<T1>::end() {
 	return SingleAllocator<T1>::iterator(memVector.end());
 }
 

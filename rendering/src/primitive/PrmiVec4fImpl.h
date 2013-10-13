@@ -13,12 +13,12 @@ private:
 	Vec4f vector;
 
 public:
-	PrmiVec4fImpl(std::uint32_t prmiId);
+	PrmiVec4fImpl(std::uint32_t uniqueId);
 	~PrmiVec4fImpl();
-
-	virtual std::uint64_t getParentId() const;
-	virtual std::uint32_t getPrmiId() const;
+	
+	virtual std::uint32_t getUniqueId() const;
 	virtual const char* getName() const;
+	virtual void setName(const char* name);
 
 	virtual void uploadAsUniformGL(GLuint program);
 	virtual void fetchVertexData(std::vector<GLfloat>& buffer) const;

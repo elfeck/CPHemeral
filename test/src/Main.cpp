@@ -36,7 +36,19 @@ int main(int argc, char* argv[]) {
 	renderingSystem = createRenderingSystem(0x01);
 	
 	// ################
+	Object* obj1 = scene1->createObject();
+	RenderingComponent* comp1 = renderingSystem->createComponent();
 
+	RenderGeom* geom = comp1->createGeom();
+	RenderVertex* vert = comp1->createVertex();
+	RenderUniform* uni = comp1->createUniform();
+	PrmiVec4f* vec4 = comp1->createVec4f("pos", 1.0f, 2.0f, 3.0f, 4.0f);
+
+	uni->addUniformPrimitive(vec4);
+	vert->addVertexPrimitive(vec4);
+
+	geom->addVertex(vert);
+	obj1->addComponent(comp1);
 	// ################
 
 	display->enterMainLoop();

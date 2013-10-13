@@ -12,7 +12,7 @@ template<typename T2>
 class SingleIdAllocator {
 
 private:
-	std::uint32_t currentId;
+	std::uint32_t currentId, lowerBound, upperBound;
 	std::map<std::uint32_t, std::unique_ptr<T2>> memMap;
 
 	SingleIdAllocator(const SingleIdAllocator& other);
@@ -36,7 +36,8 @@ public:
 
 	};
 
-	SingleIdAllocator(std::uint32_t offset = 0) : currentId(offset), memMap() { }
+	SingleIdAllocator(std::uint32_t lowerBound = 1, std::uint32_t upperBound = 0xffffffff) : 
+		currentId(lowerBound), lowerBound(lowerBound), upperBound(upperBound), memMap() { }
 	~SingleIdAllocator() { }
 
 	T2* allocate();
@@ -44,13 +45,16 @@ public:
 	void release(std::uint32_t id);
 	void release(T2* mem);
 	int size() const;
+	std::uint32_t getLowerBound() const;
+	std::uint32_t getUpperBound() const;
 
-	iterator begin() const;
-	iterator end() const;
+	iterator begin();
+	iterator end();
 };
 
 template<typename T2> inline
 T2* SingleIdAllocator<T2>::allocate() {
+	if(currentId >= upperBound) return 0;
 	T2* mem = new T2(currentId);
 	memMap.insert(std::make_pair(currentId, std::unique_ptr<T2>(mem)));
 	currentId++;
@@ -84,12 +88,22 @@ int SingleIdAllocator<T2>::size() const {
 }
 
 template<typename T2> inline
-typename SingleIdAllocator<T2>::iterator SingleIdAllocator<T2>::begin() const {
+std::uint32_t SingleIdAllocator<T2>::getLowerBound() const {
+	return lowerBound;
+}
+
+template<typename T2> inline
+std::uint32_t SingleIdAllocator<T2>::getUpperBound() const {
+	return upperBound;
+}
+
+template<typename T2> inline
+typename SingleIdAllocator<T2>::iterator SingleIdAllocator<T2>::begin() {
 	return SingleIdAllocator<T2>::iterator(memMap.begin());
 }
 
 template<typename T2> inline
-typename SingleIdAllocator<T2>::iterator SingleIdAllocator<T2>::end() const {
+typename SingleIdAllocator<T2>::iterator SingleIdAllocator<T2>::end() {
 	return SingleIdAllocator<T2>::iterator(memMap.end());
 }
 

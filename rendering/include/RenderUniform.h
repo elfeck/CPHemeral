@@ -1,17 +1,18 @@
 #ifndef RENDER_UNIFORM_H_
 #define RENDER_UNIFORM_H_
 
-#include "Primitive.h"
+#include <cstdint>
+#include "PrmiVec4f.h"
 
 
 namespace cph {
 
 struct RenderUniform {
 
-	virtual void addPrimitive(Primitive* prmi) = 0;
-	virtual void removePrimitive(Primitive* prmi) = 0;
+	virtual void addUniformPrimitive(Primitive* prmi) = 0;
+	virtual void removeUniformPrimitive(Primitive* prmi) = 0;
 
-	virtual std::uint32_t getUniId() = 0;
+	virtual std::uint32_t getUniqueId() const = 0;
 
 };
 

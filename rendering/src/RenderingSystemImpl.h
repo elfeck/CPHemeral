@@ -4,9 +4,12 @@
 #include "opengl/VaoManager.h"
 #include "opengl/VaoEntry.h"
 #include "../include/RenderingSystem.h"
-
+#include "primitive/PrimitiveImpl.h"
 #include "SingleIdAllocator.h"
+#include "RenderAllocator.h"
 #include "RenderingComponentImpl.h"
+#include "RenderVertexImpl.h"
+#include "RenderUniformImpl.h"
 
 
 namespace cph {
@@ -15,6 +18,7 @@ class RenderingSystemImpl : public RenderingSystem {
 
 private:
 	SingleIdAllocator<RenderingComponentImpl> componentAlloc;
+	RenderAllocator renderAlloc;
 
 	const std::uint8_t sysId;
 
@@ -29,6 +33,7 @@ public:
 	virtual void execute(ObjectManager* objectManager, long delta);
 
 	void releaseComponent(RenderingComponentImpl* component);
+	RenderAllocator& getRenderAllocator();
 
 };
 

@@ -8,13 +8,50 @@
 using namespace cph;
 
 RenderingComponentImpl::RenderingComponentImpl(std::uint32_t id) :
-	sysId(0), compId(id), system(0), vaoEntry()
+	sysId(0), uniqueId(id), system(0), vaoEntry()
 {
 
 }
 
 RenderingComponentImpl::~RenderingComponentImpl() {
 
+}
+
+PrmiVec4f* RenderingComponentImpl::createVec4f(const char* name, float x, float y, float z, float w) {
+	PrmiVec4f* vec = system->getRenderAllocator().allocPrmiVec4f();
+	vec->get()->setXYZW(x, y, z, w);
+	vec->setName(name);
+	return vec;
+}
+
+RenderGeom* RenderingComponentImpl::createGeom() {
+	return system->getRenderAllocator().allocRenderGeom();
+}
+
+RenderVertex* RenderingComponentImpl::createVertex() {
+	return system->getRenderAllocator().allocRenderVertex();
+}
+
+RenderUniform* RenderingComponentImpl::createUniform() {
+	return system->getRenderAllocator().allocRenderUniform();
+}
+
+void RenderingComponentImpl::destroyPrimitive(Primitive* prmi) {
+	// delete this prmi from all vertices before deleting it
+	system->getRenderAllocator().releasePrimitive(prmi);
+}
+
+void RenderingComponentImpl::destroyGeom(RenderGeom* geom) {
+	system->getRenderAllocator().releaseRenderGeom(geom);
+}
+
+void RenderingComponentImpl::destroyVertex(RenderVertex* vertex) {
+	// delete this vertex from all geoms before deleting it
+	system->getRenderAllocator().releaseRenderVertex(vertex);
+}
+
+void RenderingComponentImpl::destroyUniform(RenderUniform* uniform) {
+	system->getRenderAllocator().releaseRenderUniform(uniform);
 }
 
 void RenderingComponentImpl::setShader(const char* path) {
@@ -37,8 +74,8 @@ std::uint8_t RenderingComponentImpl::getSysId() const {
 	return sysId;
 }
 
-std::uint32_t RenderingComponentImpl::getCompId() const {
-	return compId;
+std::uint32_t RenderingComponentImpl::getUniqueId() const {
+	return uniqueId;
 }
 
 void RenderingComponentImpl::destroy() {
@@ -55,9 +92,4 @@ void RenderingComponentImpl::setSysId(std::uint8_t id) {
 
 VaoEntry* RenderingComponentImpl::getVaoEntry() {
 	return &vaoEntry;
-}
-
-void bla() {
-	PrmiVec4f* vec = new PrmiVec4fImpl();
-	vec->get();
 }

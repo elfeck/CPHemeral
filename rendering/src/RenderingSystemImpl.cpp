@@ -29,12 +29,17 @@ void RenderingSystemImpl::execute(ObjectManager* objectManager, long delta) {
 	ObjectQueue* queue = objectManager->tempGetObjectsWith(sysId);
 	RenderingComponentImpl* comp = 0;
 	while(queue->hasElements()) {
-		comp = componentAlloc.at(queue->pop()->getComponent(sysId)->getCompId());
+		comp = componentAlloc.at(queue->pop()->getComponent(sysId)->getUniqueId());
 		vaoManager.processVaoEntry(comp->getVaoEntry());
 	}
 }
 
 void RenderingSystemImpl::releaseComponent(RenderingComponentImpl* component) {
 	vaoManager.cleanVaoEntry(component->getVaoEntry());
-	componentAlloc.release(component->getCompId());
+	componentAlloc.release(component->getUniqueId());
+
+}
+
+RenderAllocator& RenderingSystemImpl::getRenderAllocator() {
+	return renderAlloc;
 }

@@ -2,6 +2,8 @@
 #define RENDER_VERTEX_IMPL_H_
 
 #include <map>
+#include <unordered_map>
+#include <cstdint>
 #include <gl/glew.h>
 #include "../include/RenderVertex.h"
 #include "primitive/PrimitiveImpl.h"
@@ -12,21 +14,28 @@ namespace cph {
 class RenderVertexImpl : public RenderVertex {
 
 private:
-	const std::uint32_t vertId;
-	unsigned int vertexIndex;
+	const std::uint32_t uniqueId;
+	int vertexIndex;
+
+	std::map<std::uint32_t, PrimitiveImpl*> primitives;
+	
+	std::unordered_map<std::uint32_t, PrimitiveImpl*>* prmiLookupPtr;
 
 public:
-	RenderVertexImpl(std::uint32_t vertId);
+	RenderVertexImpl(std::uint32_t uniqueId);
 	~RenderVertexImpl();
 
-	virtual void addPrimitive(Primitive* prmi);
-	virtual void removePrimitive(Primitive* prmi);
+	virtual void addVertexPrimitive(Primitive* prmi);
+	virtual void removeVertexPrimitive(Primitive* prmi);
 
-	virtual std::uint32_t getVertId() const;
+	virtual std::uint32_t getUniqueId() const;
 
 	void fetchVertexData(std::vector<GLfloat>& buffer) const;
-	unsigned int getVertexIndex() const;
-	void setVertexIndex(unsigned int vertexIndex);
+	
+	int getVertexIndex() const;
+	void setVertexIndex(int vertexIndex);
+
+	void setPrmiLookupPtr(std::unordered_map<std::uint32_t, PrimitiveImpl*>* prmiLookupPtr);
 
 };
 

@@ -9,7 +9,7 @@ namespace cph {
 struct Component {
 
 	virtual std::uint8_t getSysId() const = 0;
-	virtual std::uint32_t getCompId() const = 0;
+	virtual std::uint32_t getUniqueId() const = 0;
 
 	virtual void destroy() = 0;
 
