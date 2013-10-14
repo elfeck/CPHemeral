@@ -1,4 +1,5 @@
 #include "RenderVertexImpl.h"
+#include "../include/RenderingComponent.h"
 
 
 using namespace cph;
@@ -39,4 +40,10 @@ void RenderVertexImpl::setVertexIndex(int vertexIndex) {
 
 void RenderVertexImpl::setPrmiLookupPtr(std::unordered_map<std::uint32_t, PrimitiveImpl*>* prmiLookupPtr) {
 	this->prmiLookupPtr = prmiLookupPtr;
+}
+
+void RenderVertexImpl::destroyAllPrimitivesRecursively(RenderingComponent* comp) {
+	for(std::map<std::uint32_t, PrimitiveImpl*>::iterator it = primitives.begin(); it != primitives.end(); ++it) {
+		comp->destroyPrimitive(it->second);
+	}
 }

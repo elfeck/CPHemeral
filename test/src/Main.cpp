@@ -32,10 +32,10 @@ int main(int argc, char* argv[]) {
 	display->setRenderFunc(renderCallback);
 	display->initDisplay(window);
 
-	scene1 = createObjectManager();
 	renderingSystem = createRenderingSystem(0x01);
 	
 	// ################
+	scene1 = createObjectManager();
 	Object* obj1 = scene1->createObject();
 	RenderingComponent* comp1 = renderingSystem->createComponent();
 
@@ -48,7 +48,26 @@ int main(int argc, char* argv[]) {
 	vert->addVertexPrimitive(vec4);
 
 	geom->addVertex(vert);
+	comp1->addGeom(geom);
+	comp1->addUniform(uni);
 	obj1->addComponent(comp1);
+
+	//uni->removeUniformPrimitive(vec4);
+	//vert->removeVertexPrimitive(vec4);
+
+	//geom->removeVertex(vert);
+	//comp1->removeGeom(geom);
+	//comp1->removeUniform(uni);
+
+	//comp1->destroyGeom(geom);
+	//comp1->destroyUniform(uni);
+	//comp1->destroyVertex(vert);
+	//comp1->destroyPrimitive(vec4);
+
+	comp1->destroyAllGeomsRecursively();
+
+	comp1->destroy();
+	obj1->destroy();
 	// ################
 
 	display->enterMainLoop();

@@ -11,6 +11,8 @@
 
 namespace cph {
 
+struct RenderingComponent;
+
 class RenderVertexImpl : public RenderVertex {
 
 private:
@@ -36,6 +38,7 @@ public:
 	void setVertexIndex(int vertexIndex);
 
 	void setPrmiLookupPtr(std::unordered_map<std::uint32_t, PrimitiveImpl*>* prmiLookupPtr);
+	void destroyAllPrimitivesRecursively(RenderingComponent* comp);
 
 };
 

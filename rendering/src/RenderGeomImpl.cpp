@@ -1,5 +1,5 @@
 #include "RenderGeomImpl.h"
-
+#include "../include/RenderingComponent.h"
 
 using namespace cph;
 
@@ -25,7 +25,13 @@ std::uint32_t RenderGeomImpl::getUniqueId() const {
 	return uniqueId;
 }
 
-
 void RenderGeomImpl::setVertexLookupPtr(SingleIdAllocator<RenderVertexImpl>* vertexLookupPtr) {
 	this->vertexLookupPtr = vertexLookupPtr;
+}
+
+void RenderGeomImpl::destroyAllVerticesRecursively(RenderingComponent* comp) {
+	for(std::map<std::uint32_t, RenderVertexImpl*>::iterator it = vertices.begin(); it != vertices.end(); ++it) {
+		it->second->destroyAllPrimitivesRecursively(comp);
+		comp->destroyVertex(it->second);
+	}
 }

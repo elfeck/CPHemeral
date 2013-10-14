@@ -9,6 +9,8 @@
 
 namespace cph {
 
+struct RenderingComponent;
+
 class RenderGeomImpl : public RenderGeom {
 
 private:
@@ -28,6 +30,7 @@ public:
 	virtual std::uint32_t getUniqueId() const;
 
 	void setVertexLookupPtr(SingleIdAllocator<RenderVertexImpl>* vertexLookupPtr);
+	void destroyAllVerticesRecursively(RenderingComponent* comp);
 };
 
 }

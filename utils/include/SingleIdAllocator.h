@@ -47,6 +47,7 @@ public:
 	int size() const;
 	std::uint32_t getLowerBound() const;
 	std::uint32_t getUpperBound() const;
+	bool contains(std::uint32_t id) const;
 
 	iterator begin();
 	iterator end();
@@ -95,6 +96,11 @@ std::uint32_t SingleIdAllocator<T2>::getLowerBound() const {
 template<typename T2> inline
 std::uint32_t SingleIdAllocator<T2>::getUpperBound() const {
 	return upperBound;
+}
+
+template<typename T2> inline
+bool SingleIdAllocator<T2>::contains(std::uint32_t id) const {
+	return memMap.count(id) == 1;
 }
 
 template<typename T2> inline
