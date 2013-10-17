@@ -12,6 +12,10 @@
 #include "primitive/PrmiVec3fImpl.h"
 #include "primitive/PrmiVec4fImpl.h"
 
+#include "primitive/PrmiMat2fImpl.h"
+#include "primitive/PrmiMat3fImpl.h"
+#include "primitive/PrmiMat4fImpl.h"
+
 
 namespace cph {
 
@@ -28,6 +32,10 @@ private:
 	SingleIdAllocator<PrmiVec2fImpl> vec2fAlloc;
 	SingleIdAllocator<PrmiVec3fImpl> vec3fAlloc;
 	SingleIdAllocator<PrmiVec4fImpl> vec4fAlloc;
+
+	SingleIdAllocator<PrmiMat2fImpl> mat2fAlloc;
+	SingleIdAllocator<PrmiMat3fImpl> mat3fAlloc;
+	SingleIdAllocator<PrmiMat4fImpl> mat4fAlloc;
 	
 	bool prmiWithinRange(Primitive* prmi, std::uint32_t lower, std::uint32_t upper);
 
@@ -43,6 +51,10 @@ public:
 	PrmiVec2fImpl* allocPrmiVec2f();
 	PrmiVec3fImpl* allocPrmiVec3f();
 	PrmiVec4fImpl* allocPrmiVec4f();
+
+	PrmiMat2fImpl* allocPrmiMat2f();
+	PrmiMat3fImpl* allocPrmiMat3f();
+	PrmiMat4fImpl* allocPrmiMat4f();
 
 	void releaseRenderGeom(RenderGeom* geom);
 	void releaseRenderVertex(RenderVertex* vertex);

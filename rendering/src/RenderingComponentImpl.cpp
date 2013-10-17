@@ -43,6 +43,24 @@ PrmiVec4f* RenderingComponentImpl::createVec4f(const char* name, float x, float 
 	vec->get()->setXYZW(x, y, z, w);
 	vec->setName(name);
 	return vec;
+}	
+
+PrmiMat2f* RenderingComponentImpl::createMat2f(const char* name) {
+	PrmiMat2f* mat = system->getRenderAllocator().allocPrmiMat2f();
+	mat->setName(name);
+	return mat;
+}
+
+PrmiMat3f* RenderingComponentImpl::createMat3f(const char* name) {
+	PrmiMat3f* mat = system->getRenderAllocator().allocPrmiMat3f();
+	mat->setName(name);
+	return mat;
+}
+
+PrmiMat4f* RenderingComponentImpl::createMat4f(const char* name) {
+	PrmiMat4f* mat = system->getRenderAllocator().allocPrmiMat4f();
+	mat->setName(name);
+	return mat;
 }
 
 RenderGeom* RenderingComponentImpl::createGeom() {

@@ -34,7 +34,11 @@ public:
 	virtual PrmiVec2f* createVec2f(const char* name = "", float x = 0.0f, float y = 0.0f);
 	virtual PrmiVec3f* createVec3f(const char* name = "", float x = 0.0f, float y = 0.0f, float z = 0.0f);
 	virtual PrmiVec4f* createVec4f(const char* name, float x, float y, float z, float w);
-
+	
+	virtual PrmiMat2f* createMat2f(const char* name = "");
+	virtual PrmiMat3f* createMat3f(const char* name = "");
+	virtual PrmiMat4f* createMat4f(const char* name = "");
+	
 	virtual RenderGeom* createGeom();
 	virtual RenderVertex* createVertex();
 	virtual RenderUniform* createUniform();

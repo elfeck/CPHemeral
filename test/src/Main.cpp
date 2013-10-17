@@ -43,9 +43,11 @@ int main(int argc, char* argv[]) {
 	RenderVertex* vert = comp1->createVertex();
 	RenderUniform* uni = comp1->createUniform();
 	PrmiVec4f* vec4 = comp1->createVec4f("pos", 1.0f, 2.0f, 3.0f, 4.0f);
+	PrmiMat3f* mat3 = comp1->createMat3f("col");
 
 	uni->addUniformPrimitive(vec4);
 	vert->addVertexPrimitive(vec4);
+	vert->addVertexPrimitive(mat3);
 
 	geom->addVertex(vert);
 	comp1->addGeom(geom);

@@ -10,6 +10,9 @@
 #include "PrmiVec2f.h"
 #include "PrmiVec3f.h"
 #include "PrmiVec4f.h"
+#include "PrmiMat2f.h"
+#include "PrmiMat3f.h"
+#include "PrmiMat4f.h"
 
 namespace cph {
 
@@ -19,6 +22,10 @@ struct RenderingComponent : public Component {
 	virtual PrmiVec2f* createVec2f(const char* name = "", float x = 0.0f, float y = 0.0f) = 0;
 	virtual PrmiVec3f* createVec3f(const char* name = "", float x = 0.0f, float y = 0.0f, float z = 0.0f) = 0;
 	virtual PrmiVec4f* createVec4f(const char* name = "", float x = 0.0f, float y = 0.0f, float z = 0.0f, float w = 0.0f) = 0;
+
+	virtual PrmiMat2f* createMat2f(const char* name = "") = 0;
+	virtual PrmiMat3f* createMat3f(const char* name = "") = 0;
+	virtual PrmiMat4f* createMat4f(const char* name = "") = 0;
 
 	virtual RenderGeom* createGeom() = 0;
 	virtual RenderVertex* createVertex() = 0;
