@@ -1,11 +1,10 @@
 #include "RenderVertexImpl.h"
-#include "../include/RenderingComponent.h"
 
 
 using namespace cph;
 
 RenderVertexImpl::RenderVertexImpl(std::uint32_t uniqueId) :
-	uniqueId(uniqueId), vertexIndex(-1), primitives(), prmiLookupPtr(0)
+	uniqueId(uniqueId), vertexIndex(-1), primitives(), prmiAllocPtr(0)
 {
 
 }
@@ -14,12 +13,55 @@ RenderVertexImpl::~RenderVertexImpl() {
 
 }
 
-void RenderVertexImpl::addVertexPrimitive(Primitive* prmi) {
-	primitives.insert(std::make_pair(prmi->getUniqueId(), prmiLookupPtr->at(prmi->getUniqueId())));
+
+PrmiVec1f* RenderVertexImpl::addVec1f(const char* name, float x) {
+	PrmiVec1f* vec = prmiAllocPtr->allocPrmiVec1f();
+	vec->get()->setX(x);
+	vec->setName(name);
+	return vec;
 }
 
-void RenderVertexImpl::removeVertexPrimitive(Primitive* prmi) {
-	primitives.erase(prmi->getUniqueId());
+PrmiVec2f* RenderVertexImpl::addVec2f(const char* name, float x, float y) {
+	PrmiVec2f* vec = prmiAllocPtr->allocPrmiVec2f();
+	vec->get()->setXY(x, y);
+	vec->setName(name);
+	return vec;
+}
+
+PrmiVec3f* RenderVertexImpl::addVec3f(const char* name, float x, float y, float z) {
+	PrmiVec3f* vec = prmiAllocPtr->allocPrmiVec3f();
+	vec->get()->setXYZ(x, y, z);
+	vec->setName(name);
+	return vec;
+}
+
+PrmiVec4f* RenderVertexImpl::addVec4f(const char* name, float x, float y, float z, float w) {
+	PrmiVec4f* vec = prmiAllocPtr->allocPrmiVec4f();
+	vec->get()->setXYZW(x, y, z, w);
+	vec->setName(name);
+	return vec;
+}	
+
+PrmiMat2f* RenderVertexImpl::addMat2f(const char* name) {
+	PrmiMat2f* mat = prmiAllocPtr->allocPrmiMat2f();
+	mat->setName(name);
+	return mat;
+}
+
+PrmiMat3f* RenderVertexImpl::addMat3f(const char* name) {
+	PrmiMat3f* mat = prmiAllocPtr->allocPrmiMat3f();
+	mat->setName(name);
+	return mat;
+}
+
+PrmiMat4f* RenderVertexImpl::addMat4f(const char* name) {
+	PrmiMat4f* mat = prmiAllocPtr->allocPrmiMat4f();
+	mat->setName(name);
+	return mat;
+}
+
+void RenderVertexImpl::removePrimitive(Primitive* prmi) {
+	prmiAllocPtr->releasePrimitive(prmi);
 }
 
 std::uint32_t RenderVertexImpl::getUniqueId() const {
@@ -40,12 +82,6 @@ void RenderVertexImpl::setVertexIndex(int vertexIndex) {
 	this->vertexIndex = vertexIndex;
 }
 
-void RenderVertexImpl::setPrmiLookupPtr(std::unordered_map<std::uint32_t, PrimitiveImpl*>* prmiLookupPtr) {
-	this->prmiLookupPtr = prmiLookupPtr;
-}
-
-void RenderVertexImpl::destroyAllPrimitivesRecursively(RenderingComponent* comp) {
-	for(std::map<std::uint32_t, PrimitiveImpl*>::iterator it = primitives.begin(); it != primitives.end(); ++it) {
-		comp->destroyPrimitive(it->second);
-	}
+void RenderVertexImpl::setPrmiAllocPtr(PrimitiveAllocator* prmiAllocPtr) {
+	this->prmiAllocPtr = prmiAllocPtr;
 }

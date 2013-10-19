@@ -26,26 +26,14 @@ private:
 public:
 	RenderingComponentImpl(std::uint32_t id);
 	~RenderingComponentImpl();
-	
-	virtual PrmiVec1f* createVec1f(const char* name = "", float x = 0.0f);
-	virtual PrmiVec2f* createVec2f(const char* name = "", float x = 0.0f, float y = 0.0f);
-	virtual PrmiVec3f* createVec3f(const char* name = "", float x = 0.0f, float y = 0.0f, float z = 0.0f);
-	virtual PrmiVec4f* createVec4f(const char* name, float x, float y, float z, float w);
-	
-	virtual PrmiMat2f* createMat2f(const char* name = "");
-	virtual PrmiMat3f* createMat3f(const char* name = "");
-	virtual PrmiMat4f* createMat4f(const char* name = "");
-	
-	virtual RenderGeom* createGeom();
-	virtual RenderVertex* createVertex();
-	virtual RenderUniform* createUniform();
 
-	virtual void destroyPrimitive(Primitive* prmi);
-	virtual void destroyGeom(RenderGeom* geom);
-	virtual void destroyVertex(RenderVertex* vertex);
-	virtual void destroyUniform(RenderUniform* uniform);
-	
-	virtual void destroyAllGeomsRecursively();
+	virtual RenderGeom* addGeom();
+	virtual RenderVertex* addVertex();
+	virtual RenderUniform* addLocalUniform();
+
+	virtual void removeGeom(RenderGeom* geom);
+	virtual void removeVertex(RenderVertex* vertex);
+	virtual void removeLocalUniform(RenderUniform* uniform);
 
 	virtual void setShader(const char* path);
 	virtual void setViewport(int x, int y, int width, int height);

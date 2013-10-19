@@ -7,11 +7,10 @@
 #include <gl/glew.h>
 #include "../include/RenderVertex.h"
 #include "primitive/PrimitiveImpl.h"
+#include "PrimitiveAllocator.h"
 
 
 namespace cph {
-
-struct RenderingComponent;
 
 class RenderVertexImpl : public RenderVertex {
 
@@ -21,24 +20,29 @@ private:
 
 	std::map<std::uint32_t, PrimitiveImpl*> primitives;
 	
-	std::unordered_map<std::uint32_t, PrimitiveImpl*>* prmiLookupPtr;
+	PrimitiveAllocator* prmiAllocPtr;
 
 public:
 	RenderVertexImpl(std::uint32_t uniqueId);
 	~RenderVertexImpl();
-
-	virtual void addVertexPrimitive(Primitive* prmi);
-	virtual void removeVertexPrimitive(Primitive* prmi);
-
+		
+	virtual PrmiVec1f* addVec1f(const char* name = "", float x = 0.0f);
+	virtual PrmiVec2f* addVec2f(const char* name = "", float x = 0.0f, float y = 0.0f);
+	virtual PrmiVec3f* addVec3f(const char* name = "", float x = 0.0f, float y = 0.0f, float z = 0.0f);
+	virtual PrmiVec4f* addVec4f(const char* name = "", float x = 0.0f, float y = 0.0f, float z = 0.0f, float w = 0.0f);
+	virtual PrmiMat2f* addMat2f(const char* name = "");
+	virtual PrmiMat3f* addMat3f(const char* name = "");
+	virtual PrmiMat4f* addMat4f(const char* name = "");
+	
+	virtual void removePrimitive(Primitive* prmi);
+	
 	virtual std::uint32_t getUniqueId() const;
 
 	void fetchVertexData(std::vector<GLfloat>& buffer) const;
 	
 	int getVertexIndex() const;
 	void setVertexIndex(int vertexIndex);
-
-	void setPrmiLookupPtr(std::unordered_map<std::uint32_t, PrimitiveImpl*>* prmiLookupPtr);
-	void destroyAllPrimitivesRecursively(RenderingComponent* comp);
+	void setPrmiAllocPtr(PrimitiveAllocator* prmiAllocPtr);
 
 };
 

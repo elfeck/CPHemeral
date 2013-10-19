@@ -76,19 +76,6 @@ void VaoEntry::fetchIndexData(std::vector<GLushort>& buffer, unsigned int* offse
 	}
 }
 
-std::map<std::uint32_t, RenderVertexImpl*>* VaoEntry::getVertices() {
-	return &vertices;
-}
-
-std::map<std::uint32_t, RenderGeomImpl*>* VaoEntry::getGeoms() {
-	return &geoms;
-}
-
-void VaoEntry::clear() {
-	geoms.clear();
-	vertices.clear();
-}
-
 void VaoEntry::addVertex(RenderVertexImpl* vertex) {
 	vertices.insert(std::make_pair(vertex->getUniqueId(), vertex));
 }

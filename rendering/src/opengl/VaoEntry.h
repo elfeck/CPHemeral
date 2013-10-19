@@ -47,11 +47,6 @@ public:
 
 	void fetchVertexData(std::vector<GLfloat>& buffer) const;
 	void fetchIndexData(std::vector<GLushort>& buffer, unsigned int* offset) const;
-
-	std::map<std::uint32_t, RenderVertexImpl*>* getVertices();
-	std::map<std::uint32_t, RenderGeomImpl*>* getGeoms();
-
-	void clear();
 	
 	void addVertex(RenderVertexImpl* vertex);
 	void addUniform(RenderUniformImpl* uniform);

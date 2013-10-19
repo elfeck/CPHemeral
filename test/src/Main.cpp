@@ -33,41 +33,9 @@ int main(int argc, char* argv[]) {
 	display->initDisplay(window);
 
 	renderingSystem = createRenderingSystem(0x01);
-	
-	// ################
 	scene1 = createObjectManager();
-	Object* obj1 = scene1->createObject();
-	RenderingComponent* comp1 = renderingSystem->createComponent();
+	// ################
 
-	RenderGeom* geom = comp1->createGeom();
-	RenderVertex* vert = comp1->createVertex();
-	RenderUniform* uni = comp1->createUniform();
-	PrmiVec4f* vec4 = comp1->createVec4f("pos", 1.0f, 2.0f, 3.0f, 4.0f);
-	PrmiMat3f* mat3 = comp1->createMat3f("col");
-
-	uni->addUniformPrimitive(vec4);
-	vert->addVertexPrimitive(vec4);
-	vert->addVertexPrimitive(mat3);
-
-	geom->addVertex(vert);
-	obj1->addComponent(comp1);
-
-	//uni->removeUniformPrimitive(vec4);
-	//vert->removeVertexPrimitive(vec4);
-
-	//geom->removeVertex(vert);
-	//comp1->removeGeom(geom);
-	//comp1->removeUniform(uni);
-
-	//comp1->destroyGeom(geom);
-	//comp1->destroyUniform(uni);
-	//comp1->destroyVertex(vert);
-	//comp1->destroyPrimitive(vec4);
-
-	comp1->destroyAllGeomsRecursively();
-
-	comp1->destroy();
-	obj1->destroy();
 	// ################
 
 	display->enterMainLoop();

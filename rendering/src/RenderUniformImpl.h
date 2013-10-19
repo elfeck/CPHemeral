@@ -8,6 +8,7 @@
 #include <gl/glew.h>
 #include "primitive/PrimitiveImpl.h"
 #include "../include/RenderUniform.h"
+#include "PrimitiveAllocator.h"
 
 
 namespace cph {
@@ -19,20 +20,27 @@ private:
 	
 	std::map<std::uint32_t, PrimitiveImpl*> primitives;
 
-	std::unordered_map<std::uint32_t, PrimitiveImpl*>* prmiLookupPtr;
+	PrimitiveAllocator* prmiAllocPtr;
 
 public:
 	RenderUniformImpl(std::uint32_t uniqueId);
 	~RenderUniformImpl();
-
-	virtual void addUniformPrimitive(Primitive* prmi);
-	virtual void removeUniformPrimitive(Primitive* prmi);
-
+	
+	virtual PrmiVec1f* addVec1f(const char* name = "", float x = 0.0f);
+	virtual PrmiVec2f* addVec2f(const char* name = "", float x = 0.0f, float y = 0.0f);
+	virtual PrmiVec3f* addVec3f(const char* name = "", float x = 0.0f, float y = 0.0f, float z = 0.0f);
+	virtual PrmiVec4f* addVec4f(const char* name = "", float x = 0.0f, float y = 0.0f, float z = 0.0f, float w = 0.0f);
+	virtual PrmiMat2f* addMat2f(const char* name = "");
+	virtual PrmiMat3f* addMat3f(const char* name = "");
+	virtual PrmiMat4f* addMat4f(const char* name = "");
+	
+	virtual void removePrimitive(Primitive* prmi);
+	
 	virtual std::uint32_t getUniqueId() const;
 
 	void uploadUniformGL(GLuint program);
 
-	void setPrmiLookupPtr(std::unordered_map<std::uint32_t, PrimitiveImpl*>* prmiLookupPtr);
+	void setPrmiAllocPtr(PrimitiveAllocator* prmiAllocPtr);
 
 };
 
