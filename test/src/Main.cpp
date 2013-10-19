@@ -43,6 +43,7 @@ int main(int argc, char* argv[]) {
 	comp->setShader("D://Projects/C++/CPHemeral/test/res/test1");
 	comp->setViewport(0, 0, 240, 320);
 	comp->setScissor(0, 0, 240, 320);
+	comp->setRenderMode(TRIANGLES);
 	comp->setVisible(true);
 
 	RenderVertex* vert1 = comp->addLocalVertex();

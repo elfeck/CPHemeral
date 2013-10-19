@@ -38,6 +38,7 @@ public:
 	virtual void setShader(const char* path);
 	virtual void setViewport(int x, int y, int width, int height);
 	virtual void setScissor(int x, int y, int width, int height);
+	virtual void setRenderMode(RenderMode rendeMode);
 	virtual void setVisible(bool visible);
 
 	virtual std::uint8_t getSysId() const;

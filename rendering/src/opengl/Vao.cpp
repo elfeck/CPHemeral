@@ -76,11 +76,33 @@ void Vao::bindIboGL() {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboHandle);
 }
 
+void Vao::uploadVboGL() {
+	std::vector<GLfloat> vertexBuffer;
+	unsigned int vertexOffset = 0;
+	for(std::vector<VaoEntry*>::iterator it = entries.begin(); it != entries.end(); ++it) {
+		(*it)->fetchVertexData(vertexBuffer, &vertexOffset, shaderPrograms.at((*it)->getShaderPath()).getAttritbuteFormat());
+	}
+	glBindBuffer(GL_ARRAY_BUFFER, vboHandle);
+	glBufferData(GL_ARRAY_BUFFER, vertexBuffer.size() * sizeof(GLfloat), &vertexBuffer.at(0), usage);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void Vao::uploadIboGL() {
+	std::vector<GLushort> indexBuffer;
+	unsigned int indexOffset = 0;
+	for(std::vector<VaoEntry*>::iterator it = entries.begin(); it != entries.end(); ++it) {
+		(*it)->fetchIndexData(indexBuffer, &indexOffset);
+	}
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboHandle);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexBuffer.size() * sizeof(GLushort), &indexBuffer.at(0), usage);
+}
+
 void Vao::drawGL() {
 	glBindVertexArray(vaoHandle);
 	VaoEntry* entry = 0;
 	for(std::vector<VaoEntry*>::iterator it = entries.begin(); it != entries.end(); ++it) {
 		entry = *it;
+		if(!entry->isVisible()) continue;
 		entry->viewportGL();
 		entry->scissorGL();
 		entry->uploadUniformsGL(shaderPrograms.at(entry->getShaderPath()).getProgramHandle());
@@ -94,21 +116,8 @@ void Vao::drawGL() {
 
 void Vao::updateGL() {
 	if(modified) {
-		std::vector<GLfloat> vertexBuffer;
-		std::vector<GLushort> indexBuffer;
-		unsigned int vertexOffset = 0;
-		unsigned int indexOffset = 0;
-		for(std::vector<VaoEntry*>::iterator it = entries.begin(); it != entries.end(); ++it) {
-			(*it)->fetchVertexData(vertexBuffer, &vertexOffset, shaderPrograms.at((*it)->getShaderPath()).getAttritbuteFormat());
-			(*it)->fetchIndexData(indexBuffer, &indexOffset);
-		}
-		glBindBuffer(GL_ARRAY_BUFFER, vboHandle);
-		glBufferData(GL_ARRAY_BUFFER, vertexBuffer.size() * sizeof(GLfloat), &vertexBuffer.at(0), usage);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboHandle);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexBuffer.size() * sizeof(GLushort), &indexBuffer.at(0), usage);
-
+		uploadVboGL();
+		uploadIboGL();
 		modified = false;
 	}
 }

@@ -36,12 +36,13 @@ public:
 
 	std::string getShaderPath() const;
 	GLenum getMode() const;
-	void setMode(GLenum mode);
+	bool isVisible() const;
 	bool isAdded() const;
 
 	void setViewportRect(int x, int y, int width, int height);
 	void setScissorRect(int x, int y, int width, int height);
 	void setShader(std::string path);
+	void setMode(GLenum mode);
 	void setVisible(bool visible);
 	void setAdded(bool added);
 

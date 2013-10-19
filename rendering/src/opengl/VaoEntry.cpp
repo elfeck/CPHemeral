@@ -7,7 +7,8 @@ using namespace cph;
 
 VaoEntry::VaoEntry() :
 	vertices(), uniforms(), geoms(), viewportRect(-1, -1, -1, -1), scissorRect(-1, -1, -1, -1),
-	shaderPath(""), mode(GL_TRIANGLES), visible(false), added(false), indexOffset(0), indexCount(0), vertexOffset(0), allocPtr(0)
+	shaderPath(""), mode(GL_TRIANGLES), visible(false), added(false),
+	indexOffset(0), indexCount(0), vertexOffset(0), allocPtr(0)
 {
 
 }
@@ -32,8 +33,8 @@ GLenum VaoEntry::getMode() const {
 	return mode;
 }
 
-void VaoEntry::setMode(GLenum mode) {
-	this->mode = mode;
+bool VaoEntry::isVisible() const {
+	return visible;
 }
 
 bool VaoEntry::isAdded() const {
@@ -50,6 +51,10 @@ void VaoEntry::setScissorRect(int x, int y, int width, int height) {
 
 void VaoEntry::setShader(std::string path) {
 	this->shaderPath = path;
+}
+
+void VaoEntry::setMode(GLenum mode) {
+	this->mode = mode;
 }
 
 void VaoEntry::setVisible(bool visible) {
@@ -71,7 +76,9 @@ void VaoEntry::scissorGL() const {
 }
 
 void VaoEntry::uploadUniformsGL(GLuint programHandle) const  {
-
+	for(std::map<std::uint32_t, RenderUniformImpl*>::const_iterator it = uniforms.begin(); it != uniforms.end(); ++it) {
+		it->second->uploadUniformGL(programHandle);
+	}
 }
 
 unsigned int VaoEntry::getIndexOffset() const {

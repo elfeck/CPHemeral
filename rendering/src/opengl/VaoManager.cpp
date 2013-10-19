@@ -1,5 +1,5 @@
+#include <iostream>
 #include "GlobalUtils.h"
-
 #include "VaoManager.h"
 #include "ShaderProgram.h"
 
@@ -37,7 +37,10 @@ void VaoManager::processVaoEntry(VaoEntry* entry) {
 				vao->initGL(shaderProgram);
 				vao->addVaoEntry(entry);
 			}
+		} else {
+			std::cout << "Invalid shader path: " << entry->getShaderPath() << std::endl;
 		}
+
 	}
 }
 

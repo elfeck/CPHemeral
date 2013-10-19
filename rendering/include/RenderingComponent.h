@@ -10,6 +10,11 @@
 
 namespace cph {
 
+enum RenderMode {
+	POINTS, LINES, TRIANGLES
+};
+
+
 struct RenderingComponent : public Component {
 	
 	virtual RenderGeom* addLocalGeom() = 0;
@@ -23,6 +28,7 @@ struct RenderingComponent : public Component {
 	virtual void setShader(const char* path) = 0;
 	virtual void setViewport(int x, int y, int width, int height) = 0;
 	virtual void setScissor(int x, int y, int width, int height) = 0;
+	virtual void setRenderMode(RenderMode rendeMode) = 0;
 	virtual void setVisible(bool visible) = 0;
 
 	virtual std::uint8_t getSysId() const = 0;

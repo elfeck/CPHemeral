@@ -27,6 +27,9 @@ private:
 	void bindVboGL();
 	void bindIboGL();
 
+	void uploadVboGL();
+	void uploadIboGL();
+
 public:
 	Vao();
 	~Vao();
