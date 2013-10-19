@@ -17,10 +17,8 @@ public:
 	~PrmiMat3fImpl();
 	
 	virtual std::uint32_t getUniqueId() const;
-	virtual const char* getName() const;
-	virtual void setName(const char* name);
 
-	virtual void uploadAsUniformGL(GLuint program);
+	virtual void uploadAsUniformGL(GLuint program, std::string name);
 	virtual void fetchVertexData(std::vector<GLfloat>& buffer) const;
 
 	virtual Mat3f* get();

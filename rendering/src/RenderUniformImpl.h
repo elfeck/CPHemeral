@@ -18,7 +18,7 @@ class RenderUniformImpl : public RenderUniform {
 private:
 	const std::uint32_t uniqueId;
 	
-	std::map<std::uint32_t, PrimitiveImpl*> primitives;
+	std::map<std::string, PrimitiveImpl*> primitives;
 
 	PrimitiveAllocator* prmiAllocPtr;
 

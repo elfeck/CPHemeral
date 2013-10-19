@@ -17,15 +17,7 @@ std::uint32_t PrmiVec4fImpl::getUniqueId() const {
 	return PrimitiveImpl::getUniqueId();
 }
 
-const char* PrmiVec4fImpl::getName() const {
-	return PrimitiveImpl::getName();
-}
-
-void PrmiVec4fImpl::setName(const char* name) {
-	PrimitiveImpl::setName(name);
-}
-
-void PrmiVec4fImpl::uploadAsUniformGL(GLuint program) {
+void PrmiVec4fImpl::uploadAsUniformGL(GLuint program, std::string name) {
 	glUniform4f(glGetUniformLocation(program, name.c_str()), vector.getX(), vector.getY(), vector.getZ(), vector.getW());
 }
 
