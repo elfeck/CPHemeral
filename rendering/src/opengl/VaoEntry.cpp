@@ -6,7 +6,7 @@
 using namespace cph;
 
 VaoEntry::VaoEntry() :
-	viewportRect(-1, -1, -1, -1), scissorRect(-1, -1, -1, -1),
+	vertices(), uniforms(), geoms(), viewportRect(-1, -1, -1, -1), scissorRect(-1, -1, -1, -1),
 	shaderPath(""), visible(false), added(false)
 {
 
@@ -65,3 +65,53 @@ void VaoEntry::scissorGL() const {
 void VaoEntry::uploadUniformsGL(GLuint programHandle) const  {
 
 }
+
+void VaoEntry::fetchVertexData(std::vector<GLfloat>& buffer) const {
+	
+}
+
+void VaoEntry::fetchIndexData(std::vector<GLushort>& buffer, unsigned int* offset) const {
+	for(std::map<std::uint32_t, RenderGeomImpl*>::const_iterator it = geoms.begin(); it != geoms.end(); ++it) {
+		it->second->fetchIndexData(buffer, *offset);
+	}
+}
+
+std::map<std::uint32_t, RenderVertexImpl*>* VaoEntry::getVertices() {
+	return &vertices;
+}
+
+std::map<std::uint32_t, RenderGeomImpl*>* VaoEntry::getGeoms() {
+	return &geoms;
+}
+
+void VaoEntry::clear() {
+	geoms.clear();
+	vertices.clear();
+}
+
+void VaoEntry::addVertex(RenderVertexImpl* vertex) {
+	vertices.insert(std::make_pair(vertex->getUniqueId(), vertex));
+}
+
+void VaoEntry::addUniform(RenderUniformImpl* uniform) {
+	uniforms.insert(std::make_pair(uniform->getUniqueId(), uniform));
+}
+
+void VaoEntry::addGeom(RenderGeomImpl* geom) {
+	geoms.insert(std::make_pair(geom->getUniqueId(), geom));
+}
+
+void VaoEntry::removeVertex(std::uint32_t uniqueId) {
+	// set all vertexIndices above this vertex down
+	vertices.erase(uniqueId);
+}
+
+void VaoEntry::removeUniform(std::uint32_t uniqueId) {
+	uniforms.erase(uniqueId);
+}
+
+void VaoEntry::removeGeom(std::uint32_t uniqueId) {
+	// remove all vertices in this geom
+	geoms.erase(uniqueId);
+}
+

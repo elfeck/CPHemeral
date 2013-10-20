@@ -18,6 +18,8 @@ private:
 	GLuint vaoHandle, vboHandle, iboHandle;
 	GLenum usage;
 
+	bool modified;
+
 	std::map<std::string, ShaderProgram> shaderPrograms;
 	std::vector<VaoEntry*> entries;
 	BufferFormat bufferFormat;

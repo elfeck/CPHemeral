@@ -25,13 +25,12 @@ std::uint32_t RenderGeomImpl::getUniqueId() const {
 	return uniqueId;
 }
 
-void RenderGeomImpl::setVertexLookupPtr(SingleIdAllocator<RenderVertexImpl>* vertexLookupPtr) {
-	this->vertexLookupPtr = vertexLookupPtr;
+void RenderGeomImpl::fetchIndexData(std::vector<GLushort>& buffer, unsigned int offset) const {
+	for(std::map<std::uint32_t, RenderVertexImpl*>::const_iterator it = vertices.begin(); it != vertices.end(); ++it) { 
+		buffer.push_back(offset + it->second->getVertexIndex());
+	}
 }
 
-void RenderGeomImpl::destroyAllVerticesRecursively(RenderingComponent* comp) {
-	for(std::map<std::uint32_t, RenderVertexImpl*>::iterator it = vertices.begin(); it != vertices.end(); ++it) {
-		it->second->destroyAllPrimitivesRecursively(comp);
-		comp->destroyVertex(it->second);
-	}
+void RenderGeomImpl::setVertexLookupPtr(SingleIdAllocator<RenderVertexImpl>* vertexLookupPtr) {
+	this->vertexLookupPtr = vertexLookupPtr;
 }

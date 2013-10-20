@@ -50,8 +50,6 @@ int main(int argc, char* argv[]) {
 	vert->addVertexPrimitive(mat3);
 
 	geom->addVertex(vert);
-	comp1->addGeom(geom);
-	comp1->addUniform(uni);
 	obj1->addComponent(comp1);
 
 	//uni->removeUniformPrimitive(vec4);

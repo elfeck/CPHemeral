@@ -29,8 +29,9 @@ public:
 
 	virtual std::uint32_t getUniqueId() const;
 
+	void fetchIndexData(std::vector<GLushort>& buffer, unsigned int offset) const;
+
 	void setVertexLookupPtr(SingleIdAllocator<RenderVertexImpl>* vertexLookupPtr);
-	void destroyAllVerticesRecursively(RenderingComponent* comp);
 };
 
 }

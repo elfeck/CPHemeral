@@ -20,9 +20,6 @@ private:
 	const std::uint32_t uniqueId;
 	std::uint8_t sysId;
 
-	std::map<std::uint32_t, RenderGeomImpl*> geoms;
-	std::map<std::uint32_t, RenderUniformImpl*> uniforms;
-
 	RenderingSystemImpl* system;
 	VaoEntry vaoEntry;
 
@@ -49,12 +46,6 @@ public:
 	virtual void destroyUniform(RenderUniform* uniform);
 	
 	virtual void destroyAllGeomsRecursively();
-
-	virtual void addGeom(RenderGeom* geom);
-	virtual void addUniform(RenderUniform* uniform);
-
-	virtual void removeGeom(RenderGeom* geom);
-	virtual void removeUniform(RenderUniform* uniform);
 
 	virtual void setShader(const char* path);
 	virtual void setViewport(int x, int y, int width, int height);

@@ -27,7 +27,9 @@ std::uint32_t RenderVertexImpl::getUniqueId() const {
 }
 
 void RenderVertexImpl::fetchVertexData(std::vector<GLfloat>& buffer) const {
-
+	for(std::map<std::uint32_t, PrimitiveImpl*>::const_iterator it = primitives.begin(); it != primitives.end(); ++it) {
+		it->second->fetchVertexData(buffer);
+	}
 }
 
 int RenderVertexImpl::getVertexIndex() const {

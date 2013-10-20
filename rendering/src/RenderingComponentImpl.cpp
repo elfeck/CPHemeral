@@ -8,7 +8,7 @@
 using namespace cph;
 
 RenderingComponentImpl::RenderingComponentImpl(std::uint32_t id) :
-	sysId(0), uniqueId(id), geoms(), uniforms(), system(0), vaoEntry()
+	sysId(0), uniqueId(id), system(0), vaoEntry()
 {
 
 }
@@ -68,11 +68,15 @@ RenderGeom* RenderingComponentImpl::createGeom() {
 }
 
 RenderVertex* RenderingComponentImpl::createVertex() {
-	return system->getRenderAllocator().allocRenderVertex();
+	RenderVertexImpl* vertex = system->getRenderAllocator().allocRenderVertex();
+	vaoEntry.addVertex(vertex);
+	return vertex;
 }
 
 RenderUniform* RenderingComponentImpl::createUniform() {
-	return system->getRenderAllocator().allocRenderUniform();
+	RenderUniformImpl* uniform = system->getRenderAllocator().allocRenderUniform();
+	vaoEntry.addUniform(uniform);
+	return uniform;
 }
 
 void RenderingComponentImpl::destroyPrimitive(Primitive* prmi) {
@@ -80,43 +84,31 @@ void RenderingComponentImpl::destroyPrimitive(Primitive* prmi) {
 	system->getRenderAllocator().releasePrimitive(prmi);
 }
 
-void RenderingComponentImpl::destroyGeom(RenderGeom* geom) {
-	geoms.erase(geom->getUniqueId());
-	system->getRenderAllocator().releaseRenderGeom(geom);
-}
-
 void RenderingComponentImpl::destroyVertex(RenderVertex* vertex) {
 	// All geoms should check for that vertex
+	vaoEntry.removeVertex(vertex->getUniqueId());
 	system->getRenderAllocator().releaseRenderVertex(vertex);
 }
 
 void RenderingComponentImpl::destroyUniform(RenderUniform* uniform) {
-	uniforms.erase(uniform->getUniqueId());
+	vaoEntry.removeUniform(uniform->getUniqueId());
 	system->getRenderAllocator().releaseRenderUniform(uniform);
 }
 
+void RenderingComponentImpl::destroyGeom(RenderGeom* geom) {
+	vaoEntry.removeGeom(geom->getUniqueId());
+	system->getRenderAllocator().releaseRenderGeom(geom);
+}
+
 void RenderingComponentImpl::destroyAllGeomsRecursively() {
-	for(std::map<std::uint32_t, RenderGeomImpl*>::iterator it = geoms.begin(); it != geoms.end(); ++it) {
-		it->second->destroyAllVerticesRecursively(this);
+	for(std::map<std::uint32_t, RenderGeomImpl*>::iterator it = vaoEntry.getGeoms()->begin(); it != vaoEntry.getGeoms()->end(); ++it) {
 		system->getRenderAllocator().releaseRenderGeom(it->second);
 	}
-	geoms.clear();
-}
-
-void RenderingComponentImpl::addGeom(RenderGeom* geom) {
-	geoms.insert(std::make_pair(geom->getUniqueId(), system->getRenderAllocator().lookupGeom(geom)));
-}
-
-void RenderingComponentImpl::addUniform(RenderUniform* uniform) {
-	uniforms.insert(std::make_pair(uniform->getUniqueId(), system->getRenderAllocator().lookupUniform(uniform)));
-}
-
-void RenderingComponentImpl::removeGeom(RenderGeom* geom) {
-	geoms.erase(geom->getUniqueId());
-}
-
-void RenderingComponentImpl::removeUniform(RenderUniform* uniform) {
-	uniforms.erase(uniform->getUniqueId());
+	for(std::map<std::uint32_t, RenderVertexImpl*>::iterator it = vaoEntry.getVertices()->begin(); it != vaoEntry.getVertices()->end(); ++it) {
+		it->second->destroyAllPrimitivesRecursively(this);
+		system->getRenderAllocator().releaseRenderVertex(it->second);
+	}
+	vaoEntry.clear();
 }
 
 void RenderingComponentImpl::setShader(const char* path) {

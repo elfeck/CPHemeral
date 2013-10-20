@@ -7,7 +7,7 @@ using namespace cph;
 
 Vao::Vao() :
 	vaoHandle(0), vboHandle(0), iboHandle(0),
-	usage(GL_STATIC_DRAW), entries(), shaderPrograms(), bufferFormat()
+	usage(GL_STATIC_DRAW), modified(false), entries(), shaderPrograms(), bufferFormat()
 {
 
 }
@@ -29,10 +29,12 @@ void Vao::addVaoEntry(VaoEntry* entry, ShaderProgram* program) {
 		entries.push_back(entry);
 	}
 	entry->setAdded(true);
+	modified = true;
 }
 
 void Vao::removeVaoEntry(VaoEntry* entry) {
 	entries.erase(std::remove(entries.begin(), entries.end(), entry), entries.end());
+	modified = true;
 }
 
 bool Vao::hasShader(std::string shaderId) const {
@@ -75,5 +77,14 @@ void Vao::drawGL() const {
 }
 
 void Vao::updateGL() {
-
+	if(modified) {
+		std::vector<GLfloat> vertexBuffer;
+		std::vector<GLushort> indexBuffer;
+		unsigned int offset = 0;
+		for(std::vector<VaoEntry*>::iterator it = entries.begin(); it != entries.end(); ++it) {
+			(*it)->fetchVertexData(vertexBuffer);
+			(*it)->fetchIndexData(indexBuffer, &offset);
+		}
+		modified = false;
+	}
 }

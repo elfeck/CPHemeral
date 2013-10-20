@@ -38,12 +38,6 @@ struct RenderingComponent : public Component {
 
 	virtual void destroyAllGeomsRecursively() = 0;
 
-	virtual void addGeom(RenderGeom* geom) = 0;
-	virtual void addUniform(RenderUniform* uniform) = 0;
-
-	virtual void removeGeom(RenderGeom* geom) = 0;
-	virtual void removeUniform(RenderUniform* uniform) = 0;
-
 	virtual void setShader(const char* path) = 0;
 	virtual void setViewport(int x, int y, int width, int height) = 0;
 	virtual void setScissor(int x, int y, int width, int height) = 0;
