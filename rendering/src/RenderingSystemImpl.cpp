@@ -5,7 +5,7 @@
 using namespace cph;
 
 RenderingSystemImpl::RenderingSystemImpl(std::uint8_t id) :
-	componentAlloc(), sysId(id), vaoManager()
+	componentAlloc(), renderAlloc(), sysId(id), vaoManager()
 {
 
 }
@@ -32,6 +32,8 @@ void RenderingSystemImpl::execute(ObjectManager* objectManager, long delta) {
 		comp = componentAlloc.at(queue->pop()->getComponent(sysId)->getUniqueId());
 		vaoManager.processVaoEntry(comp->getVaoEntry());
 	}
+	vaoManager.updateGL();
+	vaoManager.drawGL();
 }
 
 void RenderingSystemImpl::releaseComponent(RenderingComponentImpl* component) {
@@ -40,6 +42,6 @@ void RenderingSystemImpl::releaseComponent(RenderingComponentImpl* component) {
 
 }
 
-RenderAllocator& RenderingSystemImpl::getRenderAllocator() {
-	return renderAlloc;
+RenderAllocator* RenderingSystemImpl::getRenderAllocator() {
+	return &renderAlloc;
 }

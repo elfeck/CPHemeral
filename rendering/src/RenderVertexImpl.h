@@ -4,8 +4,10 @@
 #include <map>
 #include <unordered_map>
 #include <cstdint>
+#include <set>
 #include <gl/glew.h>
 #include "../include/RenderVertex.h"
+#include "opengl/AttributeFormat.h"
 #include "primitive/PrimitiveImpl.h"
 #include "PrimitiveAllocator.h"
 
@@ -18,7 +20,7 @@ private:
 	const std::uint32_t uniqueId;
 	int vertexIndex;
 
-	std::map<std::uint32_t, PrimitiveImpl*> primitives;
+	std::map<std::string, PrimitiveImpl*> primitives;
 	
 	PrimitiveAllocator* prmiAllocPtr;
 
@@ -38,7 +40,7 @@ public:
 	
 	virtual std::uint32_t getUniqueId() const;
 
-	void fetchVertexData(std::vector<GLfloat>& buffer) const;
+	void fetchVertexData(std::vector<GLfloat>& buffer, const std::set<AttributeFormat>& format) const;
 	
 	int getVertexIndex() const;
 	void setVertexIndex(int vertexIndex);

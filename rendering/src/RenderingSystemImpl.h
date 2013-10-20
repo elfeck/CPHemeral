@@ -33,7 +33,7 @@ public:
 	virtual void execute(ObjectManager* objectManager, long delta);
 
 	void releaseComponent(RenderingComponentImpl* component);
-	RenderAllocator& getRenderAllocator();
+	RenderAllocator* getRenderAllocator();
 
 };
 

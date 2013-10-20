@@ -34,11 +34,43 @@ int main(int argc, char* argv[]) {
 
 	renderingSystem = createRenderingSystem(0x01);
 	scene1 = createObjectManager();
+	
 	// ################
+	Object* obj = scene1->createObject();
+	RenderingComponent* comp = renderingSystem->createComponent();
+	obj->addComponent(comp);
 
+	comp->setShader("D://Projects/C++/CPHemeral/test/res/test1");
+	comp->setViewport(0, 0, 240, 320);
+	comp->setScissor(0, 0, 240, 320);
+	comp->setVisible(true);
+
+	RenderVertex* vert1 = comp->addLocalVertex();
+	RenderVertex* vert2 = comp->addLocalVertex();
+	RenderVertex* vert3 = comp->addLocalVertex();
+	RenderVertex* vert4 = comp->addLocalVertex();
+
+	PrmiVec4f* vec1 = vert1->addVec4f("vert_position", -0.5f, 0.5f, 0, 0);
+	PrmiVec4f* vec2 = vert2->addVec4f("vert_position", 0.5f, 0.5f, 0, 0);
+	PrmiVec4f* vec3 = vert3->addVec4f("vert_position", 0.5f, -0.5f, 0, 0);
+	PrmiVec4f* vec4 = vert4->addVec4f("vert_position", -0.5f, -0.5f, 0, 0);
+
+	RenderGeom* geom1 = comp->addLocalGeom();
+	RenderGeom* geom2 = comp->addLocalGeom();
+
+	geom1->addVertex(vert1);
+	geom1->addVertex(vert2);
+	geom1->addVertex(vert3);
+
+	geom2->addVertex(vert1);
+	geom2->addVertex(vert3);
+	geom2->addVertex(vert4);
 	// ################
 
 	display->enterMainLoop();
+
+	comp->destroy();
+	obj->destroy();
 
 	deleteRenderingSystem(renderingSystem);
 	deleteObjectManager(scene1);

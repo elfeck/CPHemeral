@@ -10,7 +10,7 @@ using namespace cph;
 RenderingComponentImpl::RenderingComponentImpl(std::uint32_t id) :
 	sysId(0), uniqueId(id), system(0), vaoEntry()
 {
-	vaoEntry.setAllocPtr(&system->getRenderAllocator());
+
 }
 
 RenderingComponentImpl::~RenderingComponentImpl() {
@@ -71,6 +71,7 @@ void RenderingComponentImpl::destroy() {
 
 void RenderingComponentImpl::setSystem(RenderingSystemImpl* system) {
 	this->system = system;
+	vaoEntry.setAllocPtr(system->getRenderAllocator());
 }
 
 void RenderingComponentImpl::setSysId(std::uint8_t id) {

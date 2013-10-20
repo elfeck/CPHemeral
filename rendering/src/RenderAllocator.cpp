@@ -4,7 +4,7 @@
 using namespace cph;
 
 RenderAllocator::RenderAllocator() :
-	prmiAlloc(), vertexAlloc(), uniformAlloc()
+	prmiAlloc(), geomAlloc(), vertexAlloc(), uniformAlloc()
 {
 
 }

@@ -50,6 +50,12 @@ void VaoManager::cleanVaoEntry(VaoEntry* entry) {
 	}
 }
 
+void VaoManager::updateGL() {
+	for(SingleAllocator<Vao>::iterator it = vaoAlloc.begin(); it != vaoAlloc.end(); ++it) {
+		it->updateGL();
+	}
+}
+
 void VaoManager::drawGL() {
 	for(SingleAllocator<Vao>::iterator it = vaoAlloc.begin(); it != vaoAlloc.end(); ++it) {
 		it->drawGL();

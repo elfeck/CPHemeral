@@ -74,14 +74,17 @@ void VaoEntry::uploadUniformsGL(GLuint programHandle) const  {
 
 }
 
-void VaoEntry::fetchVertexData(std::vector<GLfloat>& buffer) const {
-	
+void VaoEntry::fetchVertexData(std::vector<GLfloat>& buffer, unsigned int* offset, const std::set<AttributeFormat>& format) const {
+	for(std::map<std::uint32_t, RenderVertexImpl*>::const_iterator it = vertices.begin(); it != vertices.end(); ++it) {
+		it->second->fetchVertexData(buffer, format);
+	}
 }
 
 void VaoEntry::fetchIndexData(std::vector<GLushort>& buffer, unsigned int* offset) const {
 	for(std::map<std::uint32_t, RenderGeomImpl*>::const_iterator it = geoms.begin(); it != geoms.end(); ++it) {
 		it->second->fetchIndexData(buffer, *offset);
 	}
+	*offset += vertices.size();
 }
 
 RenderGeomImpl* VaoEntry::addLocalGeom() {
@@ -92,6 +95,7 @@ RenderGeomImpl* VaoEntry::addLocalGeom() {
 
 RenderVertexImpl* VaoEntry::addLocalVertex() {
 	RenderVertexImpl* vertex = allocPtr->allocRenderVertex();
+	vertex->setVertexIndex(vertices.size());
 	vertices.insert(std::make_pair(vertex->getUniqueId(), vertex));
 	return vertex;
 }

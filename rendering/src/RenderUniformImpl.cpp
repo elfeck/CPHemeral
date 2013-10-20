@@ -17,6 +17,7 @@ RenderUniformImpl::~RenderUniformImpl() {
 
 PrmiVec1f* RenderUniformImpl::addVec1f(const char* name, float x) {
 	PrmiVec1fImpl* vec = prmiAllocPtr->allocPrmiVec1f();
+	primitives.insert(std::make_pair(vec->getUniqueId(), vec));
 	vec->get()->setX(x);
 	vec->setName(name);
 	vec->setLocal(true);
@@ -25,6 +26,7 @@ PrmiVec1f* RenderUniformImpl::addVec1f(const char* name, float x) {
 
 PrmiVec2f* RenderUniformImpl::addVec2f(const char* name, float x, float y) {
 	PrmiVec2fImpl* vec = prmiAllocPtr->allocPrmiVec2f();
+	primitives.insert(std::make_pair(vec->getUniqueId(), vec));
 	vec->get()->setXY(x, y);
 	vec->setName(name);
 	vec->setLocal(true);
@@ -33,6 +35,7 @@ PrmiVec2f* RenderUniformImpl::addVec2f(const char* name, float x, float y) {
 
 PrmiVec3f* RenderUniformImpl::addVec3f(const char* name, float x, float y, float z) {
 	PrmiVec3fImpl* vec = prmiAllocPtr->allocPrmiVec3f();
+	primitives.insert(std::make_pair(vec->getUniqueId(), vec));
 	vec->get()->setXYZ(x, y, z);
 	vec->setName(name);
 	vec->setLocal(true);
@@ -41,6 +44,7 @@ PrmiVec3f* RenderUniformImpl::addVec3f(const char* name, float x, float y, float
 
 PrmiVec4f* RenderUniformImpl::addVec4f(const char* name, float x, float y, float z, float w) {
 	PrmiVec4fImpl* vec = prmiAllocPtr->allocPrmiVec4f();
+	primitives.insert(std::make_pair(vec->getUniqueId(), vec));
 	vec->get()->setXYZW(x, y, z, w);
 	vec->setName(name);
 	vec->setLocal(true);
@@ -49,6 +53,7 @@ PrmiVec4f* RenderUniformImpl::addVec4f(const char* name, float x, float y, float
 
 PrmiMat2f* RenderUniformImpl::addMat2f(const char* name) {
 	PrmiMat2fImpl* mat = prmiAllocPtr->allocPrmiMat2f();
+	primitives.insert(std::make_pair(mat->getUniqueId(), mat));
 	mat->setName(name);
 	mat->setLocal(true);
 	return mat;
@@ -56,6 +61,7 @@ PrmiMat2f* RenderUniformImpl::addMat2f(const char* name) {
 
 PrmiMat3f* RenderUniformImpl::addMat3f(const char* name) {
 	PrmiMat3fImpl* mat = prmiAllocPtr->allocPrmiMat3f();
+	primitives.insert(std::make_pair(mat->getUniqueId(), mat));
 	mat->setName(name);
 	mat->setLocal(true);
 	return mat;
@@ -63,12 +69,14 @@ PrmiMat3f* RenderUniformImpl::addMat3f(const char* name) {
 
 PrmiMat4f* RenderUniformImpl::addMat4f(const char* name) {
 	PrmiMat4fImpl* mat = prmiAllocPtr->allocPrmiMat4f();
+	primitives.insert(std::make_pair(mat->getUniqueId(), mat));
 	mat->setName(name);
 	mat->setLocal(true);
 	return mat;
 }
 
 void RenderUniformImpl::removePrimitive(Primitive* prmi) {
+	primitives.erase(prmi->getUniqueId());
 	prmiAllocPtr->releasePrimitive(prmi);
 }
 
@@ -77,7 +85,9 @@ std::uint32_t RenderUniformImpl::getUniqueId() const {
 }
 
 void RenderUniformImpl::uploadUniformGL(GLuint program) {
-
+	for(std::map<std::uint32_t, PrimitiveImpl*>::iterator it = primitives.begin(); it != primitives.end(); ++it) {
+		it->second->uploadAsUniformGL(program);
+	}
 }
 
 void RenderUniformImpl::setPrmiAllocPtr(PrimitiveAllocator* prmiAllocPtr) {

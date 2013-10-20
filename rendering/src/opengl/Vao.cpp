@@ -22,7 +22,7 @@ void Vao::addVaoEntry(VaoEntry* entry, ShaderProgram* program) {
 	} else if(program != 0) {
 		if(entry->getShaderPath() == program->getShaderId() && supportsShader(*program)) {
 			shaderPrograms.insert(std::make_pair(program->getShaderId(), *program));
-		entries.push_back(entry);
+			entries.push_back(entry);
 		}
 	} else {
 		shaderPrograms.insert(std::make_pair(entry->getShaderPath(), ShaderProgram(entry->getShaderPath())));
@@ -80,10 +80,11 @@ void Vao::updateGL() {
 	if(modified) {
 		std::vector<GLfloat> vertexBuffer;
 		std::vector<GLushort> indexBuffer;
-		unsigned int offset = 0;
+		unsigned int vertexOffset = 0;
+		unsigned int indexOffset = 0;
 		for(std::vector<VaoEntry*>::iterator it = entries.begin(); it != entries.end(); ++it) {
-			(*it)->fetchVertexData(vertexBuffer);
-			(*it)->fetchIndexData(indexBuffer, &offset);
+			(*it)->fetchVertexData(vertexBuffer, &vertexOffset, shaderPrograms.at((*it)->getShaderPath()).getAttritbuteFormat());
+			(*it)->fetchIndexData(indexBuffer, &indexOffset);
 		}
 		modified = false;
 	}

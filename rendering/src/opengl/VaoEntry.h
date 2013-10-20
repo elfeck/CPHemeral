@@ -4,11 +4,13 @@
 #include <gl/glew.h>
 #include <vector>
 #include <cstdint>
+#include <set>
 #include "Rectf.h"
 #include "../RenderUniformImpl.h"
 #include "../RenderVertexImpl.h"
 #include "../RenderGeomImpl.h"
 #include "../RenderAllocator.h"
+#include "AttributeFormat.h"
 
 
 namespace cph {
@@ -47,7 +49,7 @@ public:
 	void scissorGL() const;
 	void uploadUniformsGL(GLuint programHandle) const;
 
-	void fetchVertexData(std::vector<GLfloat>& buffer) const;
+	void fetchVertexData(std::vector<GLfloat>& buffer, unsigned int* offset, const std::set<AttributeFormat>& format) const;
 	void fetchIndexData(std::vector<GLushort>& buffer, unsigned int* offset) const;
 	
 	RenderGeomImpl* addLocalGeom();

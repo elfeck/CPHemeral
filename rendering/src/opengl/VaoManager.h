@@ -22,6 +22,7 @@ public:
 	void cleanVaoEntry(VaoEntry* entry);
 	void processVaoEntry(VaoEntry* entry);
 	
+	void updateGL();
 	void drawGL();
 };
 
