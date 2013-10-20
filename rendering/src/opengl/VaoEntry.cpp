@@ -13,7 +13,15 @@ VaoEntry::VaoEntry() :
 }
 
 VaoEntry::~VaoEntry() {
-
+	for(std::map<std::uint32_t, RenderGeomImpl*>::iterator it = geoms.begin(); it != geoms.end(); ++it) {
+		allocPtr->releaseRenderGeom(it->second);
+	}
+	for(std::map<std::uint32_t, RenderVertexImpl*>::iterator it = vertices.begin(); it != vertices.end(); ++it) {
+		allocPtr->releaseRenderVertex(it->second);
+	}
+	for(std::map<std::uint32_t, RenderUniformImpl*>::iterator it = uniforms.begin(); it != uniforms.end(); ++it) {
+		allocPtr->releaseRenderUniform(it->second);
+	}
 }
 
 std::string VaoEntry::getShaderPath() const {
@@ -76,29 +84,39 @@ void VaoEntry::fetchIndexData(std::vector<GLushort>& buffer, unsigned int* offse
 	}
 }
 
-void VaoEntry::addVertex(RenderVertexImpl* vertex) {
-	vertices.insert(std::make_pair(vertex->getUniqueId(), vertex));
-}
-
-void VaoEntry::addUniform(RenderUniformImpl* uniform) {
-	uniforms.insert(std::make_pair(uniform->getUniqueId(), uniform));
-}
-
-void VaoEntry::addGeom(RenderGeomImpl* geom) {
+RenderGeomImpl* VaoEntry::addLocalGeom() {
+	RenderGeomImpl* geom = allocPtr->allocRenderGeom();
 	geoms.insert(std::make_pair(geom->getUniqueId(), geom));
+	return geom;
 }
 
-void VaoEntry::removeVertex(std::uint32_t uniqueId) {
-	// set all vertexIndices above this vertex down
-	vertices.erase(uniqueId);
+RenderVertexImpl* VaoEntry::addLocalVertex() {
+	RenderVertexImpl* vertex = allocPtr->allocRenderVertex();
+	vertices.insert(std::make_pair(vertex->getUniqueId(), vertex));
+	return vertex;
 }
 
-void VaoEntry::removeUniform(std::uint32_t uniqueId) {
-	uniforms.erase(uniqueId);
+RenderUniformImpl* VaoEntry::addLocalUniform() {
+	RenderUniformImpl* uniform = allocPtr->allocRenderUniform();
+	uniforms.insert(std::make_pair(uniform->getUniqueId(), uniform));
+	return uniform;
 }
 
-void VaoEntry::removeGeom(std::uint32_t uniqueId) {
-	// remove all vertices in this geom
-	geoms.erase(uniqueId);
+void VaoEntry::removeLocalGeom(RenderGeom* geom) {
+	geoms.erase(geom->getUniqueId());
+	allocPtr->releaseRenderGeom(geom);
 }
 
+void VaoEntry::removeLocalVertex(RenderVertex* vertex) {
+	vertices.erase(vertex->getUniqueId());
+	allocPtr->releaseRenderVertex(vertex);
+}
+
+void VaoEntry::removeLocalUniform(RenderUniform* uniform) {
+	uniforms.erase(uniform->getUniqueId());
+	allocPtr->releaseRenderUniform(uniform);
+}
+
+void VaoEntry::setAllocPtr(RenderAllocator* allocPtr) {
+	this->allocPtr = allocPtr;
+}

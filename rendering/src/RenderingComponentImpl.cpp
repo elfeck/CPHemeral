@@ -10,44 +10,35 @@ using namespace cph;
 RenderingComponentImpl::RenderingComponentImpl(std::uint32_t id) :
 	sysId(0), uniqueId(id), system(0), vaoEntry()
 {
-
+	vaoEntry.setAllocPtr(&system->getRenderAllocator());
 }
 
 RenderingComponentImpl::~RenderingComponentImpl() {
 
 }
 
-RenderGeom* RenderingComponentImpl::addGeom() {
-	RenderGeomImpl* geom = system->getRenderAllocator().allocRenderGeom();
-	vaoEntry.addGeom(geom);
-	return geom;
+RenderGeom* RenderingComponentImpl::addLocalGeom() {
+	return vaoEntry.addLocalGeom();
 }
 
-RenderVertex* RenderingComponentImpl::addVertex() {
-	RenderVertexImpl* vertex = system->getRenderAllocator().allocRenderVertex();
-	vaoEntry.addVertex(vertex);
-	return vertex;
+RenderVertex* RenderingComponentImpl::addLocalVertex() {
+	return vaoEntry.addLocalVertex();
 }
 
 RenderUniform* RenderingComponentImpl::addLocalUniform() {
-	RenderUniformImpl* uniform = system->getRenderAllocator().allocRenderUniform();
-	vaoEntry.addUniform(uniform);
-	return uniform;
+	return vaoEntry.addLocalUniform();
 }
 
-void RenderingComponentImpl::removeGeom(RenderGeom* geom) {
-	vaoEntry.removeGeom(geom->getUniqueId());
-	system->getRenderAllocator().releaseRenderGeom(geom);
+void RenderingComponentImpl::removeLocalGeom(RenderGeom* geom) {
+	vaoEntry.removeLocalGeom(geom);
 }
 
-void RenderingComponentImpl::removeVertex(RenderVertex* vertex) {
-	vaoEntry.removeVertex(vertex->getUniqueId());
-	system->getRenderAllocator().releaseRenderVertex(vertex);
+void RenderingComponentImpl::removeLocalVertex(RenderVertex* vertex) {
+	vaoEntry.removeLocalVertex(vertex);
 }
 
 void RenderingComponentImpl::removeLocalUniform(RenderUniform* uniform) {
-	vaoEntry.removeUniform(uniform->getUniqueId());
-	system->getRenderAllocator().releaseRenderUniform(uniform);
+	vaoEntry.removeLocalUniform(uniform);
 }
 
 void RenderingComponentImpl::setShader(const char* path) {

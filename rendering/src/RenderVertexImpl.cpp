@@ -10,53 +10,61 @@ RenderVertexImpl::RenderVertexImpl(std::uint32_t uniqueId) :
 }
 
 RenderVertexImpl::~RenderVertexImpl() {
-
+	for(std::map<std::uint32_t, PrimitiveImpl*>::iterator it = primitives.begin(); it != primitives.end(); ++it) {
+		if(it->second->isLocal()) prmiAllocPtr->releasePrimitive(it->second);
+	}
 }
 
-
 PrmiVec1f* RenderVertexImpl::addVec1f(const char* name, float x) {
-	PrmiVec1f* vec = prmiAllocPtr->allocPrmiVec1f();
+	PrmiVec1fImpl* vec = prmiAllocPtr->allocPrmiVec1f();
 	vec->get()->setX(x);
 	vec->setName(name);
+	vec->setLocal(true);
 	return vec;
 }
 
 PrmiVec2f* RenderVertexImpl::addVec2f(const char* name, float x, float y) {
-	PrmiVec2f* vec = prmiAllocPtr->allocPrmiVec2f();
+	PrmiVec2fImpl* vec = prmiAllocPtr->allocPrmiVec2f();
 	vec->get()->setXY(x, y);
 	vec->setName(name);
+	vec->setLocal(true);
 	return vec;
 }
 
 PrmiVec3f* RenderVertexImpl::addVec3f(const char* name, float x, float y, float z) {
-	PrmiVec3f* vec = prmiAllocPtr->allocPrmiVec3f();
+	PrmiVec3fImpl* vec = prmiAllocPtr->allocPrmiVec3f();
 	vec->get()->setXYZ(x, y, z);
 	vec->setName(name);
+	vec->setLocal(true);
 	return vec;
 }
 
 PrmiVec4f* RenderVertexImpl::addVec4f(const char* name, float x, float y, float z, float w) {
-	PrmiVec4f* vec = prmiAllocPtr->allocPrmiVec4f();
+	PrmiVec4fImpl* vec = prmiAllocPtr->allocPrmiVec4f();
 	vec->get()->setXYZW(x, y, z, w);
 	vec->setName(name);
+	vec->setLocal(true);
 	return vec;
 }	
 
 PrmiMat2f* RenderVertexImpl::addMat2f(const char* name) {
-	PrmiMat2f* mat = prmiAllocPtr->allocPrmiMat2f();
+	PrmiMat2fImpl* mat = prmiAllocPtr->allocPrmiMat2f();
 	mat->setName(name);
+	mat->setLocal(true);
 	return mat;
 }
 
 PrmiMat3f* RenderVertexImpl::addMat3f(const char* name) {
-	PrmiMat3f* mat = prmiAllocPtr->allocPrmiMat3f();
+	PrmiMat3fImpl* mat = prmiAllocPtr->allocPrmiMat3f();
 	mat->setName(name);
+	mat->setLocal(true);
 	return mat;
 }
 
 PrmiMat4f* RenderVertexImpl::addMat4f(const char* name) {
-	PrmiMat4f* mat = prmiAllocPtr->allocPrmiMat4f();
+	PrmiMat4fImpl* mat = prmiAllocPtr->allocPrmiMat4f();
 	mat->setName(name);
+	mat->setLocal(true);
 	return mat;
 }
 

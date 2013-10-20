@@ -5,7 +5,7 @@
 using namespace cph;
 
 PrimitiveImpl::PrimitiveImpl(std::uint32_t uniqueId) :
-	name(""), uniqueId(uniqueId)
+	local(true), name(""), uniqueId(uniqueId)
 {
 
 }
@@ -25,4 +25,12 @@ const char* PrimitiveImpl::getName() const {
 
 void PrimitiveImpl::setName(const char* name) {
 	this->name = name;
+}
+
+bool PrimitiveImpl::isLocal() {
+	return local;
+}
+
+void PrimitiveImpl::setLocal(bool local) {
+	this->local = local;
 }

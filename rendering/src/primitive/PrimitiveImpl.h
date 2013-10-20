@@ -11,6 +11,9 @@ namespace cph {
 
 class PrimitiveImpl : public Primitive {
 
+private:
+	bool local;
+
 protected:
 	const std::uint32_t uniqueId;
 	std::string name;
@@ -25,6 +28,9 @@ public:
 
 	virtual void uploadAsUniformGL(GLuint program) = 0;
 	virtual void fetchVertexData(std::vector<GLfloat>& buffer) const = 0;
+
+	bool isLocal();
+	void setLocal(bool local);
 
 };
 

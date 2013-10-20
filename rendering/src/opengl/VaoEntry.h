@@ -8,6 +8,7 @@
 #include "../RenderUniformImpl.h"
 #include "../RenderVertexImpl.h"
 #include "../RenderGeomImpl.h"
+#include "../RenderAllocator.h"
 
 
 namespace cph {
@@ -23,8 +24,9 @@ private:
 	std::string shaderPath;
 	GLenum mode;
 	bool visible, added;
-
 	int indexOffset;
+
+	RenderAllocator* allocPtr;
 
 public:
 	VaoEntry();
@@ -48,13 +50,15 @@ public:
 	void fetchVertexData(std::vector<GLfloat>& buffer) const;
 	void fetchIndexData(std::vector<GLushort>& buffer, unsigned int* offset) const;
 	
-	void addVertex(RenderVertexImpl* vertex);
-	void addUniform(RenderUniformImpl* uniform);
-	void addGeom(RenderGeomImpl* geom);
+	RenderGeomImpl* addLocalGeom();
+	RenderVertexImpl* addLocalVertex();
+	RenderUniformImpl* addLocalUniform();
 
-	void removeVertex(std::uint32_t uniqueId);
-	void removeUniform(std::uint32_t uniqueId);
-	void removeGeom(std::uint32_t uniqueId);
+	void removeLocalGeom(RenderGeom* geom);
+	void removeLocalVertex(RenderVertex* vertex);
+	void removeLocalUniform(RenderUniform* uniform);
+
+	void setAllocPtr(RenderAllocator* allocPtr);
 
 };
 
