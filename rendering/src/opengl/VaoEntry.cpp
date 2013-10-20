@@ -7,7 +7,7 @@ using namespace cph;
 
 VaoEntry::VaoEntry() :
 	vertices(), uniforms(), geoms(), viewportRect(-1, -1, -1, -1), scissorRect(-1, -1, -1, -1),
-	shaderPath(""), visible(false), added(false)
+	shaderPath(""), mode(GL_TRIANGLES), visible(false), added(false), indexOffset(0), indexCount(0), vertexOffset(0), allocPtr(0)
 {
 
 }
@@ -32,6 +32,10 @@ GLenum VaoEntry::getMode() const {
 	return mode;
 }
 
+void VaoEntry::setMode(GLenum mode) {
+	this->mode = mode;
+}
+
 bool VaoEntry::isAdded() const {
 	return added;
 }
@@ -46,10 +50,6 @@ void VaoEntry::setScissorRect(int x, int y, int width, int height) {
 
 void VaoEntry::setShader(std::string path) {
 	this->shaderPath = path;
-}
-
-void VaoEntry::setMode(GLenum mode) {
-	this->mode = mode;
 }
 
 void VaoEntry::setVisible(bool visible) {
@@ -74,15 +74,27 @@ void VaoEntry::uploadUniformsGL(GLuint programHandle) const  {
 
 }
 
-void VaoEntry::fetchVertexData(std::vector<GLfloat>& buffer, unsigned int* offset, const std::set<AttributeFormat>& format) const {
+unsigned int VaoEntry::getIndexOffset() const {
+	return indexOffset;
+}
+
+unsigned int VaoEntry::getIndexCount() const {
+	return indexCount;
+}
+
+void VaoEntry::fetchVertexData(std::vector<GLfloat>& buffer, unsigned int* offset, const std::set<AttributeFormat>& format) {
+	vertexOffset = *offset;
 	for(std::map<std::uint32_t, RenderVertexImpl*>::const_iterator it = vertices.begin(); it != vertices.end(); ++it) {
 		it->second->fetchVertexData(buffer, format);
 	}
 }
 
-void VaoEntry::fetchIndexData(std::vector<GLushort>& buffer, unsigned int* offset) const {
+void VaoEntry::fetchIndexData(std::vector<GLushort>& buffer, unsigned int* offset) {
+	indexOffset = *offset;
+	indexCount = 0;
 	for(std::map<std::uint32_t, RenderGeomImpl*>::const_iterator it = geoms.begin(); it != geoms.end(); ++it) {
 		it->second->fetchIndexData(buffer, *offset);
+		indexCount += it->second->getVertexCount();
 	}
 	*offset += vertices.size();
 }

@@ -26,7 +26,7 @@ private:
 	std::string shaderPath;
 	GLenum mode;
 	bool visible, added;
-	int indexOffset;
+	unsigned int indexOffset, indexCount, vertexOffset;
 
 	RenderAllocator* allocPtr;
 
@@ -36,12 +36,12 @@ public:
 
 	std::string getShaderPath() const;
 	GLenum getMode() const;
+	void setMode(GLenum mode);
 	bool isAdded() const;
 
 	void setViewportRect(int x, int y, int width, int height);
 	void setScissorRect(int x, int y, int width, int height);
 	void setShader(std::string path);
-	void setMode(GLenum mode);
 	void setVisible(bool visible);
 	void setAdded(bool added);
 
@@ -49,8 +49,11 @@ public:
 	void scissorGL() const;
 	void uploadUniformsGL(GLuint programHandle) const;
 
-	void fetchVertexData(std::vector<GLfloat>& buffer, unsigned int* offset, const std::set<AttributeFormat>& format) const;
-	void fetchIndexData(std::vector<GLushort>& buffer, unsigned int* offset) const;
+	unsigned int getIndexOffset() const;
+	unsigned int getIndexCount() const;
+
+	void fetchVertexData(std::vector<GLfloat>& buffer, unsigned int* offset, const std::set<AttributeFormat>& format);
+	void fetchIndexData(std::vector<GLushort>& buffer, unsigned int* offset);
 	
 	RenderGeomImpl* addLocalGeom();
 	RenderVertexImpl* addLocalVertex();

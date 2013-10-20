@@ -6,6 +6,7 @@
 using namespace cph;
 
 ShaderProgram::ShaderProgram(std::string shaderPath) :
+	vertHandle(0), fragHandle(0), programHandle(0), initialized(false),
 	attribFormat(), shaderId(shaderPath), vertSource(fileToString(shaderPath + ".vert")), fragSource(fileToString(shaderPath + ".frag"))
 {
 	processVertexShader();
@@ -69,14 +70,88 @@ void ShaderProgram::processVertexShader() {
 	for(std::set<AttributeFormat>::iterator it = attribFormat.begin(); it != attribFormat.end(); ++it) {
 		vertSource = stringReplaceAll(vertSource, it->getOriginalName(), it->getName());
 	}
-
-	std::cout << vertSource << std::endl;
 }
 
 std::string ShaderProgram::getShaderId() const {
 	return shaderId;
 }
 
+GLuint ShaderProgram::getProgramHandle() const {
+	return programHandle;
+}
+
 const std::set<AttributeFormat>& ShaderProgram::getAttritbuteFormat() const {
 	return attribFormat;
+}
+
+void ShaderProgram::bindGL() {
+	if(!initialized) {
+		compileShaderGL();
+		attachShaderGL();
+		linkShaderGL();
+	}
+	glUseProgram(programHandle);
+}
+
+void ShaderProgram::unbindGL() {
+	glUseProgram(0);
+}
+
+void ShaderProgram::compileShaderGL() {
+	vertHandle = glCreateShader(GL_VERTEX_SHADER);
+	const char* vertSrc = vertSource.c_str();
+	glShaderSource(vertHandle, 1, &vertSrc, 0);
+	glCompileShader(vertHandle);
+	checkCompilationGL(vertHandle);
+		
+	fragHandle = glCreateShader(GL_FRAGMENT_SHADER);
+	const char* fragSrc = fragSource.c_str();
+	glShaderSource(fragHandle, 1, &fragSrc, 0);
+	glCompileShader(fragHandle);
+	checkCompilationGL(fragHandle);
+}
+
+void ShaderProgram::attachShaderGL() {
+	programHandle = glCreateProgram();
+	glAttachShader(programHandle, vertHandle);
+	glAttachShader(programHandle, fragHandle);
+}
+
+void ShaderProgram::linkShaderGL() {
+	glLinkProgram(programHandle);
+	checkLinkageGL();
+	glValidateProgram(programHandle);
+	initialized = true;
+}
+
+void ShaderProgram::checkCompilationGL(int handle) {
+	GLint status = 0;
+	glGetShaderiv(handle, GL_COMPILE_STATUS, &status);
+	if(status == GL_FALSE) {
+		std::cout << "Error while compiling shader: " << shaderId << std::endl;
+		GLint infoLogLength = 0;
+		glGetShaderiv(handle, GL_INFO_LOG_LENGTH, &infoLogLength);
+		GLchar* infoLog = new GLchar[infoLogLength + 1];
+		glGetShaderInfoLog(handle, infoLogLength, 0, infoLog);
+		std::cout << infoLog << std::endl;
+		delete[] infoLog;
+	} else {
+		std::cout << "No errors while compiling shader: " << shaderId << std::endl;
+	}
+}
+
+void ShaderProgram::checkLinkageGL() {
+	GLint status = 0;
+	glGetProgramiv(programHandle, GL_LINK_STATUS, &status);
+	if(status == GL_FALSE) {
+		std::cout << "Error while linking shader: " << shaderId << std::endl;
+		GLint infoLogLength;
+		glGetProgramiv(programHandle, GL_INFO_LOG_LENGTH, &infoLogLength);
+		GLchar* infoLog = new GLchar[infoLogLength + 1];
+		glGetProgramInfoLog(programHandle, infoLogLength, 0, infoLog);
+		std::cout << infoLog << std::endl;
+		delete[] infoLog;
+	} else {
+		std::cout << "No errors while linking shader: " << shaderId << std::endl;
+	}
 }

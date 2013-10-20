@@ -34,3 +34,7 @@ void RenderGeomImpl::fetchIndexData(std::vector<GLushort>& buffer, unsigned int 
 void RenderGeomImpl::setVertexLookupPtr(SingleIdAllocator<RenderVertexImpl>* vertexLookupPtr) {
 	this->vertexLookupPtr = vertexLookupPtr;
 }
+
+unsigned int RenderGeomImpl::getVertexCount() const {
+	return vertices.size();
+}

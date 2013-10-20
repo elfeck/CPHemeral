@@ -45,6 +45,10 @@ bool Vao::supportsShader(ShaderProgram& shader) const {
 	return bufferFormat.isCompatible(shader.getAttritbuteFormat());
 }
 
+void Vao::setUsage(GLenum usage) {
+	this->usage = usage;
+}
+
 void Vao::initGL(ShaderProgram initialProgram) {
 	shaderPrograms.insert(std::make_pair(initialProgram.getShaderId(), initialProgram));
 	for(std::set<AttributeFormat>::iterator it = initialProgram.getAttritbuteFormat().begin();
@@ -72,8 +76,20 @@ void Vao::bindIboGL() {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboHandle);
 }
 
-void Vao::drawGL() const {
-
+void Vao::drawGL() {
+	glBindVertexArray(vaoHandle);
+	VaoEntry* entry = 0;
+	for(std::vector<VaoEntry*>::iterator it = entries.begin(); it != entries.end(); ++it) {
+		entry = *it;
+		entry->viewportGL();
+		entry->scissorGL();
+		entry->uploadUniformsGL(shaderPrograms.at(entry->getShaderPath()).getProgramHandle());
+		shaderPrograms.at(entry->getShaderPath()).bindGL();
+		glDrawElements(entry->getMode(), entry->getIndexCount(), GL_UNSIGNED_SHORT, 
+			reinterpret_cast<GLvoid*>(entry->getIndexOffset() * sizeof(GLushort)));
+		shaderPrograms.at(entry->getShaderPath()).unbindGL();
+	}
+	glBindVertexArray(0);
 }
 
 void Vao::updateGL() {
@@ -86,6 +102,13 @@ void Vao::updateGL() {
 			(*it)->fetchVertexData(vertexBuffer, &vertexOffset, shaderPrograms.at((*it)->getShaderPath()).getAttritbuteFormat());
 			(*it)->fetchIndexData(indexBuffer, &indexOffset);
 		}
+		glBindBuffer(GL_ARRAY_BUFFER, vboHandle);
+		glBufferData(GL_ARRAY_BUFFER, vertexBuffer.size() * sizeof(GLfloat), &vertexBuffer.at(0), usage);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboHandle);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexBuffer.size() * sizeof(GLushort), &indexBuffer.at(0), usage);
+
 		modified = false;
 	}
 }

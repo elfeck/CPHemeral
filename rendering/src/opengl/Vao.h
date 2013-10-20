@@ -37,9 +37,11 @@ public:
 	bool hasShader(std::string shaderId) const;
 	bool supportsShader(ShaderProgram& program) const;
 
+	void setUsage(GLenum usage);
+
 	void initGL(ShaderProgram initialProgram);
 	void updateGL();
-	void drawGL() const;
+	void drawGL();
 
 };
 

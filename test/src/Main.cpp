@@ -50,10 +50,10 @@ int main(int argc, char* argv[]) {
 	RenderVertex* vert3 = comp->addLocalVertex();
 	RenderVertex* vert4 = comp->addLocalVertex();
 
-	PrmiVec4f* vec1 = vert1->addVec4f("vert_position", -0.5f, 0.5f, 0, 0);
-	PrmiVec4f* vec2 = vert2->addVec4f("vert_position", 0.5f, 0.5f, 0, 0);
-	PrmiVec4f* vec3 = vert3->addVec4f("vert_position", 0.5f, -0.5f, 0, 0);
-	PrmiVec4f* vec4 = vert4->addVec4f("vert_position", -0.5f, -0.5f, 0, 0);
+	PrmiVec4f* vec1 = vert1->addVec4f("vert_position", -0.5f, 0.5f, 0, 1);
+	PrmiVec4f* vec2 = vert2->addVec4f("vert_position", 0.5f, 0.5f, 0, 1);
+	PrmiVec4f* vec3 = vert3->addVec4f("vert_position", 0.5f, -0.5f, 0, 1);
+	PrmiVec4f* vec4 = vert4->addVec4f("vert_position", -0.5f, -0.5f, 0, 1);
 
 	RenderGeom* geom1 = comp->addLocalGeom();
 	RenderGeom* geom2 = comp->addLocalGeom();

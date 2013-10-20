@@ -32,6 +32,7 @@ public:
 	void fetchIndexData(std::vector<GLushort>& buffer, unsigned int offset) const;
 
 	void setVertexLookupPtr(SingleIdAllocator<RenderVertexImpl>* vertexLookupPtr);
+	unsigned int getVertexCount() const;
 };
 
 }
