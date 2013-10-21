@@ -105,8 +105,8 @@ void Vao::drawGL() {
 		if(!entry->isVisible()) continue;
 		entry->viewportGL();
 		entry->scissorGL();
-		entry->uploadUniformsGL(shaderPrograms.at(entry->getShaderPath()).getProgramHandle());
 		shaderPrograms.at(entry->getShaderPath()).bindGL();
+		entry->uploadUniformsGL(shaderPrograms.at(entry->getShaderPath()).getProgramHandle());
 		glDrawElements(entry->getMode(), entry->getIndexCount(), GL_UNSIGNED_SHORT, 
 			reinterpret_cast<GLvoid*>(entry->getIndexOffset() * sizeof(GLushort)));
 		shaderPrograms.at(entry->getShaderPath()).unbindGL();

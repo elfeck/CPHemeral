@@ -18,7 +18,8 @@ std::uint32_t PrmiVec4fImpl::getUniqueId() const {
 }
 
 void PrmiVec4fImpl::uploadAsUniformGL(GLuint program, std::string name) {
-	glUniform4f(glGetUniformLocation(program, name.c_str()), vector.getX(), vector.getY(), vector.getZ(), vector.getW());
+	GLuint uniformLocation = glGetUniformLocation(program, name.c_str());
+	glUniform4f(uniformLocation, vector.getX(), vector.getY(), vector.getZ(), vector.getW());
 }
 
 void PrmiVec4fImpl::fetchVertexData(std::vector<GLfloat>& buffer) const {

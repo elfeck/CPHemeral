@@ -7,6 +7,8 @@
 #include "Display.h"
 #include "Window.h"
 
+#include "JuliaSetObject.h"
+
 using namespace cph;
 
 void mainCallback(long delta);
@@ -18,11 +20,13 @@ Window* window = 0;
 ObjectManager* scene1 = 0;
 RenderingSystem* renderingSystem = 0;
 
+JuliaSetObject juliaObj;
+
 int main(int argc, char* argv[]) {
 	window = createWindow();
 	display = createDisplay();
 
-	window->setSize(480, 320);
+	window->setSize(400, 400);
 	window->setPosition(500, 200);
 	window->setTitle("Test");
 	window->initWindow(&argc, argv);
@@ -36,42 +40,15 @@ int main(int argc, char* argv[]) {
 	scene1 = createObjectManager();
 	
 	// ################
-	Object* obj = scene1->createObject();
-	RenderingComponent* comp = renderingSystem->createComponent();
-	obj->addComponent(comp);
-
-	comp->setShader("D://Projects/C++/CPHemeral/test/res/test1");
-	comp->setViewport(0, 0, 240, 320);
-	comp->setScissor(0, 0, 240, 320);
-	comp->setRenderMode(TRIANGLES);
-	comp->setVisible(true);
-
-	RenderVertex* vert1 = comp->addLocalVertex();
-	RenderVertex* vert2 = comp->addLocalVertex();
-	RenderVertex* vert3 = comp->addLocalVertex();
-	RenderVertex* vert4 = comp->addLocalVertex();
-
-	PrmiVec4f* vec1 = vert1->addVec4f("vert_position", -0.5f, 0.5f, 0, 1);
-	PrmiVec4f* vec2 = vert2->addVec4f("vert_position", 0.5f, 0.5f, 0, 1);
-	PrmiVec4f* vec3 = vert3->addVec4f("vert_position", 0.5f, -0.5f, 0, 1);
-	PrmiVec4f* vec4 = vert4->addVec4f("vert_position", -0.5f, -0.5f, 0, 1);
-
-	RenderGeom* geom1 = comp->addLocalGeom();
-	RenderGeom* geom2 = comp->addLocalGeom();
-
-	geom1->addVertex(vert1);
-	geom1->addVertex(vert2);
-	geom1->addVertex(vert3);
-
-	geom2->addVertex(vert1);
-	geom2->addVertex(vert3);
-	geom2->addVertex(vert4);
+	juliaObj.create(scene1, renderingSystem);
 	// ################
 
 	display->enterMainLoop();
 
-	comp->destroy();
-	obj->destroy();
+	// ################
+	juliaObj.destroy();
+	// ################
+
 
 	deleteRenderingSystem(renderingSystem);
 	deleteObjectManager(scene1);
