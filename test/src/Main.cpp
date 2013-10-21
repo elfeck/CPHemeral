@@ -22,6 +22,8 @@ RenderingSystem* renderingSystem = 0;
 
 JuliaSetObject juliaObj;
 
+void handleJuliaInput(long delta);
+
 int main(int argc, char* argv[]) {
 	window = createWindow();
 	display = createDisplay();
@@ -60,9 +62,32 @@ int main(int argc, char* argv[]) {
 }
 
 void mainCallback(long delta) {
-
+	if(display->isKeyReleased(Key::NUM_1)) {
+		juliaObj.setVisible(true);
+	}
+	if(display->isKeyReleased(Key::NUM_2)) {
+		juliaObj.setVisible(false);
+	}
+	if(juliaObj.isVisible()) handleJuliaInput(delta);
 }
 
 void renderCallback(long delta) {
 	renderingSystem->execute(scene1, delta);
+}
+
+void handleJuliaInput(long delta) {
+	float speed = 0.005f;
+	float zoom = 1 - delta * 0.001f;
+
+	if(display->isKeyPressed(Key::A)) juliaObj.move(-speed * delta, 0);
+	if(display->isKeyPressed(Key::W)) juliaObj.move(0, speed * delta);
+	if(display->isKeyPressed(Key::D)) juliaObj.move(speed * delta, 0);
+	if(display->isKeyPressed(Key::S)) juliaObj.move(0, -speed * delta);
+	if(display->isKeyPressed(Key::SPACE)) juliaObj.doZoom(zoom);
+	if(display->isKeyPressed(Key::F)) juliaObj.doZoom(2 - zoom);
+	if(display->isKeyReleased(Key::H)) juliaObj.switchConstant(0);
+	if(display->isKeyReleased(Key::J)) juliaObj.switchConstant(1);
+	if(display->isKeyReleased(Key::K)) juliaObj.switchConstant(2);
+	if(display->isKeyReleased(Key::L)) juliaObj.switchConstant(3);
+
 }

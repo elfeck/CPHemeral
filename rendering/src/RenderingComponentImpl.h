@@ -41,6 +41,8 @@ public:
 	virtual void setRenderMode(RenderMode rendeMode);
 	virtual void setVisible(bool visible);
 
+	virtual bool isVisible() const;
+
 	virtual std::uint8_t getSysId() const;
 	virtual std::uint32_t getUniqueId() const;
 	

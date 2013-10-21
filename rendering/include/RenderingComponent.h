@@ -31,6 +31,8 @@ struct RenderingComponent : public Component {
 	virtual void setRenderMode(RenderMode rendeMode) = 0;
 	virtual void setVisible(bool visible) = 0;
 
+	virtual bool isVisible() const = 0;
+
 	virtual std::uint8_t getSysId() const = 0;
 	virtual std::uint32_t getUniqueId() const = 0;
 

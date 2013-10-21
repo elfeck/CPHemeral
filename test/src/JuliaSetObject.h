@@ -12,7 +12,8 @@ private:
 	cph::RenderingComponent* render;
 
 	cph::PrmiVec1f* zoom;
-	cph::PrmiVec2f* center;
+	cph::PrmiVec2f* c;
+	cph::PrmiVec2f* camera;
 
 public:
 	JuliaSetObject();
@@ -20,6 +21,14 @@ public:
 
 	void create(cph::ObjectManager* scene, cph::RenderingSystem* sys);
 	void destroy();
+
+	bool isVisible();
+	void setVisible(bool visible);
+	
+	void move(float dx, float dy);
+	void doZoom(float margin);
+
+	void switchConstant(int examp);
 
 };
 

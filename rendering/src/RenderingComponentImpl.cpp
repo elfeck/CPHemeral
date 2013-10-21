@@ -65,6 +65,10 @@ void RenderingComponentImpl::setVisible(bool visible) {
 	vaoEntry.setVisible(visible);
 }
 
+bool RenderingComponentImpl::isVisible() const {
+	return vaoEntry.isVisible();
+}
+
 std::uint8_t RenderingComponentImpl::getSysId() const {
 	return sysId;
 }

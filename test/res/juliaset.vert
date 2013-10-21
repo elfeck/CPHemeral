@@ -2,9 +2,12 @@
 
 in vec4 vert_position;
 
-out vec4 frag_position;
+uniform float zoom;
+uniform vec2 camera;
+
+out vec2 frag_position;
 
 void main() {
-	frag_position = (vert_position - vec4(0.25, 0, 0, 0));
+	frag_position = vec2(vert_position) * zoom + camera;
 	gl_Position = vert_position;
 }
