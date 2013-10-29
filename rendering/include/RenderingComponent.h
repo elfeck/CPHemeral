@@ -14,7 +14,6 @@ enum RenderMode {
 	POINTS, LINES, TRIANGLES
 };
 
-
 struct RenderingComponent : public Component {
 	
 	virtual RenderGeom* addLocalGeom() = 0;

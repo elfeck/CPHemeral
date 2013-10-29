@@ -2,6 +2,8 @@
 #define NOISE_OBJECT_H_
 
 #include "ObjectManager.h"
+#include "RenderingComponent.h"
+#include "Object.h"
 #include "RenderingSystem.h"
 
 

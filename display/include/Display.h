@@ -7,10 +7,11 @@
 #define CPH_DISPLAY_DLL _declspec(dllimport)
 #endif
 
-#include "Window.h"
-
 
 namespace cph {
+
+struct Window;
+class Log;
 
 struct Display {
 
@@ -30,8 +31,7 @@ struct Display {
 	virtual int getMouseY() const = 0;
 	virtual int getMouseWheel() const = 0;
 
-	virtual bool isDebug() const = 0;
-	virtual void setDebug(bool debug) = 0;
+	virtual void setLog(cph::Log* log) = 0;
 
 	virtual ~Display() = 0;
 

@@ -33,7 +33,6 @@ int main(int argc, char* argv[]) {
 	window->setTitle("Test");
 	window->initWindow(&argc, argv);
 
-	display->setDebug(true);
 	display->setMainFunc(mainCallback);
 	display->setRenderFunc(renderCallback);
 	display->initDisplay(window);

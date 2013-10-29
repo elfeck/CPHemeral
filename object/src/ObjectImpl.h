@@ -6,6 +6,7 @@
 #include <cstdint>
 
 #include "../include/Object.h"
+#include "../include/Component.h"
 
 
 namespace cph {

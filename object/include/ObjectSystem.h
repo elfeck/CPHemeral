@@ -1,10 +1,12 @@
 #ifndef OBJECT_SYSTEM_H_
 #define OBJECT_SYSTEM_H_
 
-#include "ObjectManager.h"
+#include <cstdint>
 
 
 namespace cph {
+
+struct ObjectManager;
 
 struct ObjectSystem {
 

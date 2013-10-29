@@ -1,10 +1,12 @@
 #ifndef OBJECT_H_
 #define OBJECT_H_
 
-#include "Component.h"
+#include <cstdint>
 
 
 namespace cph {
+
+struct Component;
 
 struct Object {
 

@@ -1,10 +1,10 @@
 #ifndef OBJECT_QUEUE_H_
 #define OBJECT_QUEUE_H_
 
-#include "Object.h"
-
 
 namespace cph {
+
+struct Object;
 
 struct ObjectQueue {
 

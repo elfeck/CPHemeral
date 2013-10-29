@@ -1,6 +1,8 @@
 #include "RenderingSystemImpl.h"
 #include "../include/ObjectQueue.h"
 
+#include "../include/Object.h"
+
 
 using namespace cph;
 

@@ -3,7 +3,6 @@
 #include <cstring>
 
 #include "ObjectManagerImpl.h"
-
 #include "ObjectImpl.h"
 
 

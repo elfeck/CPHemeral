@@ -2,6 +2,8 @@
 #define JULIA_SET_OBJECT
 
 #include "ObjectManager.h"
+#include "RenderingComponent.h"
+#include "Object.h"
 #include "RenderingSystem.h"
 
 

@@ -106,7 +106,7 @@ void DisplayImpl::setMouseCoords(int x, int y) {
 }
 
 DisplayImpl::DisplayImpl() :
-	debug(false), initialized(false), running(false),
+	initialized(false), running(false),
 	pressedKeys(std::array<bool, 256>()), releasedKeys(std::array<bool, 256>()),
 	mouseX(-1), mouseY(-1), mouseWheel(0), mouseInWindow(false),
 	timeUnit(), printTimePassed(2000), mainCallback(0), renderCallback(0), window(0)
@@ -156,7 +156,7 @@ void DisplayImpl::initDisplay(Window* window) {
 	setWindow(window);
 	glewExperimental = true;
 	if(GLEW_OK != glewInit()) {
-		if(debug) std::cout << "GL Context could not be initialized. Error with glew!" << std::endl;
+		std::cout << "GL Context could not be initialized. Error with glew!" << std::endl;
 		return;
 	}
 	glutDisplayFunc(display_callback);
@@ -218,15 +218,15 @@ void DisplayImpl::enterMainLoop() {
 				resetKeys();
 				
 				timeUnit.enterEnd(glutGet(GLUT_ELAPSED_TIME));
-				if(debug && printTimePassed >= 1000) {
+				if(printTimePassed >= 1000) {
 						timeUnit.printAll();
 						printTimePassed = 0;
-				} else if(debug) {
+				} else {
 					printTimePassed += timeUnit.getDelta();
 				}
 			}
-		} else if(debug) std::cout << "Window or Display not initialized!" << std::endl;
-	} else if(debug) std::cout << "Window or main/render callback not set!" << std::endl;
+		} else std::cout << "Window or Display not initialized!" << std::endl;
+	} else std::cout << "Window or main/render callback not set!" << std::endl;
 }
 
 void DisplayImpl::exitMainLoop() {
@@ -257,10 +257,10 @@ int DisplayImpl::getMouseWheel() const {
 	return mouseWheel;
 }
 
-void DisplayImpl::setDebug(bool debug) {
-	this->debug = debug;
-}
-
-bool DisplayImpl::isDebug() const {
-	return debug;
+void DisplayImpl::setLog(Log* log) {
+	if(log != 0) {
+		if(log->getTarget() == "error") errorLog = log;
+		if(log->getTarget() == "debug") errorLog = log;
+		if(log->getTarget() == "verbose") errorLog = log;
+	}
 }

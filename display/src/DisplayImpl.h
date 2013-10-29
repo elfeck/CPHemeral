@@ -8,6 +8,7 @@
 #include "TimeUnit.h"
 
 #include "../include/Display.h"
+#include "Log.h"
 #include "WindowImpl.h"
 
 
@@ -16,7 +17,7 @@ namespace cph {
 class DisplayImpl : public Display {
 
 private:
-	bool initialized, debug, running;
+	bool initialized, running;
 
 	std::array<bool, 256> pressedKeys;
 	std::array<bool, 256> releasedKeys;
@@ -29,6 +30,10 @@ private:
 	void (*mainCallback)(long);
 	void (*renderCallback)(long);
 	WindowImpl* window;
+
+	cph::Log* debugLog;
+	cph::Log* errorLog;
+	cph::Log* verboseLog;
 
 	void resetKeys();
 	void setSpecialKey(int key, std::array<bool, 256>* keyArray, bool value);
@@ -72,8 +77,7 @@ public:
 	virtual int getMouseY() const;
 	virtual int getMouseWheel() const;
 
-	virtual bool isDebug() const;
-	virtual void setDebug(bool debug);
+	virtual void setLog(cph::Log* log);
 
 	static const DisplayImpl* getCurrentDisplay();
 	static void setCurrentDisplay(Display* display);

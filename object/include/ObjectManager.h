@@ -7,11 +7,13 @@
 #define CPH_OBJECT_DLL _declspec(dllimport)
 #endif
 
-#include "Object.h"
-#include "ObjectQueue.h"
+#include <cstdint>
 
 
 namespace cph {
+
+struct Object;
+struct ObjectQueue;
 
 struct ObjectManager {
 
