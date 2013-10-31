@@ -8,7 +8,7 @@
 #include "TimeUnit.h"
 
 #include "../include/Display.h"
-#include "Log.h"
+#include "Logger.h"
 #include "WindowImpl.h"
 
 
@@ -31,9 +31,7 @@ private:
 	void (*renderCallback)(long);
 	WindowImpl* window;
 
-	cph::Log* debugLog;
-	cph::Log* errorLog;
-	cph::Log* verboseLog;
+	cph::Logger errorLog, debugLog, looptimeLog;
 
 	void resetKeys();
 	void setSpecialKey(int key, std::array<bool, 256>* keyArray, bool value);
@@ -77,7 +75,7 @@ public:
 	virtual int getMouseY() const;
 	virtual int getMouseWheel() const;
 
-	virtual void setLog(cph::Log* log);
+	virtual void setLog(cph::Log* log, const char* target);
 
 	static const DisplayImpl* getCurrentDisplay();
 	static void setCurrentDisplay(Display* display);

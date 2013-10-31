@@ -6,6 +6,7 @@
 #include "RenderingSystem.h"
 #include "Display.h"
 #include "Window.h"
+#include "Log.h"
 
 #include "JuliaSetObject.h"
 
@@ -20,11 +21,20 @@ Window* window = 0;
 ObjectManager* scene1 = 0;
 RenderingSystem* renderingSystem = 0;
 
+Log errorLog("error");
+Log debugLog("debug");
+Log looptimeLog("looptime");
+
 JuliaSetObject juliaObj;
 
 void handleJuliaInput(long delta);
 
 int main(int argc, char* argv[]) {
+	errorLog.setConsolePrintOnLog(true);
+	errorLog.setWriteToBuffer(true);
+	debugLog.setConsolePrintOnLog(true);
+	looptimeLog.setConsolePrintOnLog(true);
+	
 	window = createWindow();
 	display = createDisplay();
 
@@ -37,9 +47,12 @@ int main(int argc, char* argv[]) {
 	display->setRenderFunc(renderCallback);
 	display->initDisplay(window);
 
+	display->setLog(&errorLog);
+	display->setLog(&debugLog);
+	display->setLog(&looptimeLog);
+
 	renderingSystem = createRenderingSystem(0x01);
 	scene1 = createObjectManager();
-	
 	// ################
 	juliaObj.create(scene1, renderingSystem);
 	// ################

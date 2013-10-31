@@ -109,9 +109,10 @@ DisplayImpl::DisplayImpl() :
 	initialized(false), running(false),
 	pressedKeys(std::array<bool, 256>()), releasedKeys(std::array<bool, 256>()),
 	mouseX(-1), mouseY(-1), mouseWheel(0), mouseInWindow(false),
-	timeUnit(), printTimePassed(2000), mainCallback(0), renderCallback(0), window(0)
+	timeUnit(), printTimePassed(2000), mainCallback(0), renderCallback(0), window(0),
+	errorLog(), debugLog(), looptimeLog()
 {
-
+	errorLog.setLocalWriteToBuffer(true);
 }
 
 DisplayImpl::~DisplayImpl() {
@@ -156,7 +157,7 @@ void DisplayImpl::initDisplay(Window* window) {
 	setWindow(window);
 	glewExperimental = true;
 	if(GLEW_OK != glewInit()) {
-		std::cout << "GL Context could not be initialized. Error with glew!" << std::endl;
+		errorLog.logMessage("GL Context could not be initialized. Error with glew!");
 		return;
 	}
 	glutDisplayFunc(display_callback);
@@ -219,14 +220,15 @@ void DisplayImpl::enterMainLoop() {
 				
 				timeUnit.enterEnd(glutGet(GLUT_ELAPSED_TIME));
 				if(printTimePassed >= 1000) {
-						timeUnit.printAll();
+						looptimeLog << "cur[" << timeUnit.getDelta() << " ms]    avg[" << timeUnit.getAverage()
+							<< " ms]    tks[" << timeUnit.getTicks() << "]" << std::endl;
 						printTimePassed = 0;
 				} else {
 					printTimePassed += timeUnit.getDelta();
 				}
 			}
-		} else std::cout << "Window or Display not initialized!" << std::endl;
-	} else std::cout << "Window or main/render callback not set!" << std::endl;
+		} else errorLog.logMessage("Window or Display not initialized!");
+	} else errorLog.logMessage("Window or main/render callback not set!");
 }
 
 void DisplayImpl::exitMainLoop() {
@@ -257,10 +259,14 @@ int DisplayImpl::getMouseWheel() const {
 	return mouseWheel;
 }
 
-void DisplayImpl::setLog(Log* log) {
+void DisplayImpl::setLog(Log* log, const char* target) {
 	if(log != 0) {
-		if(log->getTarget() == "error") errorLog = log;
-		if(log->getTarget() == "debug") errorLog = log;
-		if(log->getTarget() == "verbose") errorLog = log;
+		if(log->getTarget() == "error") errorLog.setLogPtr(log);
+		if(log->getTarget() == "debug") debugLog.setLogPtr(log);
+		if(log->getTarget() == "looptime") looptimeLog.setLogPtr(log);
+	} else if(target != 0) {
+		if(strcmp(target, "error")) errorLog.setLogPtr(0);
+		if(strcmp(target, "debug")) debugLog.setLogPtr(0);
+		if(strcmp(target, "looptime")) looptimeLog.setLogPtr(0);
 	}
 }

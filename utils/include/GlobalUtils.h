@@ -12,7 +12,9 @@ std::string stringReplaceAll(std::string source, std::string token, std::string 
 std::vector<std::string> stringSplit(std::string source, char delimiter);
 std::string stringUntil(std::string source, std::string delimiter);
 
+std::string boolToString(bool value);
 std::string floatToString(float value);
+std::string doubleToString(double value);
 std::string intToString(int value);
 
 bool fileExists(std::string file);

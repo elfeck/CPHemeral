@@ -35,7 +35,17 @@ std::string cph::stringUntil(std::string source, std::string delimiter) {
 	return std::string(source).replace(index, source.length() - 1, "");
 }
 
+std::string cph::boolToString(bool value) {
+	return value ? "true" : "false";
+}
+
 std::string cph::floatToString(float value) {
+	std::ostringstream ss;
+	ss << value;
+	return ss.str();
+}
+
+std::string cph::doubleToString(double value) {
 	std::ostringstream ss;
 	ss << value;
 	return ss.str();

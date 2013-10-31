@@ -10,19 +10,32 @@ namespace cph {
 class Log {
 
 private:
+	bool consolePrint, writeToBuffer;
 	std::string target;
-	std::stringstream logBuffer;
+	std::string* writebackPtr;
+	std::ostringstream logBuffer;
+
 
 public:
 	Log(std::string target);
+	Log(const Log& other);
 	~Log();
 
-	void log(std::string message);
-	std::string getTarget() const;
+	void logMessage(std::string message);
 
-	std::stringstream& operator<<(bool value);
-	std::stringstream& operator<<(float value);
-	std::stringstream& operator<<(int value);
+	std::string getTarget() const;
+	std::ostringstream& getRaw();
+
+	void setConsolePrintOnLog(bool print);
+	void setWriteToBuffer(bool write);
+	void setWritebackOnLog(std::string* writebackPtr);
+
+	Log& operator<<(const char* value);
+	Log& operator<<(bool value);
+	Log& operator<<(float value);
+	Log& operator<<(double value);
+	Log& operator<<(int value);
+	Log& operator<<(std::ostream& (*pf)(std::ostream&));
 
 };
 
