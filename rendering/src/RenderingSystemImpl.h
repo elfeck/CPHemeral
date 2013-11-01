@@ -10,6 +10,7 @@
 #include "RenderingComponentImpl.h"
 #include "RenderVertexImpl.h"
 #include "RenderUniformImpl.h"
+#include "Logger.h"
 
 
 namespace cph {
@@ -31,9 +32,13 @@ public:
 	virtual RenderingComponent* createComponent();
 	virtual std::uint8_t getSysId() const;
 	virtual void execute(ObjectManager* objectManager, long delta);
+	
+	virtual void setLog(Log* log, const char* target = 0);
 
 	void releaseComponent(RenderingComponentImpl* component);
 	RenderAllocator* getRenderAllocator();
+
+	static Logger errorLog, debugLog;
 
 };
 

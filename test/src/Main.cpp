@@ -52,6 +52,10 @@ int main(int argc, char* argv[]) {
 	display->setLog(&looptimeLog);
 
 	renderingSystem = createRenderingSystem(0x01);
+
+	renderingSystem->setLog(&errorLog);
+	renderingSystem->setLog(&debugLog);
+
 	scene1 = createObjectManager();
 	// ################
 	juliaObj.create(scene1, renderingSystem);

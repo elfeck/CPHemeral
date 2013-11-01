@@ -14,11 +14,15 @@
 
 namespace cph {
 
+class Log;
+
 struct RenderingSystem : public ObjectSystem {
 
 	virtual RenderingComponent* createComponent() = 0;
 	virtual std::uint8_t getSysId() const = 0;
 	virtual void execute(ObjectManager* objectManager, long delta) = 0;
+
+	virtual void setLog(Log* log, const char* target = 0) = 0;
 
 	virtual ~RenderingSystem() = 0;
 

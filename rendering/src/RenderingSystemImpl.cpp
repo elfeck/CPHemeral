@@ -6,6 +6,9 @@
 
 using namespace cph;
 
+Logger RenderingSystemImpl::errorLog;
+Logger RenderingSystemImpl::debugLog;
+
 RenderingSystemImpl::RenderingSystemImpl(std::uint8_t id) :
 	componentAlloc(), renderAlloc(), sysId(id), vaoManager()
 {
@@ -36,6 +39,16 @@ void RenderingSystemImpl::execute(ObjectManager* objectManager, long delta) {
 	}
 	vaoManager.updateGL();
 	vaoManager.drawGL();
+}
+
+void RenderingSystemImpl::setLog(Log* log, const char* target = 0) {
+	if(log != 0) {
+		if(log->getTarget() == "error") ;
+		if(log->getTarget() == "debug") ;
+	} else if(target != 0) {
+		if(strcmp(target, "error")) ;
+		if(strcmp(target, "debug")) ;
+	}
 }
 
 void RenderingSystemImpl::releaseComponent(RenderingComponentImpl* component) {
