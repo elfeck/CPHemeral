@@ -25,7 +25,7 @@ private:
 	int mouseX, mouseY, mouseWheel;
 
 	TimeUnit timeUnit;
-	int printTimePassed;
+	int printTimePassed, looptimeLogTime;
 
 	void (*mainCallback)(long);
 	void (*renderCallback)(long);
@@ -76,6 +76,7 @@ public:
 	virtual int getMouseWheel() const;
 
 	virtual void setLog(cph::Log* log, const char* target);
+	virtual void setLooptimeLogTime(int ms);
 
 	static const DisplayImpl* getCurrentDisplay();
 	static void setCurrentDisplay(Display* display);

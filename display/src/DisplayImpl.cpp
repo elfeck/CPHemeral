@@ -109,7 +109,7 @@ DisplayImpl::DisplayImpl() :
 	initialized(false), running(false),
 	pressedKeys(std::array<bool, 256>()), releasedKeys(std::array<bool, 256>()),
 	mouseX(-1), mouseY(-1), mouseWheel(0), mouseInWindow(false),
-	timeUnit(), printTimePassed(2000), mainCallback(0), renderCallback(0), window(0),
+	timeUnit(), printTimePassed(1000), looptimeLogTime(1000), mainCallback(0), renderCallback(0), window(0),
 	errorLog(), debugLog(), looptimeLog()
 {
 	errorLog.setLocalWriteToBuffer(true);
@@ -157,7 +157,7 @@ void DisplayImpl::initDisplay(Window* window) {
 	setWindow(window);
 	glewExperimental = true;
 	if(GLEW_OK != glewInit()) {
-		errorLog.logMessage("GL Context could not be initialized. Error with glew!");
+		errorLog.logMessage("[Disply: GL Context could not be initialized. Error with glew!");
 		return;
 	}
 	glutDisplayFunc(display_callback);
@@ -219,16 +219,16 @@ void DisplayImpl::enterMainLoop() {
 				resetKeys();
 				
 				timeUnit.enterEnd(glutGet(GLUT_ELAPSED_TIME));
-				if(printTimePassed >= 1000) {
-						looptimeLog << "cur[" << timeUnit.getDelta() << " ms]    avg[" << timeUnit.getAverage()
-							<< " ms]    tks[" << timeUnit.getTicks() << "]" << std::endl;
+				if(printTimePassed >= looptimeLogTime) {
+						looptimeLog << "[LoopTm: cur [" << timeUnit.getDelta() << " ms]    avg [" << timeUnit.getAverage()
+							<< " ms]    tks [" << timeUnit.getTicks() << "]" << std::endl;
 						printTimePassed = 0;
 				} else {
 					printTimePassed += timeUnit.getDelta();
 				}
 			}
-		} else errorLog.logMessage("Window or Display not initialized!");
-	} else errorLog.logMessage("Window or main/render callback not set!");
+		} else errorLog.logMessage("[Disply: Window or Display not initialized!");
+	} else errorLog.logMessage("[Disply: Window or main/render callback not set!");
 }
 
 void DisplayImpl::exitMainLoop() {
@@ -270,3 +270,9 @@ void DisplayImpl::setLog(Log* log, const char* target) {
 		if(strcmp(target, "looptime")) looptimeLog.setLogPtr(0);
 	}
 }
+
+void DisplayImpl::setLooptimeLogTime(int ms) {
+	this->printTimePassed = ms;
+	this->looptimeLogTime = ms;
+}
+

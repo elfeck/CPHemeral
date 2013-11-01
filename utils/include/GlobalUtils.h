@@ -17,6 +17,8 @@ std::string floatToString(float value);
 std::string doubleToString(double value);
 std::string intToString(int value);
 
+std::string cutFilepath(std::string string);
+
 bool fileExists(std::string file);
 std::string fileToString(std::string file);
 

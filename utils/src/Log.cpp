@@ -59,6 +59,13 @@ Log& Log::operator<<(const char* value) {
 	return *this;
 }
 
+Log& Log::operator<<(std::string value) {
+	if(writeToBuffer) logBuffer << value;
+	if(writebackPtr != 0) *writebackPtr += value;
+	if(consolePrint) std::cout << value;
+	return *this;
+}
+
 Log& Log::operator<<(bool value) {
 	if(writeToBuffer) logBuffer << value;
 	if(writebackPtr != 0) *writebackPtr += boolToString(value);

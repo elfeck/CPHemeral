@@ -14,11 +14,13 @@ namespace cph {
 
 struct Object;
 struct ObjectQueue;
+class Log;
 
 struct ObjectManager {
 
 	virtual Object* createObject() = 0;
 	virtual ObjectQueue* tempGetObjectsWith(std::uint8_t sysId) = 0;
+	virtual void setLog(Log* log, const char* target = 0) = 0;
 
 	virtual ~ObjectManager() = 0;
 

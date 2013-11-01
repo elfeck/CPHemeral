@@ -22,8 +22,9 @@ private:
 	RenderAllocator renderAlloc;
 
 	const std::uint8_t sysId;
-
 	VaoManager vaoManager;
+	
+	static Logger errorLog, debugLog;
 
 public:
 	RenderingSystemImpl(std::uint8_t id);
@@ -33,12 +34,13 @@ public:
 	virtual std::uint8_t getSysId() const;
 	virtual void execute(ObjectManager* objectManager, long delta);
 	
-	virtual void setLog(Log* log, const char* target = 0);
+	virtual void setLog(Log* log, const char* target);
 
 	void releaseComponent(RenderingComponentImpl* component);
 	RenderAllocator* getRenderAllocator();
 
-	static Logger errorLog, debugLog;
+	static WriteonlyLogger& getErrorLog();
+	static WriteonlyLogger& getDebugLog();
 
 };
 

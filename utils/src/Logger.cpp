@@ -44,7 +44,7 @@ void Logger::setLocalWritebackOnLog(std::string* writebackPtr) {
 	localLog.setWritebackOnLog(writebackPtr);
 }
 
-Logger& Logger::operator<<(const char* value) {
+WriteonlyLogger& Logger::operator<<(const char* value) {
 	if(logPtr != 0) {
 		*logPtr << value;
 	} else {
@@ -53,7 +53,7 @@ Logger& Logger::operator<<(const char* value) {
 	return *this;
 }
 
-Logger& Logger::operator<<(bool value) {
+WriteonlyLogger& Logger::operator<<(std::string value) {
 	if(logPtr != 0) {
 		*logPtr << value;
 	} else {
@@ -62,7 +62,7 @@ Logger& Logger::operator<<(bool value) {
 	return *this;
 }
 
-Logger& Logger::operator<<(float value) {
+WriteonlyLogger& Logger::operator<<(bool value) {
 	if(logPtr != 0) {
 		*logPtr << value;
 	} else {
@@ -71,7 +71,7 @@ Logger& Logger::operator<<(float value) {
 	return *this;
 }
 
-Logger& Logger::operator<<(double value) {
+WriteonlyLogger& Logger::operator<<(float value) {
 	if(logPtr != 0) {
 		*logPtr << value;
 	} else {
@@ -80,7 +80,7 @@ Logger& Logger::operator<<(double value) {
 	return *this;
 }
 
-Logger& Logger::operator<<(int value) {
+WriteonlyLogger& Logger::operator<<(double value) {
 	if(logPtr != 0) {
 		*logPtr << value;
 	} else {
@@ -89,7 +89,25 @@ Logger& Logger::operator<<(int value) {
 	return *this;
 }
 
-Logger& Logger::operator<< (std::ostream& (*pf)(std::ostream&)) {
+WriteonlyLogger& Logger::operator<<(int value) {
+	if(logPtr != 0) {
+		*logPtr << value;
+	} else {
+		localLog << value;
+	}
+	return *this;
+}
+
+WriteonlyLogger& Logger::operator<<(std::uint32_t value) {
+	if(logPtr != 0) {
+		*logPtr << static_cast<int>(value);
+	} else {
+		localLog << static_cast<int>(value);
+	}
+	return *this;
+}
+
+WriteonlyLogger& Logger::operator<< (std::ostream& (*pf)(std::ostream&)) {
 	if(logPtr != 0) {
 		*logPtr << pf;
 	} else {

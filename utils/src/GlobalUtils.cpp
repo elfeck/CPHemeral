@@ -57,6 +57,10 @@ std::string cph::intToString(int value) {
 	return ss.str();
 }
 
+std::string cph::cutFilepath(std::string string) {
+	return "*" + string.substr(string.rfind("/"), string.length());
+}
+
 bool cph::fileExists(std::string file) {
 	std::ifstream stream(file.c_str());
 	bool exists = stream.good();

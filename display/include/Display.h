@@ -32,6 +32,7 @@ struct Display {
 	virtual int getMouseWheel() const = 0;
 
 	virtual void setLog(cph::Log* log, const char* target = 0) = 0;
+	virtual void setLooptimeLogTime(int ms) = 0;
 
 	virtual ~Display() = 0;
 

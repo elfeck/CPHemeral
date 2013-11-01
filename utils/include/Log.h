@@ -31,6 +31,7 @@ public:
 	void setWritebackOnLog(std::string* writebackPtr);
 
 	Log& operator<<(const char* value);
+	Log& operator<<(std::string value);
 	Log& operator<<(bool value);
 	Log& operator<<(float value);
 	Log& operator<<(double value);

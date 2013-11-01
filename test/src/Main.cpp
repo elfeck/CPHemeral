@@ -50,6 +50,7 @@ int main(int argc, char* argv[]) {
 	display->setLog(&errorLog);
 	display->setLog(&debugLog);
 	display->setLog(&looptimeLog);
+	display->setLooptimeLogTime(5000);
 
 	renderingSystem = createRenderingSystem(0x01);
 
@@ -57,6 +58,7 @@ int main(int argc, char* argv[]) {
 	renderingSystem->setLog(&debugLog);
 
 	scene1 = createObjectManager();
+	scene1->setLog(&debugLog);
 	// ################
 	juliaObj.create(scene1, renderingSystem);
 	// ################

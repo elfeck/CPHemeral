@@ -1,5 +1,6 @@
 #include "ShaderProgram.h"
 #include "GlobalUtils.h"
+#include "../SystemLog.h"
 #include <iostream>
 
 
@@ -128,15 +129,15 @@ void ShaderProgram::checkCompilationGL(int handle) {
 	GLint status = 0;
 	glGetShaderiv(handle, GL_COMPILE_STATUS, &status);
 	if(status == GL_FALSE) {
-		std::cout << "Error while compiling shader: " << shaderId << std::endl;
+		getErrorLog() << "[RenSys: Error compiling shader: " << cutFilepath(shaderId) << std::endl;
 		GLint infoLogLength = 0;
 		glGetShaderiv(handle, GL_INFO_LOG_LENGTH, &infoLogLength);
 		GLchar* infoLog = new GLchar[infoLogLength + 1];
 		glGetShaderInfoLog(handle, infoLogLength, 0, infoLog);
-		std::cout << infoLog << std::endl;
+		getDebugLog() << infoLog << std::endl;
 		delete[] infoLog;
 	} else {
-		std::cout << "No errors while compiling shader: " << shaderId << std::endl;
+		getDebugLog() << "[RenSys: No errors compiling shader: " << cutFilepath(shaderId) << std::endl;
 	}
 }
 
@@ -144,14 +145,14 @@ void ShaderProgram::checkLinkageGL() {
 	GLint status = 0;
 	glGetProgramiv(programHandle, GL_LINK_STATUS, &status);
 	if(status == GL_FALSE) {
-		std::cout << "Error while linking shader: " << shaderId << std::endl;
+		getErrorLog() << "[RenSys: Error linking shader: " << cutFilepath(shaderId) << std::endl;
 		GLint infoLogLength;
 		glGetProgramiv(programHandle, GL_INFO_LOG_LENGTH, &infoLogLength);
 		GLchar* infoLog = new GLchar[infoLogLength + 1];
 		glGetProgramInfoLog(programHandle, infoLogLength, 0, infoLog);
-		std::cout << infoLog << std::endl;
+		getDebugLog() << infoLog << std::endl;
 		delete[] infoLog;
 	} else {
-		std::cout << "No errors while linking shader: " << shaderId << std::endl;
+		getDebugLog() << "[RenSys: No errors linking shader: " << cutFilepath(shaderId) << std::endl;
 	}
 }
