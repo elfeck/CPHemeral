@@ -71,18 +71,18 @@ void JuliaSetObject::setVisible(bool visible) {
 }
 
 void JuliaSetObject::move(float dx, float dy) {
-	camera->get()->addVec2f(dx * zoom->get()->getX(), dy * zoom->get()->getX());
+	camera->wget()->addVec2f(dx * zoom->wget()->getX(), dy * zoom->wget()->getX());
 }
 
 void JuliaSetObject::doZoom(float margin) {
-	zoom->get()->mulScalar(margin);
+	zoom->wget()->mulScalar(margin);
 }
 
 void JuliaSetObject::switchConstant(int examp) {
 	switch(examp) {
-	case 0: camera->get()->setXY(0, 0); zoom->get()->setX(1.0f); c->get()->setXY(0, 0); break;
-	case 1: camera->get()->setXY(0, 0); zoom->get()->setX(1.0f); c->get()->setXY(0.285f, 0.01f); break;
-	case 2: camera->get()->setXY(0, 0); zoom->get()->setX(1.0f); c->get()->setXY(-0.6f, 0.4f); break;
-	case 3: camera->get()->setXY(0, 0); zoom->get()->setX(1.0f); c->get()->setXY(-0.8f, 0.156f); break;
+	case 0: camera->wget()->setXY(0, 0); zoom->wget()->setX(1.0f); c->wget()->setXY(0, 0); break;
+	case 1: camera->wget()->setXY(0, 0); zoom->wget()->setX(1.0f); c->wget()->setXY(0.285f, 0.01f); break;
+	case 2: camera->wget()->setXY(0, 0); zoom->wget()->setX(1.0f); c->wget()->setXY(-0.6f, 0.4f); break;
+	case 3: camera->wget()->setXY(0, 0); zoom->wget()->setX(1.0f); c->wget()->setXY(-0.8f, 0.156f); break;
 	}
 }

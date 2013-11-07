@@ -19,9 +19,10 @@ public:
 	virtual std::uint32_t getUniqueId() const;
 
 	virtual void uploadAsUniformGL(GLuint program, std::string name);
-	virtual void fetchVertexData(std::vector<GLfloat>& buffer) const;
+	virtual void fetchVertexData(std::vector<GLfloat>& buffer);
 
-	virtual Vec4f* get();
+	virtual Vec4f* wget();
+	virtual const Vec4f* rget() const;
 
 };
 

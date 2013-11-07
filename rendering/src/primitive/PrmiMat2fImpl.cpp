@@ -18,15 +18,23 @@ std::uint32_t PrmiMat2fImpl::getUniqueId() const {
 }
 
 void PrmiMat2fImpl::uploadAsUniformGL(GLuint program, std::string name) {
-	GLfloat rawMatrix[4] = { 0 };
-	matrix.toArray(rawMatrix);
-	glUniformMatrix2fv(glGetUniformLocation(program, name.c_str()), 1, GL_FALSE, rawMatrix);
+	if(modified) {
+		GLfloat rawMatrix[4] = { 0 };
+		matrix.toArray(rawMatrix);
+		glUniformMatrix2fv(glGetUniformLocation(program, name.c_str()), 1, GL_FALSE, rawMatrix);
+		modified = false;
+	}
 }
 
-void PrmiMat2fImpl::fetchVertexData(std::vector<GLfloat>& buffer) const {
-
+void PrmiMat2fImpl::fetchVertexData(std::vector<GLfloat>& buffer) {
+	modified = false;
 }
 
-Mat2f* PrmiMat2fImpl::get() {
+Mat2f* PrmiMat2fImpl::wget() {
+	modified = true;
+	return &matrix;
+}
+
+const Mat2f* PrmiMat2fImpl::rget() const {
 	return &matrix;
 }

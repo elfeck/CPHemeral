@@ -18,14 +18,23 @@ std::uint32_t PrmiVec2fImpl::getUniqueId() const {
 }
 
 void PrmiVec2fImpl::uploadAsUniformGL(GLuint program, std::string name) {
-	glUniform2f(glGetUniformLocation(program, name.c_str()), vector.getX(), vector.getY());
+	if(modified) {
+		glUniform2f(glGetUniformLocation(program, name.c_str()), vector.getX(), vector.getY());
+		modified = false;
+	}
 }
 
-void PrmiVec2fImpl::fetchVertexData(std::vector<GLfloat>& buffer) const {
+void PrmiVec2fImpl::fetchVertexData(std::vector<GLfloat>& buffer) {
 	buffer.push_back(vector.getX());
 	buffer.push_back(vector.getY());
+	modified = false;
 }
 
-Vec2f* PrmiVec2fImpl::get() {
+Vec2f* PrmiVec2fImpl::wget() {
+	modified = true;
+	return &vector;
+}
+
+const Vec2f* PrmiVec2fImpl::rget() const {
 	return &vector;
 }

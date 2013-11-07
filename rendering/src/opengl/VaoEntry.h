@@ -26,6 +26,7 @@ private:
 	std::string shaderPath;
 	GLenum mode;
 	bool visible, added;
+	bool vertModified, geomModified;
 	unsigned int indexOffset, indexCount, vertexOffset;
 
 	RenderAllocator* allocPtr;
@@ -38,6 +39,9 @@ public:
 	GLenum getMode() const;
 	bool isVisible() const;
 	bool isAdded() const;
+
+	bool wasVertModified() const;
+	bool wasGeomModified() const;
 
 	void setViewportRect(int x, int y, int width, int height);
 	void setScissorRect(int x, int y, int width, int height);

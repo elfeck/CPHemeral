@@ -7,7 +7,7 @@ using namespace cph;
 
 VaoEntry::VaoEntry() :
 	vertices(), uniforms(), geoms(), viewportRect(-1, -1, -1, -1), scissorRect(-1, -1, -1, -1),
-	shaderPath(""), mode(GL_TRIANGLES), visible(false), added(false),
+	shaderPath(""), mode(GL_TRIANGLES), visible(false), added(false), vertModified(false), geomModified(false),
 	indexOffset(0), indexCount(0), vertexOffset(0), allocPtr(0)
 {
 
@@ -39,6 +39,14 @@ bool VaoEntry::isVisible() const {
 
 bool VaoEntry::isAdded() const {
 	return added;
+}
+
+bool VaoEntry::wasVertModified() const {
+	return vertModified;
+}
+
+bool VaoEntry::wasGeomModified() const {
+	return geomModified;
 }
 
 void VaoEntry::setViewportRect(int x, int y, int width, int height) {
@@ -94,6 +102,7 @@ void VaoEntry::fetchVertexData(std::vector<GLfloat>& buffer, unsigned int* offse
 	for(std::map<std::uint32_t, RenderVertexImpl*>::const_iterator it = vertices.begin(); it != vertices.end(); ++it) {
 		it->second->fetchVertexData(buffer, format);
 	}
+	vertModified = false;
 }
 
 void VaoEntry::fetchIndexData(std::vector<GLushort>& buffer, unsigned int* offset) {
@@ -104,11 +113,13 @@ void VaoEntry::fetchIndexData(std::vector<GLushort>& buffer, unsigned int* offse
 		indexCount += it->second->getVertexCount();
 	}
 	*offset += vertices.size();
+	geomModified = false;
 }
 
 RenderGeomImpl* VaoEntry::addLocalGeom() {
 	RenderGeomImpl* geom = allocPtr->allocRenderGeom();
 	geoms.insert(std::make_pair(geom->getUniqueId(), geom));
+	geomModified = true;
 	return geom;
 }
 
@@ -116,6 +127,7 @@ RenderVertexImpl* VaoEntry::addLocalVertex() {
 	RenderVertexImpl* vertex = allocPtr->allocRenderVertex();
 	vertex->setVertexIndex(vertices.size());
 	vertices.insert(std::make_pair(vertex->getUniqueId(), vertex));
+	vertModified = true;
 	return vertex;
 }
 
@@ -128,11 +140,13 @@ RenderUniformImpl* VaoEntry::addLocalUniform() {
 void VaoEntry::removeLocalGeom(RenderGeom* geom) {
 	geoms.erase(geom->getUniqueId());
 	allocPtr->releaseRenderGeom(geom);
+	geomModified = true;
 }
 
 void VaoEntry::removeLocalVertex(RenderVertex* vertex) {
 	vertices.erase(vertex->getUniqueId());
 	allocPtr->releaseRenderVertex(vertex);
+	vertModified = true;
 }
 
 void VaoEntry::removeLocalUniform(RenderUniform* uniform) {

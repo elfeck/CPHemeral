@@ -18,15 +18,24 @@ std::uint32_t PrmiVec3fImpl::getUniqueId() const {
 }
 
 void PrmiVec3fImpl::uploadAsUniformGL(GLuint program, std::string name) {
-	glUniform3f(glGetUniformLocation(program, name.c_str()), vector.getX(), vector.getY(), vector.getZ());
+	if(modified) {
+		glUniform3f(glGetUniformLocation(program, name.c_str()), vector.getX(), vector.getY(), vector.getZ());
+		modified = false;
+	}
 }
 
-void PrmiVec3fImpl::fetchVertexData(std::vector<GLfloat>& buffer) const {
+void PrmiVec3fImpl::fetchVertexData(std::vector<GLfloat>& buffer) {
 	buffer.push_back(vector.getX());
 	buffer.push_back(vector.getY());
 	buffer.push_back(vector.getZ());
+	modified = false;
 }
 
-Vec3f* PrmiVec3fImpl::get() {
+Vec3f* PrmiVec3fImpl::wget() {
+	modified = true;
+	return &vector;
+}
+
+const Vec3f* PrmiVec3fImpl::rget() const {
 	return &vector;
 }

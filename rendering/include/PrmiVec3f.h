@@ -12,7 +12,8 @@ struct PrmiVec3f {
 
 	virtual std::uint32_t getUniqueId() const = 0;
 
-	virtual Vec3f* get() = 0;
+	virtual Vec3f* wget() = 0;
+	virtual const Vec3f* rget() const = 0;
 
 };
 

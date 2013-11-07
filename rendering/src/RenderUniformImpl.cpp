@@ -18,7 +18,7 @@ RenderUniformImpl::~RenderUniformImpl() {
 PrmiVec1f* RenderUniformImpl::addVec1f(const char* name, float x) {
 	PrmiVec1fImpl* vec = prmiAllocPtr->allocPrmiVec1f();
 	primitives.insert(std::make_pair(name, vec));
-	vec->get()->setX(x);
+	vec->wget()->setX(x);
 	vec->setLocal(true);
 	return vec;
 }
@@ -26,7 +26,7 @@ PrmiVec1f* RenderUniformImpl::addVec1f(const char* name, float x) {
 PrmiVec2f* RenderUniformImpl::addVec2f(const char* name, float x, float y) {
 	PrmiVec2fImpl* vec = prmiAllocPtr->allocPrmiVec2f();
 	primitives.insert(std::make_pair(name, vec));
-	vec->get()->setXY(x, y);
+	vec->wget()->setXY(x, y);
 	vec->setLocal(true);
 	return vec;
 }
@@ -34,7 +34,7 @@ PrmiVec2f* RenderUniformImpl::addVec2f(const char* name, float x, float y) {
 PrmiVec3f* RenderUniformImpl::addVec3f(const char* name, float x, float y, float z) {
 	PrmiVec3fImpl* vec = prmiAllocPtr->allocPrmiVec3f();
 	primitives.insert(std::make_pair(name, vec));
-	vec->get()->setXYZ(x, y, z);
+	vec->wget()->setXYZ(x, y, z);
 	vec->setLocal(true);
 	return vec;
 }
@@ -42,7 +42,7 @@ PrmiVec3f* RenderUniformImpl::addVec3f(const char* name, float x, float y, float
 PrmiVec4f* RenderUniformImpl::addVec4f(const char* name, float x, float y, float z, float w) {
 	PrmiVec4fImpl* vec = prmiAllocPtr->allocPrmiVec4f();
 	primitives.insert(std::make_pair(name, vec));
-	vec->get()->setXYZW(x, y, z, w);
+	vec->wget()->setXYZW(x, y, z, w);
 	vec->setLocal(true);
 	return vec;
 }	

@@ -76,6 +76,20 @@ void Vao::bindIboGL() {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboHandle);
 }
 
+bool Vao::entryModifiedVert() {
+	for(std::vector<VaoEntry*>::iterator it = entries.begin(); it != entries.end(); ++it) {
+		if((*it)->wasVertModified()) return true;
+	}
+	return false;
+}
+
+bool Vao::entryModifiedGeom() {
+	for(std::vector<VaoEntry*>::iterator it = entries.begin(); it != entries.end(); ++it) {
+		if((*it)->wasGeomModified()) return true;
+	}
+	return false;
+}
+
 void Vao::uploadVboGL() {
 	std::vector<GLfloat> vertexBuffer;
 	unsigned int vertexOffset = 0;
@@ -115,9 +129,17 @@ void Vao::drawGL() {
 }
 
 void Vao::updateGL() {
-	if(modified) {
+	if(modified || entryModifiedVert()) {
 		uploadVboGL();
-		uploadIboGL();
-		modified = false;
+	} else {
+
 	}
+
+	if(modified || entryModifiedGeom()) {
+		uploadIboGL();
+	} else {
+
+	}
+
+	modified = true;
 }

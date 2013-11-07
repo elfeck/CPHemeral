@@ -12,7 +12,8 @@ struct PrmiVec2f : public Primitive {
 	
 	virtual std::uint32_t getUniqueId() const = 0;
 
-	virtual Vec2f* get() = 0;
+	virtual Vec2f* wget() = 0;
+	virtual const Vec2f* rget() const = 0;
 
 };
 

@@ -30,6 +30,9 @@ private:
 	void uploadVboGL();
 	void uploadIboGL();
 
+	bool entryModifiedVert();
+	bool entryModifiedGeom();
+
 public:
 	Vao();
 	~Vao();

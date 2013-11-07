@@ -12,7 +12,8 @@ struct PrmiMat3f : public Primitive {
 	
 	virtual std::uint32_t getUniqueId() const = 0;
 
-	virtual Mat3f* get() = 0;
+	virtual Mat3f* wget() = 0;
+	virtual const Mat3f* rget() const = 0;
 
 };
 
