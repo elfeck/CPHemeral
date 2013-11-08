@@ -5,6 +5,8 @@
 #include "RenderingComponent.h"
 #include "Object.h"
 #include "RenderingSystem.h"
+#include "PrmiVec1f.h"
+#include "PrmiVec2f.h"
 
 
 class JuliaSetObject {

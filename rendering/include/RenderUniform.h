@@ -2,17 +2,18 @@
 #define RENDER_UNIFORM_H_
 
 #include <cstdint>
-#include "PrmiVec4f.h"
-#include "PrmiVec1f.h"
-#include "PrmiVec2f.h"
-#include "PrmiVec3f.h"
-#include "PrmiVec4f.h"
-#include "PrmiMat2f.h"
-#include "PrmiMat3f.h"
-#include "PrmiMat4f.h"
 
 
 namespace cph {
+
+struct Primitive;
+struct PrmiVec1f;
+struct PrmiVec2f;
+struct PrmiVec3f;
+struct PrmiVec4f;
+struct PrmiMat2f;
+struct PrmiMat3f;
+struct PrmiMat4f;
 
 struct RenderUniform {
 

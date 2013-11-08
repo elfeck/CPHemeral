@@ -8,6 +8,7 @@
 #endif
 
 #include <cstdint>
+#include "ObjectAllocator.h"
 
 
 namespace cph {
@@ -16,7 +17,7 @@ struct Object;
 struct ObjectQueue;
 class Log;
 
-struct ObjectManager {
+struct ObjectManager : public ObjectAllocator {
 
 	virtual Object* createObject() = 0;
 	virtual ObjectQueue* tempGetObjectsWith(std::uint8_t sysId) = 0;

@@ -2,14 +2,18 @@
 #include "Window.h"
 #include "Log.h"
 #include "RenderingSystem.h"
+#include "SceneManager.h"
 
 #define VERSION "0.1a"
+
 
 using namespace cph;
 
 Display* display = 0;
 Window* window = 0;
 RenderingSystem* renderingSystem = 0;
+
+SceneManager scenes;
 
 Log errorLog("error");
 Log debugLog("debug");
@@ -39,7 +43,7 @@ void mainCallback(long delta) {
 }
 
 void renderCallback(long delta) {
-
+	if(scenes.getCurrentObjManager() != 0) renderingSystem->execute(scenes.getCurrentObjManager(), delta);
 }
 
 void initLogs(bool debug, bool looptime) {

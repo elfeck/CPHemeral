@@ -1,6 +1,6 @@
 #include "RenderingSystemImpl.h"
 #include "../include/ObjectQueue.h"
-
+#include "../include/ObjectManager.h"
 #include "../include/Object.h"
 
 

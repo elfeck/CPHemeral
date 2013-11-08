@@ -1,14 +1,15 @@
 #ifndef RENDERING_COMPONENT_H_
 #define RENDERING_COMPONENT_H_
 
-#include "RenderGeom.h"
-#include "Primitive.h"
-#include "RenderVertex.h"
-#include "RenderUniform.h"
 #include "Component.h"
 
 
 namespace cph {
+
+struct RenderGeom;
+struct Primitive;
+struct RenderVertex;
+struct RenderUniform;
 
 enum RenderMode {
 	POINTS, LINES, TRIANGLES

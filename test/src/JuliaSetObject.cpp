@@ -1,6 +1,9 @@
 #include <iostream>
 #include "JuliaSetObject.h"
 #include "Display.h"
+#include "RenderGeom.h"
+#include "RenderVertex.h"
+#include "RenderUniform.h"
 
 
 using namespace cph;

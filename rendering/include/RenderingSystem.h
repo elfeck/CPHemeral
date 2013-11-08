@@ -8,15 +8,16 @@
 #endif
 
 #include "ObjectSystem.h"
-#include "RenderingComponent.h"
-#include "ObjectManager.h"
+#include "RenderingAllocator.h"
 
 
 namespace cph {
 
+struct ObjectManager;
+struct RenderingComponent;
 class Log;
 
-struct RenderingSystem : public ObjectSystem {
+struct RenderingSystem : public RenderingAllocator, public ObjectSystem {
 
 	virtual RenderingComponent* createComponent() = 0;
 	virtual std::uint8_t getSysId() const = 0;
