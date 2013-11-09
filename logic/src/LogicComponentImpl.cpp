@@ -32,6 +32,7 @@ void LogicComponentImpl::destroy() {
 
 void LogicComponentImpl::setSystem(LogicSystemImpl* system) {
 	this->system = system;
+	sysId = system->getSysId();
 }
 
 void LogicComponentImpl::executeLogic(long delta) {

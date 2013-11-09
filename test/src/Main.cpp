@@ -2,8 +2,8 @@
 
 #include "ObjectManager.h"
 #include "Object.h"
-#include "RenderingComponent.h"
 #include "RenderingSystem.h"
+#include "LogicSystem.h"
 #include "Display.h"
 #include "Window.h"
 #include "Log.h"
@@ -20,6 +20,7 @@ Window* window = 0;
 
 ObjectManager* scene1 = 0;
 RenderingSystem* renderingSystem = 0;
+LogicSystem* logicSystem = 0;
 
 Log errorLog("error");
 Log debugLog("debug");
@@ -53,14 +54,18 @@ int main(int argc, char* argv[]) {
 	display->setLooptimeLogTime(5000);
 
 	renderingSystem = createRenderingSystem(0x01);
+	logicSystem = createLogicSystem(0x02);
 
 	renderingSystem->setLog(&errorLog);
 	renderingSystem->setLog(&debugLog);
 
+	logicSystem->setLog(&errorLog);
+	logicSystem->setLog(&debugLog);
+
 	scene1 = createObjectManager();
 	scene1->setLog(&debugLog);
 	// ################
-	juliaObj.create(scene1, renderingSystem);
+	juliaObj.create(scene1, renderingSystem, logicSystem);
 	// ################
 
 	display->enterMainLoop();
@@ -71,6 +76,7 @@ int main(int argc, char* argv[]) {
 
 
 	deleteRenderingSystem(renderingSystem);
+	deleteLogicSystem(logicSystem);
 	deleteObjectManager(scene1);
 
 	deleteWindow(window);
@@ -87,6 +93,7 @@ void mainCallback(long delta) {
 		juliaObj.setVisible(false);
 	}
 	if(juliaObj.isVisible()) handleJuliaInput(delta);
+	logicSystem->execute(scene1, delta);
 }
 
 void renderCallback(long delta) {

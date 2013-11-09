@@ -4,16 +4,20 @@
 #include "ObjectManager.h"
 #include "RenderingComponent.h"
 #include "Object.h"
-#include "RenderingSystem.h"
+#include "RenderingAllocator.h"
+#include "LogicAllocator.h"
 #include "PrmiVec1f.h"
 #include "PrmiVec2f.h"
+#include "LogicComponent.h"
+#include "Logicable.h"
 
 
-class JuliaSetObject {
+class JuliaSetObject : public cph::Logicable {
 
 private:
 	cph::Object* object;
 	cph::RenderingComponent* render;
+	cph::LogicComponent* logic;
 
 	cph::PrmiVec1f* zoom;
 	cph::PrmiVec2f* c;
@@ -23,7 +27,9 @@ public:
 	JuliaSetObject();
 	~JuliaSetObject();
 
-	void create(cph::ObjectManager* scene, cph::RenderingSystem* sys);
+	virtual void doLogic(long delta);
+
+	void create(cph::ObjectManager* scene, cph::RenderingAllocator* render, cph::LogicAllocator* logic);
 	void destroy();
 
 	bool isVisible();

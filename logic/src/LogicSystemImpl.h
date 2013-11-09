@@ -10,7 +10,7 @@
 
 namespace cph {
 
-struct LogicSystemImpl : public LogicSystem {
+class LogicSystemImpl : public LogicSystem {
 	
 private:
 	SingleIdAllocator<LogicComponentImpl> logicAlloc;

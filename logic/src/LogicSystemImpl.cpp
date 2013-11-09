@@ -17,7 +17,7 @@ LogicSystemImpl::~LogicSystemImpl() {
 
 LogicComponent* LogicSystemImpl::createComponent() {
 	LogicComponentImpl* comp =  logicAlloc.allocate();
-	debugLog << "[LgcSys: created [LogicComponent= " << comp->getUniqueId << "]" << std::endl;
+	debugLog << "[LgcSys: created [LogicComponent= " << comp->getUniqueId() << "]" << std::endl;
 	comp->setSystem(this);
 	return comp;
 }
@@ -47,7 +47,7 @@ void LogicSystemImpl::setLog(Log* log, const char* target) {
 }
 
 void LogicSystemImpl::releaseComponent(LogicComponent* component) {
-	logicAlloc.release(component->getUniqueId());
 	debugLog << "[LgcSys: destroyed [logicComponent= " << component->getUniqueId() << "]" << std::endl;
+	logicAlloc.release(component->getUniqueId());
 }
 

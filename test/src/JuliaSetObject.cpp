@@ -9,7 +9,7 @@
 using namespace cph;
 
 JuliaSetObject::JuliaSetObject() :
-	object(0), render(0), zoom(0), c(0)
+	object(0), render(0), logic(0), zoom(0), c(0)
 {
 
 }
@@ -18,9 +18,20 @@ JuliaSetObject::~JuliaSetObject() {
 
 }
 
-void JuliaSetObject::create(ObjectManager* scene, RenderingSystem* sys) {
+void JuliaSetObject::doLogic(long delta) {
+
+}
+
+void JuliaSetObject::create(ObjectManager* scene, RenderingAllocator* renderSys, LogicAllocator* logicSys) {
 	object = scene->createObject();
-	render = sys->createComponent();
+	
+	render = renderSys->createComponent();
+	logic = logicSys->createComponent();
+
+	object->addComponent(render);
+	object->addComponent(logic);
+	
+	logic->setLogicable(this);
 	
 	render->setRenderMode(TRIANGLES);
 	render->setShader("D://Projects/C++/CPHemeral/test/res/juliaset");
@@ -56,12 +67,11 @@ void JuliaSetObject::create(ObjectManager* scene, RenderingSystem* sys) {
 	geom2->addVertex(vert1);
 	geom2->addVertex(vert3);
 	geom2->addVertex(vert4);
-
-	object->addComponent(render);
 }
 
 void JuliaSetObject::destroy() {
 	render->destroy();
+	logic->destroy();
 	object->destroy();
 }
 
