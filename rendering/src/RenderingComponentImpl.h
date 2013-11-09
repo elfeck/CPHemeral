@@ -49,10 +49,7 @@ public:
 	virtual void destroy();
 
 	void setSystem(RenderingSystemImpl* system);
-	void setSysId(std::uint8_t id);
 	VaoEntry* getVaoEntry();
-
-	void bla();
 
 };
 

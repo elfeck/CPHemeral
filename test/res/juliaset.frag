@@ -1,13 +1,13 @@
-#version 130
+#version 400
 
 in vec2 frag_position;
 
 uniform vec2 c;
 
-float julia_iterative(in vec2 point, in vec2 constant, in float threshold, in int depth) {
+float julia_iterative(in dvec2 point, in vec2 constant, in float threshold, in int depth) {
 	int i = 0;
 	for(i = 0; i < depth && dot(point, point) < threshold * threshold; i++) {
-		vec2 next = vec2(point.x * point.x - point.y * point.y, 2 * point.x * point.y);
+		dvec2 next = dvec2(point.x * point.x - point.y * point.y, 2 * point.x * point.y);
 		point = next + constant;
 	}
 	return i;

@@ -30,8 +30,7 @@ RenderingSystemImpl::~RenderingSystemImpl() {
 RenderingComponent* RenderingSystemImpl::createComponent() {
 	RenderingComponentImpl* comp = componentAlloc.allocate();
 	comp->setSystem(this);
-	comp->setSysId(sysId);
-	debugLog << "[RenSys: created [renderingComp= " << comp->getUniqueId() << "]" << std::endl;
+	debugLog << "[RenSys: created [RenderingComp= " << comp->getUniqueId() << "]" << std::endl;
 	return comp;
 }
 
@@ -64,7 +63,6 @@ void RenderingSystemImpl::releaseComponent(RenderingComponentImpl* component) {
 	debugLog << "[RenSys: destroyed [renderingComp= " << component->getUniqueId() << "]" << std::endl;
 	vaoManager.cleanVaoEntry(component->getVaoEntry());
 	componentAlloc.release(component->getUniqueId());
-
 }
 
 RenderAllocator* RenderingSystemImpl::getRenderAllocator() {

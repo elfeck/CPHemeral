@@ -83,11 +83,8 @@ void RenderingComponentImpl::destroy() {
 
 void RenderingComponentImpl::setSystem(RenderingSystemImpl* system) {
 	this->system = system;
+	this->sysId = system->getSysId();
 	vaoEntry.setAllocPtr(system->getRenderAllocator());
-}
-
-void RenderingComponentImpl::setSysId(std::uint8_t id) {
-	sysId = id;
 }
 
 VaoEntry* RenderingComponentImpl::getVaoEntry() {
