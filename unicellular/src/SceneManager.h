@@ -20,6 +20,9 @@ public:
 
 	ObjectManager* getCurrentObjManager();
 
+	void init();
+	void destroy();
+
 };
 
 }

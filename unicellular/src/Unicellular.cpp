@@ -4,6 +4,8 @@
 #include "RenderingSystem.h"
 #include "LogicSystem.h"
 #include "SceneManager.h"
+#include "ComponentAllocator.h"
+#include "Unicellular.h"
 
 #define VERSION "0.1a"
 
@@ -17,6 +19,7 @@ RenderingSystem* renderingSystem = 0;
 LogicSystem* logicSystem = 0;
 
 SceneManager scenes;
+ComponentAllocator compAlloc;
 
 Log errorLog("error");
 Log debugLog("debug");
@@ -31,6 +34,7 @@ void initDisplay(int argc, char** argv);
 void initRenderingSystem();
 void initLogicSystem();
 
+void initScenes();
 void cleanup();
 
 int main(int argc, char** argv) {
@@ -39,10 +43,12 @@ int main(int argc, char** argv) {
 
 	initRenderingSystem();
 	initLogicSystem();
+	initScenes();
 
 	display->enterMainLoop();
 
 	cleanup();
+	system("pause");
 }
 
 void mainCallback(long delta) {
@@ -90,9 +96,25 @@ void initLogicSystem() {
 	logicSystem->setLog(&debugLog);
 }
 
+void initScenes() {
+	compAlloc.setRenderAlloc(renderingSystem);
+	compAlloc.setLogicAlloc(logicSystem);
+	scenes.init();
+}
+
 void cleanup() {
+	scenes.destroy();
 	deleteDisplay(display);
 	deleteWindow(window);
 	deleteRenderingSystem(renderingSystem);
 	deleteLogicSystem(logicSystem);
+}
+
+ComponentAllocator& cph::getComponentAllocator() {
+	return compAlloc;
+}
+
+void cph::setLog(ObjectManager* objectManager) {
+	objectManager->setLog(&errorLog);
+	objectManager->setLog(&debugLog);
 }

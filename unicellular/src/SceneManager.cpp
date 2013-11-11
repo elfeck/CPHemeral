@@ -18,3 +18,11 @@ SceneManager::~SceneManager() {
 ObjectManager* SceneManager::getCurrentObjManager() {
 	return currentManager;
 }
+
+void SceneManager::init() {
+	mainScene.init();
+}
+
+void SceneManager::destroy() {
+	mainScene.destroy();
+}
