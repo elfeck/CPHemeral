@@ -14,7 +14,7 @@ float julia_iterative(in dvec2 point, in vec2 constant, in float threshold, in i
 }
 
 void main() {
-	int depth = 200;
+	int depth = 1000;
 	float threshold = 4.0;
 	vec2 constant = (c.x == 0 && c.y == 0) ? frag_position : c;
 

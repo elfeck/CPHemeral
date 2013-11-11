@@ -2,6 +2,7 @@
 #include "Window.h"
 #include "Log.h"
 #include "RenderingSystem.h"
+#include "LogicSystem.h"
 #include "SceneManager.h"
 
 #define VERSION "0.1a"
@@ -11,7 +12,9 @@ using namespace cph;
 
 Display* display = 0;
 Window* window = 0;
+
 RenderingSystem* renderingSystem = 0;
+LogicSystem* logicSystem = 0;
 
 SceneManager scenes;
 
@@ -24,14 +27,18 @@ void renderCallback(long delta);
 
 void initLogs(bool debug, bool looptime);
 void initDisplay(int argc, char** argv);
+
 void initRenderingSystem();
+void initLogicSystem();
 
 void cleanup();
 
 int main(int argc, char** argv) {
 	initLogs(true, true);
 	initDisplay(argc, argv);
+
 	initRenderingSystem();
+	initLogicSystem();
 
 	display->enterMainLoop();
 
@@ -39,7 +46,7 @@ int main(int argc, char** argv) {
 }
 
 void mainCallback(long delta) {
-
+	if(scenes.getCurrentObjManager() != 0) logicSystem->execute(scenes.getCurrentObjManager(), delta);
 }
 
 void renderCallback(long delta) {
@@ -57,7 +64,7 @@ void initLogs(bool debug, bool looptime) {
 void initDisplay(int argc, char** argv) {
 	window = createWindow();
 	window->setSize(800, 600);
-	window->setPosition(0, 0);
+	window->setPosition(650, 0);
 	window->setTitle(std::string("Unicellular ").append(VERSION).c_str());
 	window->initWindow(&argc, argv);
 
@@ -72,13 +79,20 @@ void initDisplay(int argc, char** argv) {
 }
 
 void initRenderingSystem() {
-	renderingSystem = createRenderingSystem(0x1);
+	renderingSystem = createRenderingSystem(0x01);
 	renderingSystem->setLog(&errorLog);
 	renderingSystem->setLog(&debugLog);
+}
+
+void initLogicSystem() {
+	logicSystem = createLogicSystem(0x02);
+	logicSystem->setLog(&errorLog);
+	logicSystem->setLog(&debugLog);
 }
 
 void cleanup() {
 	deleteDisplay(display);
 	deleteWindow(window);
 	deleteRenderingSystem(renderingSystem);
+	deleteLogicSystem(logicSystem);
 }
