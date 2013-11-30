@@ -3,8 +3,8 @@
 
 using namespace cph;
 
-Logger::Logger(Log* logPtr) :
-	localLog("logger_local"), logPtr(logPtr)
+Logger::Logger(const char* logPrepos, Log* logPtr) :
+	logPrepos(logPrepos), localLog("logger_local"), logPtr(logPtr)
 {
 
 }
@@ -17,8 +17,12 @@ void Logger::setLogPtr(Log* logPtr) {
 	this->logPtr = logPtr;
 }
 
+void Logger::setLogPrepos(const char* logPreposs) {
+	this->logPrepos = logPrepos;
+}
+
 void Logger::logMessage(std::string message) {
-	if(logPtr != 0) logPtr->logMessage(message);
+	if(logPtr != 0) logPtr->logMessage(logPrepos + " " + message);
 	else localLog.logMessage(message);
 }
 
@@ -42,6 +46,15 @@ void Logger::setLocalWriteToBuffer(bool write) {
 
 void Logger::setLocalWritebackOnLog(std::string* writebackPtr) {
 	localLog.setWritebackOnLog(writebackPtr);
+}
+
+WriteonlyLogger& Logger::pre() {
+	if(logPtr != 0) {
+		*logPtr << logPrepos << "   ";
+	} else {
+		localLog << logPrepos << "   ";
+	}
+	return *this;
 }
 
 WriteonlyLogger& Logger::operator<<(const char* value) {

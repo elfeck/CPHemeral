@@ -12,8 +12,13 @@ Vao::Vao() :
 
 }
 
-Vao::~Vao() {
+Vao::Vao(const Vao& other) { }
 
+Vao::~Vao() {
+	for(std::map<std::string, ShaderProgram>::iterator it = shaderPrograms.begin(); it != shaderPrograms.end(); ++it) {
+		it->second.destroyGL();
+	}
+	destroyGL();
 }
 
 void Vao::addVaoEntry(VaoEntry* entry, ShaderProgram* program) {
@@ -96,6 +101,7 @@ void Vao::uploadVboGL() {
 	for(std::vector<VaoEntry*>::iterator it = entries.begin(); it != entries.end(); ++it) {
 		(*it)->fetchVertexData(vertexBuffer, &vertexOffset, shaderPrograms.at((*it)->getShaderPath()).getAttritbuteFormat());
 	}
+	if(vertexBuffer.size() == 0) return;
 	glBindBuffer(GL_ARRAY_BUFFER, vboHandle);
 	glBufferData(GL_ARRAY_BUFFER, vertexBuffer.size() * sizeof(GLfloat), &vertexBuffer.at(0), usage);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -107,23 +113,27 @@ void Vao::uploadIboGL() {
 	for(std::vector<VaoEntry*>::iterator it = entries.begin(); it != entries.end(); ++it) {
 		(*it)->fetchIndexData(indexBuffer, &indexOffset);
 	}
+	if(indexBuffer.size() == 0) return;
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboHandle);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexBuffer.size() * sizeof(GLushort), &indexBuffer.at(0), usage);
 }
 
 void Vao::drawGL() {
 	glBindVertexArray(vaoHandle);
-	VaoEntry* entry = 0;
+	VaoEntry* last = 0;
+	VaoEntry* next = 0;
 	for(std::vector<VaoEntry*>::iterator it = entries.begin(); it != entries.end(); ++it) {
-		entry = *it;
-		if(!entry->isVisible()) continue;
-		entry->viewportGL();
-		entry->scissorGL();
-		shaderPrograms.at(entry->getShaderPath()).bindGL();
-		entry->uploadUniformsGL(shaderPrograms.at(entry->getShaderPath()).getProgramHandle());
-		glDrawElements(entry->getMode(), entry->getIndexCount(), GL_UNSIGNED_SHORT, 
-			reinterpret_cast<GLvoid*>(entry->getIndexOffset() * sizeof(GLushort)));
-		shaderPrograms.at(entry->getShaderPath()).unbindGL();
+		if(last == 0) last = *it;
+		next = *it;
+		if(!next->isVisible()) continue;
+		if(last->nextNeedsViewportChange(*next) || last == next) next->viewportGL();
+		if(last->nextNeedsScissorChange(*next) || last == next) next->scissorGL();
+		if(last->nextNeedsShaderChange(*next) || last == next) shaderPrograms.at(next->getShaderPath()).bindGL();
+		next->uploadUniformsGL(shaderPrograms.at(last->getShaderPath()).getProgramHandle());
+		glDrawElements(next->getMode(), next->getIndexCount(), GL_UNSIGNED_SHORT, 
+			reinterpret_cast<GLvoid*>(next->getIndexOffset() * sizeof(GLushort)));
+		shaderPrograms.at(next->getShaderPath()).unbindGL();
+		last = next;
 	}
 	glBindVertexArray(0);
 }
@@ -140,6 +150,11 @@ void Vao::updateGL() {
 	} else {
 
 	}
+	modified = false;
+}
 
-	modified = true;
+void Vao::destroyGL() {
+	glDeleteVertexArrays(1, &vaoHandle);
+	glDeleteBuffers(1, &vboHandle);
+	glDeleteBuffers(1, &iboHandle);
 }

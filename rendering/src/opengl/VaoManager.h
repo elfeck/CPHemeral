@@ -15,6 +15,8 @@ class VaoManager {
 private:
 	SingleAllocator<Vao> vaoAlloc;
 
+	VaoManager(const VaoManager& other);
+
 public:
 	VaoManager();
 	~VaoManager();

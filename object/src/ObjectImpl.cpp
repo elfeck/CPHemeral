@@ -24,13 +24,13 @@ void ObjectImpl::destroy() {
 
 void ObjectImpl::addComponent(Component* component) {
 	components.insert(std::make_pair(component->getSysId(), component));
-	ObjectManagerImpl::getDebugLog() << "[Obj   : [object= " << objId << "] added [component= " << component->getUniqueId()
-		<< ", system= " << component->getSysId() << "]" << std::endl;
+	ObjectManagerImpl::getDebugLog().pre() << "[Object= " << objId << "] added [Component= (" << component->getUniqueId()
+		<< ", " << component->getSysId() << ")]" << std::endl;
 }
 
 void ObjectImpl::removeComponent(Component* component) {	
-	ObjectManagerImpl::getDebugLog() << "[Obj   : [object= " << objId << "] removed [component= " << component->getUniqueId()
-		<< ", system= " << component->getSysId() << "]" << std::endl;
+	ObjectManagerImpl::getDebugLog().pre() << "[Object= " << objId << "] removed [Component= (" << component->getUniqueId()
+		<< ", " << component->getSysId() << ")]" << std::endl;
 	components.erase(component->getSysId());
 }
 

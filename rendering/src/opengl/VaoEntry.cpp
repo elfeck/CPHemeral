@@ -5,6 +5,8 @@
 
 using namespace cph;
 
+const std::string VaoEntry::ERROR_PATH = "error_path";
+
 VaoEntry::VaoEntry() :
 	vertices(), uniforms(), geoms(), viewportRect(-1, -1, -1, -1), scissorRect(-1, -1, -1, -1),
 	shaderPath(""), mode(GL_TRIANGLES), visible(false), added(false), vertModified(false), geomModified(false),
@@ -47,6 +49,18 @@ bool VaoEntry::wasVertModified() const {
 
 bool VaoEntry::wasGeomModified() const {
 	return geomModified;
+}
+
+bool VaoEntry::nextNeedsViewportChange(VaoEntry& next) const {
+	return viewportRect != next.viewportRect;
+}
+
+bool VaoEntry::nextNeedsScissorChange(VaoEntry& next) const {
+	return scissorRect != next.scissorRect;
+}
+
+bool VaoEntry::nextNeedsShaderChange(VaoEntry& next) const {
+	return shaderPath != shaderPath;
 }
 
 void VaoEntry::setViewportRect(int x, int y, int width, int height) {

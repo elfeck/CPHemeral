@@ -6,8 +6,8 @@
 
 using namespace cph;
 
-Logger RenderingSystemImpl::errorLog;
-Logger RenderingSystemImpl::debugLog;
+Logger RenderingSystemImpl::errorLog("[ RendrSys ]");
+Logger RenderingSystemImpl::debugLog("[ RendrSys ]");
 
 WriteonlyLogger& RenderingSystemImpl::getErrorLog() {
 	return errorLog;
@@ -23,6 +23,8 @@ RenderingSystemImpl::RenderingSystemImpl(std::uint8_t id) :
 	errorLog.setLocalConsolePrintOnLog(true);
 }
 
+RenderingSystemImpl::RenderingSystemImpl(const RenderingSystemImpl& other) : sysId(other.sysId) { }
+
 RenderingSystemImpl::~RenderingSystemImpl() {
 
 }
@@ -30,7 +32,7 @@ RenderingSystemImpl::~RenderingSystemImpl() {
 RenderingComponent* RenderingSystemImpl::createComponent() {
 	RenderingComponentImpl* comp = componentAlloc.allocate();
 	comp->setSystem(this);
-	debugLog << "[RenSys: created [RenderingComp= " << comp->getUniqueId() << "]" << std::endl;
+	debugLog.pre() << "Created [RenderingComp= " << comp->getUniqueId() << "]" << std::endl;
 	return comp;
 }
 
@@ -60,7 +62,7 @@ void RenderingSystemImpl::setLog(Log* log, const char* target) {
 }
 
 void RenderingSystemImpl::releaseComponent(RenderingComponentImpl* component) {
-	debugLog << "[RenSys: destroyed [renderingComp= " << component->getUniqueId() << "]" << std::endl;
+	debugLog.pre() << "Destroyed [RenderingComp= " << component->getUniqueId() << "]" << std::endl;
 	vaoManager.cleanVaoEntry(component->getVaoEntry());
 	componentAlloc.release(component->getUniqueId());
 }

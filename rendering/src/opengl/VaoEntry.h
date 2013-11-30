@@ -35,6 +35,8 @@ public:
 	VaoEntry();
 	~VaoEntry();
 
+	static const std::string ERROR_PATH;
+
 	std::string getShaderPath() const;
 	GLenum getMode() const;
 	bool isVisible() const;
@@ -42,6 +44,10 @@ public:
 
 	bool wasVertModified() const;
 	bool wasGeomModified() const;
+
+	bool nextNeedsViewportChange(VaoEntry& next) const;
+	bool nextNeedsScissorChange(VaoEntry& next) const;
+	bool nextNeedsShaderChange(VaoEntry& next) const;
 
 	void setViewportRect(int x, int y, int width, int height);
 	void setScissorRect(int x, int y, int width, int height);

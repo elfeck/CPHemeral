@@ -27,6 +27,7 @@ private:
 
 public:
 	ShaderProgram(std::string shaderPath);
+	ShaderProgram(const ShaderProgram& other);
 	~ShaderProgram();
 
 	std::string getShaderId() const;
@@ -35,6 +36,8 @@ public:
 
 	void bindGL();
 	void unbindGL();
+
+	void destroyGL();
 
 };
 

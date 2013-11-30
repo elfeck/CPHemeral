@@ -110,7 +110,7 @@ DisplayImpl::DisplayImpl() :
 	pressedKeys(std::array<bool, 256>()), releasedKeys(std::array<bool, 256>()),
 	mouseX(-1), mouseY(-1), mouseWheel(0), mouseInWindow(false),
 	timeUnit(), printTimePassed(1000), looptimeLogTime(1000), mainCallback(0), renderCallback(0), window(0),
-	errorLog(), debugLog(), looptimeLog()
+	errorLog("[ Display  ]"), debugLog("[ Display  ]"), looptimeLog("[ Looptime ]")
 {
 	errorLog.setLocalWriteToBuffer(true);
 }
@@ -157,7 +157,7 @@ void DisplayImpl::initDisplay(Window* window) {
 	setWindow(window);
 	glewExperimental = true;
 	if(GLEW_OK != glewInit()) {
-		errorLog.logMessage("[Disply: GL Context could not be initialized. Error with glew!");
+		errorLog.logMessage("GL Context could not be initialized. Error with glew!");
 		return;
 	}
 	glutDisplayFunc(display_callback);
@@ -220,15 +220,14 @@ void DisplayImpl::enterMainLoop() {
 				
 				timeUnit.enterEnd(glutGet(GLUT_ELAPSED_TIME));
 				if(printTimePassed >= looptimeLogTime) {
-						looptimeLog << "[LoopTm: cur [" << timeUnit.getDelta() << " ms]    avg [" << timeUnit.getAverage()
-							<< " ms]    tks [" << timeUnit.getTicks() << "]" << std::endl;
+						looptimeLog.pre() << timeUnit.getDelta() << "ms -- " << timeUnit.getAverage() << "ms" << std::endl;
 						printTimePassed = 0;
 				} else {
 					printTimePassed += timeUnit.getDelta();
 				}
 			}
-		} else errorLog.logMessage("[Disply: Window or Display not initialized!");
-	} else errorLog.logMessage("[Disply: Window or main/render callback not set!");
+		} else errorLog.logMessage("Window or Display not initialized!");
+	} else errorLog.logMessage("Window or main/render callback not set!");
 }
 
 void DisplayImpl::exitMainLoop() {

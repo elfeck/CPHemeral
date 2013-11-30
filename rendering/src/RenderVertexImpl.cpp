@@ -1,5 +1,5 @@
-#include <iostream>
 #include "RenderVertexImpl.h"
+#include "SystemLog.h"
 
 
 using namespace cph;
@@ -86,7 +86,10 @@ std::uint32_t RenderVertexImpl::getUniqueId() const {
 void RenderVertexImpl::fetchVertexData(std::vector<GLfloat>& buffer, const std::set<AttributeFormat>& format) const {
 	for(std::set<AttributeFormat>::const_iterator it = format.begin(); it != format.end(); ++it) {
 		if(primitives.count(it->getOriginalName()) == 1) primitives.at(it->getOriginalName())->fetchVertexData(buffer);
-		else std::cout << "Vertex attribute not in available: " << it->getOriginalName() << " in RenderVertex " << uniqueId << std::endl;
+		else {
+			getErrorLog().pre() << "Vertex attribute: " << it->getOriginalName() << " not available in RenderVertex " 
+				<< uniqueId << std::endl;
+		}
 	}
 }
 

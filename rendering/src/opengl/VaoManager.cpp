@@ -17,12 +17,14 @@ VaoManager::~VaoManager() {
 
 }
 
+VaoManager::VaoManager(const VaoManager& other) { }
+
 void VaoManager::processVaoEntry(VaoEntry* entry) {
 	if(!entry->isAdded()) {
 		for(SingleAllocator<Vao>::iterator it = vaoAlloc.begin(); it != vaoAlloc.end(); ++it) {
 			if(it->hasShader(entry->getShaderPath())) {
 				it->addVaoEntry(entry);
-				getDebugLog() << "[RenSys: Adding [entry= " << cutFilepath(entry->getShaderPath()) << "] to existing vao" << std::endl;
+				getDebugLog().pre() << "Adding [VaoEntry= " << cutFilepath(entry->getShaderPath()) << "] to existing Vao" << std::endl;
 				break;
 			}
 		}
@@ -31,21 +33,21 @@ void VaoManager::processVaoEntry(VaoEntry* entry) {
 			for(SingleAllocator<Vao>::iterator it = vaoAlloc.begin(); it != vaoAlloc.end(); ++it) {
 				if(it->supportsShader(shaderProgram)) {
 					it->addVaoEntry(entry, &shaderProgram);
-					getDebugLog() << "[RenSys: Adding [entry= " << cutFilepath(entry->getShaderPath()) << "] to existing vao" << std::endl;
+					getDebugLog().pre() << "Adding [VaoEntry= " << cutFilepath(entry->getShaderPath()) << "] to existing Vao" << std::endl;
 					break;
 				}
 			}
 			if(!entry->isAdded()) {
-				getDebugLog() << "[RenSys: Creating new vao for [entry= " << cutFilepath(entry->getShaderPath()) << "]" << std::endl;
+				getDebugLog().pre() << "Creating new Vao for [VaoEntry= " << cutFilepath(entry->getShaderPath()) << "]" << std::endl;
 				Vao* vao = vaoAlloc.allocate();
 				vao->initGL(shaderProgram);
-				getDebugLog() << "[RenSys: Adding entry to newly created vao" << std::endl;
+				getDebugLog().pre() << "Adding VaoEntry to newly created Vao" << std::endl;
 				vao->addVaoEntry(entry);
 			}
-		} else {
-			getErrorLog() << "[RenSys: Invalid shader path: " << entry->getShaderPath() << std::endl;
-		}
-
+		} else if(entry->getShaderPath() != VaoEntry::ERROR_PATH) {
+			getErrorLog().pre() << "Invalid shader path: " << entry->getShaderPath() << std::endl;
+			entry->setShader(VaoEntry::ERROR_PATH);
+		} 
 	}
 }
 

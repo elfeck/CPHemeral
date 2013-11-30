@@ -32,6 +32,10 @@ private:
 
 	bool entryModifiedVert();
 	bool entryModifiedGeom();
+	
+	void destroyGL();
+
+	Vao(const Vao& other);
 
 public:
 	Vao();

@@ -12,6 +12,8 @@
 
 using namespace cph;
 
+const std::string absolutePath = "D:/Projects/C++/CPHemeral/Unicellular";
+
 Display* display = 0;
 Window* window = 0;
 
@@ -70,7 +72,7 @@ void initLogs(bool debug, bool looptime) {
 void initDisplay(int argc, char** argv) {
 	window = createWindow();
 	window->setSize(800, 600);
-	window->setPosition(650, 0);
+	window->setPosition(450, 0);
 	window->setTitle(std::string("Unicellular ").append(VERSION).c_str());
 	window->initWindow(&argc, argv);
 
@@ -117,4 +119,8 @@ ComponentAllocator& cph::getComponentAllocator() {
 void cph::setLog(ObjectManager* objectManager) {
 	objectManager->setLog(&errorLog);
 	objectManager->setLog(&debugLog);
+}
+
+std::string cph::getAbsolutePath() {
+	return absolutePath;
 }

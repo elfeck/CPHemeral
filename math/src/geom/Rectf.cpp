@@ -52,3 +52,15 @@ void Rectf::setRect(float x, float y, float width, float height) {
 	this->width = width;
 	this->height = height;
 }
+
+
+bool Rectf::operator==(const Rectf& other) const {
+	return x == other.x &&
+		y == other.y &&
+		width == other.width &&
+		height == other.height;
+}
+
+bool Rectf::operator!=(const Rectf& other) const {
+	return !(*this == other);
+}

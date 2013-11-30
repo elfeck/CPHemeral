@@ -26,6 +26,8 @@ private:
 	
 	static Logger errorLog, debugLog;
 
+	RenderingSystemImpl(const RenderingSystemImpl& other);
+
 public:
 	RenderingSystemImpl(std::uint8_t id);
 	~RenderingSystemImpl();

@@ -9,6 +9,8 @@ struct WriteonlyLogger {
 
 	virtual void logMessage(std::string message) = 0;
 
+	virtual WriteonlyLogger& pre() = 0;
+
 	virtual WriteonlyLogger& operator<<(const char* value) = 0;
 	virtual WriteonlyLogger& operator<<(std::string value) = 0;
 	virtual WriteonlyLogger& operator<<(bool value) = 0;

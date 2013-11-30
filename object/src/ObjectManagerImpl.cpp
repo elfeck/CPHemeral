@@ -5,7 +5,7 @@
 
 using namespace cph;
 
-Logger ObjectManagerImpl::debugLog;
+Logger ObjectManagerImpl::debugLog("[ ObjManag ]");
 
 WriteonlyLogger& ObjectManagerImpl::getDebugLog() {
 	return debugLog;
@@ -24,7 +24,7 @@ ObjectManagerImpl::~ObjectManagerImpl() {
 Object* ObjectManagerImpl::createObject() {
 	ObjectImpl* obj = objectAlloc.allocate();
 	obj->setObjectManager(this);
-	debugLog << "[ObjMan: created [object= " << obj->getObjId() << "]" << std::endl;
+	debugLog.pre() << "Created [Object= " << obj->getObjId() << "]" << std::endl;
 	return obj;
 }
 
@@ -45,7 +45,7 @@ void ObjectManagerImpl::setLog(Log* log, const char* target) {
 }
 
 void ObjectManagerImpl::destroyObject(ObjectImpl* object) {
-	debugLog << "[ObjMan: destroyed [object= " << object->getObjId() << "]" << std::endl;
+	debugLog.pre() << "Destroyed [Object= " << object->getObjId() << "]" << std::endl;
 	objectAlloc.release(object);
 }
 

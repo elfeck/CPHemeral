@@ -6,7 +6,7 @@
 using namespace cph;
 
 LogicSystemImpl::LogicSystemImpl(std::uint8_t sysId) :
-	logicAlloc(), sysId(sysId), errorLog(), debugLog()
+	logicAlloc(), sysId(sysId), errorLog("[ LogicSys ]"), debugLog("[ LogicSys ]")
 {
 	errorLog.setLocalConsolePrintOnLog(true);
 }
@@ -17,7 +17,7 @@ LogicSystemImpl::~LogicSystemImpl() {
 
 LogicComponent* LogicSystemImpl::createComponent() {
 	LogicComponentImpl* comp =  logicAlloc.allocate();
-	debugLog << "[LgcSys: created [LogicComponent= " << comp->getUniqueId() << "]" << std::endl;
+	debugLog.pre() << "Created [LogicComponent= " << comp->getUniqueId() << "]" << std::endl;
 	comp->setSystem(this);
 	return comp;
 }
@@ -47,7 +47,7 @@ void LogicSystemImpl::setLog(Log* log, const char* target) {
 }
 
 void LogicSystemImpl::releaseComponent(LogicComponent* component) {
-	debugLog << "[LgcSys: destroyed [logicComponent= " << component->getUniqueId() << "]" << std::endl;
+	debugLog.pre() << "Destroyed [LogicComponent= " << component->getUniqueId() << "]" << std::endl;
 	logicAlloc.release(component->getUniqueId());
 }
 

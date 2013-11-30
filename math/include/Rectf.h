@@ -24,6 +24,9 @@ public:
 	void setHeight(float height);
 	void setRect(float x, float y, float width, float height);
 
+	bool operator==(const Rectf& other) const;
+	bool operator!=(const Rectf& other) const;
+
 };
 
 }

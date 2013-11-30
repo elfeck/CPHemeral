@@ -1,5 +1,4 @@
 #include <algorithm>
-
 #include "RenderingSystemImpl.h"
 #include "RenderingComponentImpl.h"
 #include "primitive/PrmiVec4fImpl.h"

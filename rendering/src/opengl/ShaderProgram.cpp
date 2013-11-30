@@ -1,7 +1,6 @@
 #include "ShaderProgram.h"
 #include "GlobalUtils.h"
 #include "../SystemLog.h"
-#include <iostream>
 
 
 using namespace cph;
@@ -11,6 +10,13 @@ ShaderProgram::ShaderProgram(std::string shaderPath) :
 	attribFormat(), shaderId(shaderPath), vertSource(fileToString(shaderPath + ".vert")), fragSource(fileToString(shaderPath + ".frag"))
 {
 	processVertexShader();
+}
+
+ShaderProgram::ShaderProgram(const ShaderProgram& other) :
+	vertHandle(other.vertHandle), fragHandle(other.fragHandle), programHandle(other.programHandle), initialized(other.initialized),
+	attribFormat(other.attribFormat), shaderId(other.shaderId), vertSource(other.vertSource), fragSource(other.fragSource)
+{
+
 }
 
 ShaderProgram::~ShaderProgram() {
@@ -129,7 +135,7 @@ void ShaderProgram::checkCompilationGL(int handle) {
 	GLint status = 0;
 	glGetShaderiv(handle, GL_COMPILE_STATUS, &status);
 	if(status == GL_FALSE) {
-		getErrorLog() << "[RenSys: Error compiling shader: " << cutFilepath(shaderId) << std::endl;
+		getErrorLog().pre() << "Error compiling shader: " << cutFilepath(shaderId) << std::endl;
 		GLint infoLogLength = 0;
 		glGetShaderiv(handle, GL_INFO_LOG_LENGTH, &infoLogLength);
 		GLchar* infoLog = new GLchar[infoLogLength + 1];
@@ -137,7 +143,7 @@ void ShaderProgram::checkCompilationGL(int handle) {
 		getDebugLog() << infoLog << std::endl;
 		delete[] infoLog;
 	} else {
-		getDebugLog() << "[RenSys: No errors compiling shader: " << cutFilepath(shaderId) << std::endl;
+		getDebugLog().pre() << "No errors compiling shader: " << cutFilepath(shaderId) << std::endl;
 	}
 }
 
@@ -145,7 +151,7 @@ void ShaderProgram::checkLinkageGL() {
 	GLint status = 0;
 	glGetProgramiv(programHandle, GL_LINK_STATUS, &status);
 	if(status == GL_FALSE) {
-		getErrorLog() << "[RenSys: Error linking shader: " << cutFilepath(shaderId) << std::endl;
+		getErrorLog().pre() << "Error linking shader: " << cutFilepath(shaderId) << std::endl;
 		GLint infoLogLength;
 		glGetProgramiv(programHandle, GL_INFO_LOG_LENGTH, &infoLogLength);
 		GLchar* infoLog = new GLchar[infoLogLength + 1];
@@ -153,6 +159,12 @@ void ShaderProgram::checkLinkageGL() {
 		getDebugLog() << infoLog << std::endl;
 		delete[] infoLog;
 	} else {
-		getDebugLog() << "[RenSys: No errors linking shader: " << cutFilepath(shaderId) << std::endl;
+		getDebugLog().pre() << "No errors linking shader: " << cutFilepath(shaderId) << std::endl;
 	}
+}
+
+void ShaderProgram::destroyGL() {
+	glDeleteShader(vertHandle);
+	glDeleteShader(fragHandle);
+	glDeleteProgram(programHandle);
 }
