@@ -3,8 +3,8 @@
 
 using namespace cph;
 
-RenderAllocator::RenderAllocator() :
-	prmiAlloc(), geomAlloc(), vertexAlloc(), uniformAlloc()
+RenderAllocator::RenderAllocator(PrimitiveAllocator* prmiAlloc) :
+	prmiAlloc(prmiAlloc), geomAlloc(), vertexAlloc(), uniformAlloc()
 {
 
 }
@@ -21,13 +21,13 @@ RenderGeomImpl* RenderAllocator::allocRenderGeom() {
 
 RenderVertexImpl* RenderAllocator::allocRenderVertex() {
 	RenderVertexImpl* vertex = vertexAlloc.allocate();
-	vertex->setPrmiAllocPtr(&prmiAlloc);
+	vertex->setPrmiAllocPtr(prmiAlloc);
 	return vertex;
 }
 
 RenderUniformImpl* RenderAllocator::allocRenderUniform() {
 	RenderUniformImpl* uniform = uniformAlloc.allocate();
-	uniform->setPrmiAllocPtr(&prmiAlloc);
+	uniform->setPrmiAllocPtr(prmiAlloc);
 	return uniform;
 }
 

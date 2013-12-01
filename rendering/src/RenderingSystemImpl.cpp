@@ -18,12 +18,12 @@ WriteonlyLogger& RenderingSystemImpl::getDebugLog() {
 }
 
 RenderingSystemImpl::RenderingSystemImpl(std::uint8_t id) :
-	componentAlloc(), renderAlloc(), sysId(id), vaoManager()
+	componentAlloc(), prmiAlloc(), renderAlloc(&prmiAlloc), sysId(id), vaoManager()
 {
 	errorLog.setLocalConsolePrintOnLog(true);
 }
 
-RenderingSystemImpl::RenderingSystemImpl(const RenderingSystemImpl& other) : sysId(other.sysId) { }
+RenderingSystemImpl::RenderingSystemImpl(const RenderingSystemImpl& other) : sysId(other.sysId), renderAlloc(0) { }
 
 RenderingSystemImpl::~RenderingSystemImpl() {
 
@@ -34,6 +34,56 @@ RenderingComponent* RenderingSystemImpl::createComponent() {
 	comp->setSystem(this);
 	debugLog.pre() << "Created [RenderingComp= " << comp->getUniqueId() << "]" << std::endl;
 	return comp;
+}
+
+PrmiVec1f* RenderingSystemImpl::createGlobalVec1f() {
+	PrmiVec1fImpl* vec = prmiAlloc.allocPrmiVec1f();
+	vec->setLocal(false);
+	return vec;
+}
+
+PrmiVec2f* RenderingSystemImpl::createGlobalVec2f() {
+	PrmiVec2fImpl* vec = prmiAlloc.allocPrmiVec2f();
+	vec->setLocal(false);
+	return vec;
+}
+
+PrmiVec3f* RenderingSystemImpl::createGlobalVec3f() {
+	PrmiVec3fImpl* vec = prmiAlloc.allocPrmiVec3f();
+	vec->setLocal(false);
+	return vec;
+}
+
+PrmiVec4f* RenderingSystemImpl::createGlobalVec4f() {
+	PrmiVec4fImpl* vec = prmiAlloc.allocPrmiVec4f();
+	vec->setLocal(false);
+	return vec;
+}
+
+PrmiMat2f* RenderingSystemImpl::createGlobalMat2f() {
+	PrmiMat2fImpl* mat = prmiAlloc.allocPrmiMat2f();
+	mat->setLocal(false);
+	return mat;
+}
+
+PrmiMat3f* RenderingSystemImpl::createGlobalMat3f() {
+	PrmiMat3fImpl* mat = prmiAlloc.allocPrmiMat3f();
+	mat->setLocal(false);
+	return mat;
+}
+
+PrmiMat4f* RenderingSystemImpl::createGlobalMat4f() {
+	PrmiMat4fImpl* mat = prmiAlloc.allocPrmiMat4f();
+	mat->setLocal(false);
+	return mat;
+}
+
+void RenderingSystemImpl::destroyGlobalPrimitive(Primitive* prmi) {
+	if(!prmi->isLocal()) {
+		prmiAlloc.releasePrimitive(prmi);
+	} else {
+		getErrorLog().pre() << "Error trying to globally destroy local [Primitive= " << prmi->getUniqueId() << "]" << std::endl;
+	}
 }
 
 std::uint8_t RenderingSystemImpl::getSysId() const {

@@ -17,6 +17,7 @@ public:
 	~PrmiMat2fImpl();
 	
 	virtual std::uint32_t getUniqueId() const;
+	virtual bool isLocal() const;
 
 	virtual void uploadAsUniformGL(GLuint program, std::string name);
 	virtual void fetchVertexData(std::vector<GLfloat>& buffer);

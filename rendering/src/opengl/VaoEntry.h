@@ -66,13 +66,13 @@ public:
 	void fetchVertexData(std::vector<GLfloat>& buffer, unsigned int* offset, const std::set<AttributeFormat>& format);
 	void fetchIndexData(std::vector<GLushort>& buffer, unsigned int* offset);
 	
-	RenderGeomImpl* addLocalGeom();
-	RenderVertexImpl* addLocalVertex();
-	RenderUniformImpl* addLocalUniform();
+	RenderGeomImpl* addGeom();
+	RenderVertexImpl* addVertex();
+	RenderUniformImpl* addUniform();
 
-	void removeLocalGeom(RenderGeom* geom);
-	void removeLocalVertex(RenderVertex* vertex);
-	void removeLocalUniform(RenderUniform* uniform);
+	void removeGeom(RenderGeom* geom);
+	void removeVertex(RenderVertex* vertex);
+	void removeUniform(RenderUniform* uniform);
 
 	void setAllocPtr(RenderAllocator* allocPtr);
 

@@ -7,11 +7,13 @@
 #include "ComponentAllocator.h"
 #include "Unicellular.h"
 
-#define VERSION "0.1a"
+#define VERSION "0.1b"
 
 
 using namespace cph;
 
+const int width = 800;
+const int height = 600;
 const std::string absolutePath = "D:/Projects/C++/CPHemeral/Unicellular";
 
 Display* display = 0;
@@ -71,8 +73,8 @@ void initLogs(bool debug, bool looptime) {
 
 void initDisplay(int argc, char** argv) {
 	window = createWindow();
-	window->setSize(800, 600);
-	window->setPosition(450, 0);
+	window->setSize(width, height);
+	window->setPosition(550, 0);
 	window->setTitle(std::string("Unicellular ").append(VERSION).c_str());
 	window->initWindow(&argc, argv);
 
@@ -116,10 +118,23 @@ ComponentAllocator& cph::getComponentAllocator() {
 	return compAlloc;
 }
 
+Input* cph::getInput() {
+	return display;
+}
+
 void cph::setLog(ObjectManager* objectManager) {
 	objectManager->setLog(&errorLog);
 	objectManager->setLog(&debugLog);
 }
+
+int cph::getDisplayWidth() {
+	return width;
+}
+
+int cph::getDisplayHeight() {
+	return height;
+}
+
 
 std::string cph::getAbsolutePath() {
 	return absolutePath;

@@ -17,8 +17,12 @@ std::uint32_t PrmiVec1fImpl::getUniqueId() const {
 	return PrimitiveImpl::getUniqueId();
 }
 
+bool PrmiVec1fImpl::isLocal() const {
+	return PrimitiveImpl::isLocal();
+}
+
 void PrmiVec1fImpl::uploadAsUniformGL(GLuint program, std::string name) {
-	if(modified) {
+	if(modified ||!isLocal()) {
 		glUniform1f(glGetUniformLocation(program, name.c_str()), vector.getX());
 		modified = false;
 	}

@@ -8,9 +8,10 @@
 
 namespace cph {
 
-struct PrmiVec3f {
+struct PrmiVec3f : public Primitive {
 
 	virtual std::uint32_t getUniqueId() const = 0;
+	virtual bool isLocal() const = 0;
 
 	virtual Vec3f* wget() = 0;
 	virtual const Vec3f* rget() const = 0;

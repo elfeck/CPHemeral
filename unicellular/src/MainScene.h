@@ -3,6 +3,7 @@
 
 #include "ObjectManager.h"
 #include "player/Player.h"
+#include "Camera.h"
 
 
 namespace cph {
@@ -10,7 +11,10 @@ namespace cph {
 class MainScene {
 
 private:
+	int sceneWidth, sceneHeight;
+
 	ObjectManager* objectManager;
+	Camera camera;
 	Player player;
 
 public:
@@ -22,6 +26,8 @@ public:
 	void init();
 	void destroy();
 
+	int getSceneWidth() const;
+	int getSceneHeight() const;
 };
 
 }

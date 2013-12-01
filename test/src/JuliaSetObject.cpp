@@ -39,26 +39,26 @@ void JuliaSetObject::create(ObjectManager* scene, RenderingAllocator* renderSys,
 	render->setScissor(0, 0, 400, 400);
 	render->setVisible(true);
 
-	RenderVertex* vert1 = render->addLocalVertex();
-	RenderVertex* vert2 = render->addLocalVertex();
-	RenderVertex* vert3 = render->addLocalVertex();
-	RenderVertex* vert4 = render->addLocalVertex();
+	RenderVertex* vert1 = render->addVertex();
+	RenderVertex* vert2 = render->addVertex();
+	RenderVertex* vert3 = render->addVertex();
+	RenderVertex* vert4 = render->addVertex();
 
-	RenderUniform* uni1 = render->addLocalUniform();
-	RenderUniform* uni2 = render->addLocalUniform();
-	RenderUniform* uni3 = render->addLocalUniform();
+	RenderUniform* uni1 = render->addUniform();
+	RenderUniform* uni2 = render->addUniform();
+	RenderUniform* uni3 = render->addUniform();
 
-	RenderGeom* geom1 = render->addLocalGeom();
-	RenderGeom* geom2 = render->addLocalGeom();
+	RenderGeom* geom1 = render->addGeom();
+	RenderGeom* geom2 = render->addGeom();
 
-	vert1->addVec4f("vert_position", -1.0f, 1.0f, 0, 1);
-	vert2->addVec4f("vert_position", 1.0f, 1.0f, 0, 1);
-	vert3->addVec4f("vert_position", 1.0f, -1.0f, 0, 1);
-	vert4->addVec4f("vert_position", -1.0f, -1.0f, 0, 1);
+	vert1->addLocalVec4f("vert_position", -1.0f, 1.0f, 0, 1);
+	vert2->addLocalVec4f("vert_position", 1.0f, 1.0f, 0, 1);
+	vert3->addLocalVec4f("vert_position", 1.0f, -1.0f, 0, 1);
+	vert4->addLocalVec4f("vert_position", -1.0f, -1.0f, 0, 1);
 
-	zoom = uni1->addVec1f("zoom", 1.0f);
-	c = uni2->addVec2f("c", 0, 0);
-	camera = uni3->addVec2f("camera", 0, 0);
+	zoom = uni1->addLocalVec1f("zoom", 1.0f);
+	c = uni2->addLocalVec2f("c", 0, 0);
+	camera = uni3->addLocalVec2f("camera", 0, 0);
 
 	geom1->addVertex(vert1);
 	geom1->addVertex(vert2);

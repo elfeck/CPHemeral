@@ -9,6 +9,7 @@ namespace cph {
 struct Primitive {
 
 	virtual std::uint32_t getUniqueId() const = 0;
+	virtual bool isLocal() const = 0;
 
 };
 

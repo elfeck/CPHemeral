@@ -13,13 +13,15 @@ namespace cph {
 class RenderAllocator {
 
 private:
-	PrimitiveAllocator prmiAlloc;
+	PrimitiveAllocator* prmiAlloc;
 	SingleIdAllocator<RenderGeomImpl> geomAlloc;
 	SingleIdAllocator<RenderVertexImpl> vertexAlloc;
 	SingleIdAllocator<RenderUniformImpl> uniformAlloc;
+
+	RenderAllocator(const RenderAllocator& other);
 	
 public:
-	RenderAllocator();
+	RenderAllocator(PrimitiveAllocator* prmiAlloc);
 	~RenderAllocator();
 
 	RenderGeomImpl* allocRenderGeom();

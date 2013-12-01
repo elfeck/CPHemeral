@@ -16,7 +16,7 @@ RenderVertexImpl::~RenderVertexImpl() {
 	}
 }
 
-PrmiVec1f* RenderVertexImpl::addVec1f(const char* name, float x) {
+PrmiVec1f* RenderVertexImpl::addLocalVec1f(const char* name, float x) {
 	PrmiVec1fImpl* vec = prmiAllocPtr->allocPrmiVec1f();
 	primitives.insert(std::make_pair(name, vec));
 	vec->wget()->setX(x);
@@ -24,7 +24,7 @@ PrmiVec1f* RenderVertexImpl::addVec1f(const char* name, float x) {
 	return vec;
 }
 
-PrmiVec2f* RenderVertexImpl::addVec2f(const char* name, float x, float y) {
+PrmiVec2f* RenderVertexImpl::addLocalVec2f(const char* name, float x, float y) {
 	PrmiVec2fImpl* vec = prmiAllocPtr->allocPrmiVec2f();
 	primitives.insert(std::make_pair(name, vec));
 	vec->wget()->setXY(x, y);
@@ -32,7 +32,7 @@ PrmiVec2f* RenderVertexImpl::addVec2f(const char* name, float x, float y) {
 	return vec;
 }
 
-PrmiVec3f* RenderVertexImpl::addVec3f(const char* name, float x, float y, float z) {
+PrmiVec3f* RenderVertexImpl::addLocalVec3f(const char* name, float x, float y, float z) {
 	PrmiVec3fImpl* vec = prmiAllocPtr->allocPrmiVec3f();
 	primitives.insert(std::make_pair(name, vec));
 	vec->wget()->setXYZ(x, y, z);
@@ -40,7 +40,7 @@ PrmiVec3f* RenderVertexImpl::addVec3f(const char* name, float x, float y, float 
 	return vec;
 }
 
-PrmiVec4f* RenderVertexImpl::addVec4f(const char* name, float x, float y, float z, float w) {
+PrmiVec4f* RenderVertexImpl::addLocalVec4f(const char* name, float x, float y, float z, float w) {
 	PrmiVec4fImpl* vec = prmiAllocPtr->allocPrmiVec4f();
 	primitives.insert(std::make_pair(name, vec));
 	vec->wget()->setXYZW(x, y, z, w);
@@ -48,35 +48,63 @@ PrmiVec4f* RenderVertexImpl::addVec4f(const char* name, float x, float y, float 
 	return vec;
 }	
 
-PrmiMat2f* RenderVertexImpl::addMat2f(const char* name) {
+PrmiMat2f* RenderVertexImpl::addLocalMat2f(const char* name) {
 	PrmiMat2fImpl* mat = prmiAllocPtr->allocPrmiMat2f();
 	primitives.insert(std::make_pair(name, mat));
 	mat->setLocal(true);
 	return mat;
 }
 
-PrmiMat3f* RenderVertexImpl::addMat3f(const char* name) {
+PrmiMat3f* RenderVertexImpl::addLocalMat3f(const char* name) {
 	PrmiMat3fImpl* mat = prmiAllocPtr->allocPrmiMat3f();
 	primitives.insert(std::make_pair(name, mat));
 	mat->setLocal(true);
 	return mat;
 }
 
-PrmiMat4f* RenderVertexImpl::addMat4f(const char* name) {
+PrmiMat4f* RenderVertexImpl::addLocalMat4f(const char* name) {
 	PrmiMat4fImpl* mat = prmiAllocPtr->allocPrmiMat4f();
 	primitives.insert(std::make_pair(name, mat));
 	mat->setLocal(true);
 	return mat;
 }
 
+void RenderVertexImpl::addGlobalVec1f(const char* name, PrmiVec1f* vec) {
+	primitives.insert(std::make_pair(name, prmiAllocPtr->lookupPrimitive(vec)));
+}
+
+void RenderVertexImpl::addGlobalVec2f(const char* name, PrmiVec2f* vec) {
+	primitives.insert(std::make_pair(name, prmiAllocPtr->lookupPrimitive(vec)));
+}
+
+void RenderVertexImpl::addGlobalVec3f(const char* name, PrmiVec3f* vec) {
+	primitives.insert(std::make_pair(name, prmiAllocPtr->lookupPrimitive(vec)));
+}
+
+void RenderVertexImpl::addGlobalVec4f(const char* name, PrmiVec4f* vec) {
+	primitives.insert(std::make_pair(name, prmiAllocPtr->lookupPrimitive(vec)));
+}
+
+void RenderVertexImpl::addGlobalMat2f(const char* name, PrmiMat2f* vec) {
+	primitives.insert(std::make_pair(name, prmiAllocPtr->lookupPrimitive(vec)));
+}
+
+void RenderVertexImpl::addGlobalMat3f(const char* name, PrmiMat3f* vec) {
+	primitives.insert(std::make_pair(name, prmiAllocPtr->lookupPrimitive(vec)));
+}
+
+void RenderVertexImpl::addGlobalMat4f(const char* name, PrmiMat4f* vec) {
+	primitives.insert(std::make_pair(name, prmiAllocPtr->lookupPrimitive(vec)));
+}
+
 void RenderVertexImpl::removePrimitive(Primitive* prmi) {
 	for(std::map<std::string, PrimitiveImpl*>::iterator it = primitives.begin(); it != primitives.end(); ++it) {
 		if(it->second->getUniqueId() == prmi->getUniqueId()) {
 			primitives.erase(it->first);
+			if(prmi->isLocal()) prmiAllocPtr->releasePrimitive(prmi);
 			break;
 		}
 	}
-	prmiAllocPtr->releasePrimitive(prmi);
 }
 
 std::uint32_t RenderVertexImpl::getUniqueId() const {

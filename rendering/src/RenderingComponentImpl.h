@@ -27,13 +27,12 @@ public:
 	RenderingComponentImpl(std::uint32_t id);
 	~RenderingComponentImpl();
 
-	virtual RenderGeom* addLocalGeom();
-	virtual RenderVertex* addLocalVertex();
-	virtual RenderUniform* addLocalUniform();
-
-	virtual void removeLocalGeom(RenderGeom* geom);
-	virtual void removeLocalVertex(RenderVertex* vertex);
-	virtual void removeLocalUniform(RenderUniform* uniform);
+	virtual RenderGeom* addGeom();
+	virtual RenderVertex* addVertex();
+	virtual RenderUniform* addUniform();
+	virtual void removeGeom(RenderGeom* geom);
+	virtual void removeVertex(RenderVertex* vertex);
+	virtual void removeUniform(RenderUniform* uniform);
 
 	virtual void setShader(const char* path);
 	virtual void setViewport(int x, int y, int width, int height);

@@ -23,6 +23,17 @@ bool PrimitiveAllocator::prmiWithinRange(Primitive* prmi, std::uint32_t lower, s
 	return prmi->getUniqueId() >= lower && prmi->getUniqueId() < upper;
 }
 
+PrimitiveImpl* PrimitiveAllocator::lookupPrimitive(Primitive* prmi) {
+	if(prmiWithinRange(prmi, 1, 0x20000000)) return vec1fAlloc.at(prmi->getUniqueId());
+	else if(prmiWithinRange(prmi, 0x20000000, 0x40000000)) return vec2fAlloc.at(prmi->getUniqueId());
+	else if(prmiWithinRange(prmi, 0x40000000, 0x60000000)) return vec3fAlloc.at(prmi->getUniqueId());
+	else if(prmiWithinRange(prmi, 0x60000000, 0x80000000)) return vec4fAlloc.at(prmi->getUniqueId());
+	else if(prmiWithinRange(prmi, 0x80000000, 0xa0000000)) return mat2fAlloc.at(prmi->getUniqueId());
+	else if(prmiWithinRange(prmi, 0xa0000000, 0xc0000000)) return mat3fAlloc.at(prmi->getUniqueId());
+	else if(prmiWithinRange(prmi, 0xc0000000, 0xe0000000)) return mat4fAlloc.at(prmi->getUniqueId());
+	return 0;
+}
+
 PrmiVec1fImpl* PrimitiveAllocator::allocPrmiVec1f() {
 	PrmiVec1fImpl* vec = vec1fAlloc.allocate();
 	primitiveLookup.insert(std::make_pair(vec->getUniqueId(), vec));

@@ -30,10 +30,14 @@ private:
 	
 	bool prmiWithinRange(Primitive* prmi, std::uint32_t lower, std::uint32_t upper);
 
+	PrimitiveAllocator(const PrimitiveAllocator& other);
+
 public:
 	PrimitiveAllocator();
 	~PrimitiveAllocator();
 	
+	PrimitiveImpl* lookupPrimitive(Primitive* prmi);
+
 	PrmiVec1fImpl* allocPrmiVec1f();
 	PrmiVec2fImpl* allocPrmiVec2f();
 	PrmiVec3fImpl* allocPrmiVec3f();

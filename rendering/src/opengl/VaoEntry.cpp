@@ -130,14 +130,14 @@ void VaoEntry::fetchIndexData(std::vector<GLushort>& buffer, unsigned int* offse
 	geomModified = false;
 }
 
-RenderGeomImpl* VaoEntry::addLocalGeom() {
+RenderGeomImpl* VaoEntry::addGeom() {
 	RenderGeomImpl* geom = allocPtr->allocRenderGeom();
 	geoms.insert(std::make_pair(geom->getUniqueId(), geom));
 	geomModified = true;
 	return geom;
 }
 
-RenderVertexImpl* VaoEntry::addLocalVertex() {
+RenderVertexImpl* VaoEntry::addVertex() {
 	RenderVertexImpl* vertex = allocPtr->allocRenderVertex();
 	vertex->setVertexIndex(vertices.size());
 	vertices.insert(std::make_pair(vertex->getUniqueId(), vertex));
@@ -145,25 +145,25 @@ RenderVertexImpl* VaoEntry::addLocalVertex() {
 	return vertex;
 }
 
-RenderUniformImpl* VaoEntry::addLocalUniform() {
+RenderUniformImpl* VaoEntry::addUniform() {
 	RenderUniformImpl* uniform = allocPtr->allocRenderUniform();
 	uniforms.insert(std::make_pair(uniform->getUniqueId(), uniform));
 	return uniform;
 }
 
-void VaoEntry::removeLocalGeom(RenderGeom* geom) {
+void VaoEntry::removeGeom(RenderGeom* geom) {
 	geoms.erase(geom->getUniqueId());
 	allocPtr->releaseRenderGeom(geom);
 	geomModified = true;
 }
 
-void VaoEntry::removeLocalVertex(RenderVertex* vertex) {
+void VaoEntry::removeVertex(RenderVertex* vertex) {
 	vertices.erase(vertex->getUniqueId());
 	allocPtr->releaseRenderVertex(vertex);
 	vertModified = true;
 }
 
-void VaoEntry::removeLocalUniform(RenderUniform* uniform) {
+void VaoEntry::removeUniform(RenderUniform* uniform) {
 	uniforms.erase(uniform->getUniqueId());
 	allocPtr->releaseRenderUniform(uniform);
 }

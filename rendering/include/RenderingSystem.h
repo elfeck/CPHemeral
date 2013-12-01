@@ -15,11 +15,23 @@ namespace cph {
 
 struct ObjectManager;
 struct RenderingComponent;
+struct RenderUniform;
 class Log;
 
 struct RenderingSystem : public RenderingAllocator, public ObjectSystem {
 
 	virtual RenderingComponent* createComponent() = 0;
+
+	virtual PrmiVec1f* createGlobalVec1f() = 0;
+	virtual PrmiVec2f* createGlobalVec2f() = 0;
+	virtual PrmiVec3f* createGlobalVec3f() = 0;
+	virtual PrmiVec4f* createGlobalVec4f() = 0;
+	virtual PrmiMat2f* createGlobalMat2f() = 0;
+	virtual PrmiMat3f* createGlobalMat3f() = 0;
+	virtual PrmiMat4f* createGlobalMat4f() = 0;
+
+	virtual void destroyGlobalPrimitive(Primitive* prmi) = 0;
+
 	virtual std::uint8_t getSysId() const = 0;
 	virtual void execute(ObjectManager* objectManager, long delta) = 0;
 

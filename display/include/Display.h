@@ -7,13 +7,15 @@
 #define CPH_DISPLAY_DLL _declspec(dllimport)
 #endif
 
+#include "Input.h"
+
 
 namespace cph {
 
 struct Window;
 class Log;
 
-struct Display {
+struct Display : Input {
 
 	virtual void initDisplay(Window* window) = 0;
 	virtual void setMainFunc(void (*mainFunc)(long)) = 0;

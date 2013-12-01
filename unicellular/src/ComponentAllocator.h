@@ -13,6 +13,7 @@ private:
 	RenderingAllocator* renderAlloc;
 	LogicAllocator* logicAlloc;
 
+
 public:
 	ComponentAllocator();
 	~ComponentAllocator();

@@ -11,6 +11,7 @@ namespace cph {
 struct PrmiVec1f : public Primitive {
 	
 	virtual std::uint32_t getUniqueId() const = 0;
+	virtual bool isLocal() const = 0;
 
 	virtual Vec1f* wget() = 0;
 	virtual const Vec1f* rget() const = 0;

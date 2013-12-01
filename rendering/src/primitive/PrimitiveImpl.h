@@ -23,11 +23,11 @@ public:
 	virtual ~PrimitiveImpl() = 0;
 	
 	virtual std::uint32_t getUniqueId() const;
+	virtual bool isLocal() const;
 
 	virtual void uploadAsUniformGL(GLuint program, std::string name) = 0;
 	virtual void fetchVertexData(std::vector<GLfloat>& buffer) = 0;
 
-	bool isLocal() const;
 	void setLocal(bool local);
 
 	bool wasModified() const;

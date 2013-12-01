@@ -5,7 +5,8 @@
 using namespace cph;
 
 MainScene::MainScene() :
-	objectManager(createObjectManager()), player()
+	sceneWidth(getDisplayWidth()), sceneHeight(getDisplayHeight()), objectManager(createObjectManager()), 
+	 camera(), player(getDisplayWidth(), getDisplayHeight())
 {
 
 }
@@ -19,10 +20,20 @@ ObjectManager* MainScene::getObjectManager() {
 
 void MainScene::init() {
 	setLog(objectManager);
-	player.init(objectManager);
+	camera.init(objectManager);
+	player.init(camera, objectManager);
 }
 
 void MainScene::destroy() {
 	player.destroy();
+	camera.destroy();
 	deleteObjectManager(objectManager);
+}
+
+int MainScene::getSceneWidth() const {
+	return sceneWidth;
+}
+
+int MainScene::getSceneHeight() const {
+	return sceneHeight;
 }

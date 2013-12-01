@@ -17,8 +17,12 @@ std::uint32_t PrmiVec4fImpl::getUniqueId() const {
 	return PrimitiveImpl::getUniqueId();
 }
 
+bool PrmiVec4fImpl::isLocal() const {
+	return PrimitiveImpl::isLocal();
+}
+
 void PrmiVec4fImpl::uploadAsUniformGL(GLuint program, std::string name) {
-	if(modified) {
+	if(modified || !isLocal()) {
 		GLuint uniformLocation = glGetUniformLocation(program, name.c_str());
 		glUniform4f(uniformLocation, vector.getX(), vector.getY(), vector.getZ(), vector.getW());
 		modified = false;

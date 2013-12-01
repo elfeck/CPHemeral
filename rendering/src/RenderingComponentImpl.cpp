@@ -16,28 +16,28 @@ RenderingComponentImpl::~RenderingComponentImpl() {
 
 }
 
-RenderGeom* RenderingComponentImpl::addLocalGeom() {
-	return vaoEntry.addLocalGeom();
+RenderGeom* RenderingComponentImpl::addGeom() {
+	return vaoEntry.addGeom();
 }
 
-RenderVertex* RenderingComponentImpl::addLocalVertex() {
-	return vaoEntry.addLocalVertex();
+RenderVertex* RenderingComponentImpl::addVertex() {
+	return vaoEntry.addVertex();
 }
 
-RenderUniform* RenderingComponentImpl::addLocalUniform() {
-	return vaoEntry.addLocalUniform();
+RenderUniform* RenderingComponentImpl::addUniform() {
+	return vaoEntry.addUniform();
 }
 
-void RenderingComponentImpl::removeLocalGeom(RenderGeom* geom) {
-	vaoEntry.removeLocalGeom(geom);
+void RenderingComponentImpl::removeGeom(RenderGeom* geom) {
+	vaoEntry.removeGeom(geom);
 }
 
-void RenderingComponentImpl::removeLocalVertex(RenderVertex* vertex) {
-	vaoEntry.removeLocalVertex(vertex);
+void RenderingComponentImpl::removeVertex(RenderVertex* vertex) {
+	vaoEntry.removeVertex(vertex);
 }
 
-void RenderingComponentImpl::removeLocalUniform(RenderUniform* uniform) {
-	vaoEntry.removeLocalUniform(uniform);
+void RenderingComponentImpl::removeUniform(RenderUniform* uniform) {
+	vaoEntry.removeUniform(uniform);
 }
 
 void RenderingComponentImpl::setShader(const char* path) {

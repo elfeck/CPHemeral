@@ -19,6 +19,8 @@ class RenderingSystemImpl : public RenderingSystem {
 
 private:
 	SingleIdAllocator<RenderingComponentImpl> componentAlloc;
+	
+	PrimitiveAllocator prmiAlloc;
 	RenderAllocator renderAlloc;
 
 	const std::uint8_t sysId;
@@ -33,6 +35,17 @@ public:
 	~RenderingSystemImpl();
 
 	virtual RenderingComponent* createComponent();
+
+	virtual PrmiVec1f* createGlobalVec1f();
+	virtual PrmiVec2f* createGlobalVec2f();
+	virtual PrmiVec3f* createGlobalVec3f();
+	virtual PrmiVec4f* createGlobalVec4f();
+	virtual PrmiMat2f* createGlobalMat2f();
+	virtual PrmiMat3f* createGlobalMat3f();
+	virtual PrmiMat4f* createGlobalMat4f();
+
+	virtual void destroyGlobalPrimitive(Primitive* prmi);
+
 	virtual std::uint8_t getSysId() const;
 	virtual void execute(ObjectManager* objectManager, long delta);
 	
