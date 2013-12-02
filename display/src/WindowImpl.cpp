@@ -26,7 +26,7 @@ void WindowImpl::initWindow(int* argc, char* argv[]) {
 	glutInitWindowSize(width, height);
 	glutInitWindowPosition(posX, posY);
 
-	const char* newTitle = title.append(" using CPHemeral ").append(VERSION).c_str();
+	const char* newTitle = title.append(" | CPHemeral").c_str();
 	glutCreateWindow(newTitle);
 	if(fullscreen) glutFullScreen();
 	initialized = true;
