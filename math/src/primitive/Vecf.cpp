@@ -15,7 +15,6 @@ Vecf::~Vecf() {
 
 float Vecf::length() const {
 	float sum = 0;
-	
 	for(int i = 0; i < getDim(); i++) {
 		sum += getN(i) * getN(i);
 	}

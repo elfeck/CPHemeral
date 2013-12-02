@@ -7,6 +7,7 @@
 #include "LogicComponent.h"
 #include "RenderingComponent.h"
 #include "ObjectAllocator.h"
+#include "Vec2f.h"
 #include "PrmiVec3f.h"
 #include "PrmiMat4f.h"
 
@@ -18,6 +19,7 @@ class Camera : public Logicable {
 private:
 	int sceneWidth, sceneHeight;
 	float speed;
+	Vec2f slideDirection, slideFactor;
 
 	Object* object;
 	LogicComponent* logicComp;
@@ -28,6 +30,8 @@ private:
 	Camera(const Camera& other);
 
 	void initMvpMatrix();
+	void computeMovement(long delta);
+	void computeSlide(long delta);
 
 public:
 	Camera(int sceneWidth, int sceneHeight);

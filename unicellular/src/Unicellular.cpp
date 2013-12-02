@@ -7,7 +7,7 @@
 #include "ComponentAllocator.h"
 #include "Unicellular.h"
 
-#define VERSION "0.1b"
+#define VERSION "0.1c"
 
 
 using namespace cph;
