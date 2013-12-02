@@ -35,7 +35,7 @@ void LogicComponentImpl::setSystem(LogicSystemImpl* system) {
 	sysId = system->getSysId();
 }
 
-void LogicComponentImpl::executeLogic(long delta) {
+void LogicComponentImpl::executeLogic(double delta) {
 	if(logicable != 0) logicable->doLogic(delta);
 }
 

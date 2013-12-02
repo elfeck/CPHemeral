@@ -12,8 +12,8 @@
 
 using namespace cph;
 
-void mainCallback(long delta);
-void renderCallback(long delta);
+void mainCallback(double delta);
+void renderCallback(double delta);
 
 Display* display = 0;
 Window* window = 0;
@@ -85,7 +85,7 @@ int main(int argc, char* argv[]) {
 	return 0;
 }
 
-void mainCallback(long delta) {
+void mainCallback(double delta) {
 	if(display->isKeyReleased(Key::NUM_1)) {
 		juliaObj.setVisible(true);
 	}
@@ -96,7 +96,7 @@ void mainCallback(long delta) {
 	logicSystem->execute(scene1, delta);
 }
 
-void renderCallback(long delta) {
+void renderCallback(double delta) {
 	renderingSystem->execute(scene1, delta);
 }
 

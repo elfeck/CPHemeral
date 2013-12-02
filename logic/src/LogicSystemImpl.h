@@ -25,7 +25,7 @@ public:
 
 	virtual LogicComponent* createComponent();
 	
-	virtual void execute(ObjectManager* objectManager, long delta);
+	virtual void execute(ObjectManager* objectManager, double delta);
 	virtual std::uint8_t getSysId() const;	
 	
 	virtual void setLog(Log* log, const char* target);

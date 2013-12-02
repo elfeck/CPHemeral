@@ -18,8 +18,8 @@ class Log;
 struct Display : Input {
 
 	virtual void initDisplay(Window* window) = 0;
-	virtual void setMainFunc(void (*mainFunc)(long)) = 0;
-	virtual void setRenderFunc(void (*renderFunc)(long)) = 0;
+	virtual void setMainFunc(void (*mainFunc)(double)) = 0;
+	virtual void setRenderFunc(void (*renderFunc)(double)) = 0;
 	virtual void setWindow(Window* window) = 0;
 
 	virtual void enterMainLoop() = 0;

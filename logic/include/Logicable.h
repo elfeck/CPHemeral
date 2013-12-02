@@ -6,7 +6,7 @@ namespace cph {
 
 struct Logicable {
 
-	virtual void doLogic(long delta) = 0;
+	virtual void doLogic(double delta) = 0;
 
 };
 

@@ -18,7 +18,7 @@ JuliaSetObject::~JuliaSetObject() {
 
 }
 
-void JuliaSetObject::doLogic(long delta) {
+void JuliaSetObject::doLogic(double delta) {
 
 }
 

@@ -22,7 +22,7 @@ LogicComponent* LogicSystemImpl::createComponent() {
 	return comp;
 }
 
-void LogicSystemImpl::execute(ObjectManager* objectManager, long delta) {
+void LogicSystemImpl::execute(ObjectManager* objectManager, double delta) {
 	ObjectQueue* queue = objectManager->tempGetObjectsWith(sysId);
 	LogicComponentImpl* comp = 0;
 	while(queue->hasElements()) {
@@ -40,8 +40,8 @@ void LogicSystemImpl::setLog(Log* log, const char* target) {
 		if(log->getTarget() == "error") errorLog.setLogPtr(log);
 		if(log->getTarget() == "debug") debugLog.setLogPtr(log);
 	} else {
-		if(strcmp(target, "error")) errorLog.setLogPtr(0);
-		if(strcmp(target, "debug")) debugLog.setLogPtr(0);
+		if(strcmp(target, "error") == 0) errorLog.setLogPtr(0);
+		if(strcmp(target, "debug") == 0) debugLog.setLogPtr(0);
 	}
 
 }

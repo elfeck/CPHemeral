@@ -17,7 +17,7 @@ void Logger::setLogPtr(Log* logPtr) {
 	this->logPtr = logPtr;
 }
 
-void Logger::setLogPrepos(const char* logPreposs) {
+void Logger::setLogPrepos(const char* logPrepos) {
 	this->logPrepos = logPrepos;
 }
 

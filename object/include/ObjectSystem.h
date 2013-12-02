@@ -10,7 +10,7 @@ struct ObjectManager;
 
 struct ObjectSystem {
 
-	virtual void execute(ObjectManager* objectManager, long delta) = 0;
+	virtual void execute(ObjectManager* objectManager, double delta) = 0;
 	virtual std::uint8_t getSysId() const = 0;
 
 };

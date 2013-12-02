@@ -90,7 +90,7 @@ std::uint8_t RenderingSystemImpl::getSysId() const {
 	return sysId;
 }
 
-void RenderingSystemImpl::execute(ObjectManager* objectManager, long delta) {
+void RenderingSystemImpl::execute(ObjectManager* objectManager, double delta) {
 	ObjectQueue* queue = objectManager->tempGetObjectsWith(sysId);
 	RenderingComponentImpl* comp = 0;
 	while(queue->hasElements()) {
@@ -106,8 +106,8 @@ void RenderingSystemImpl::setLog(Log* log, const char* target) {
 		if(log->getTarget() == "error") errorLog.setLogPtr(log);
 		if(log->getTarget() == "debug") debugLog.setLogPtr(log);
 	} else if(target != 0) {
-		if(strcmp(target, "error")) errorLog.setLogPtr(0);
-		if(strcmp(target, "debug")) errorLog.setLogPtr(0);
+		if(strcmp(target, "error") == 0) errorLog.setLogPtr(0);
+		if(strcmp(target, "debug") == 0) errorLog.setLogPtr(0);
 	}
 }
 

@@ -1,7 +1,6 @@
 #include <gl\glew.h>
 #include <gl\freeglut.h>
 #include <iostream>
-
 #include "DisplayImpl.h"
 
 
@@ -186,11 +185,11 @@ void DisplayImpl::initDisplay(Window* window) {
 	initialized = true;
 }
 
-void DisplayImpl::setMainFunc(void (*mainFunc)(long)) {
+void DisplayImpl::setMainFunc(void (*mainFunc)(double)) {
 	mainCallback = mainFunc;
 }
 
-void DisplayImpl::setRenderFunc(void (*renderFunc)(long)) {
+void DisplayImpl::setRenderFunc(void (*renderFunc)(double)) {
 	renderCallback = renderFunc;
 }
 
@@ -203,8 +202,8 @@ void DisplayImpl::enterMainLoop() {
 		if(window->isInitialized() && initialized) {
 			running = true;
 			while(running) {
-				timeUnit.enterStart(glutGet(GLUT_ELAPSED_TIME));
-				
+				timeUnit.start();
+
 				glutMainLoopEvent();
 
 				if(!running) break;
@@ -218,7 +217,7 @@ void DisplayImpl::enterMainLoop() {
 				glutSwapBuffers();
 				resetKeys();
 				
-				timeUnit.enterEnd(glutGet(GLUT_ELAPSED_TIME));
+				timeUnit.end();
 				if(printTimePassed >= looptimeLogTime) {
 						looptimeLog.pre() << timeUnit.getDelta() << "ms -- " << timeUnit.getAverage() << "ms" << std::endl;
 						printTimePassed = 0;
@@ -260,13 +259,19 @@ int DisplayImpl::getMouseWheel() const {
 
 void DisplayImpl::setLog(Log* log, const char* target) {
 	if(log != 0) {
-		if(log->getTarget() == "error") errorLog.setLogPtr(log);
+		if(log->getTarget() == "error") {
+			errorLog.setLogPtr(log);
+			timeUnit.setLog(log, "error", "[ Looptime ]");
+		}
 		if(log->getTarget() == "debug") debugLog.setLogPtr(log);
 		if(log->getTarget() == "looptime") looptimeLog.setLogPtr(log);
 	} else if(target != 0) {
-		if(strcmp(target, "error")) errorLog.setLogPtr(0);
-		if(strcmp(target, "debug")) debugLog.setLogPtr(0);
-		if(strcmp(target, "looptime")) looptimeLog.setLogPtr(0);
+		if(strcmp(target, "error") == 0) {
+			errorLog.setLogPtr(0);
+			timeUnit.setLog(0, target);
+		}
+		if(strcmp(target, "debug") == 0) debugLog.setLogPtr(0);
+		if(strcmp(target, "looptime") == 0) looptimeLog.setLogPtr(0);
 	}
 }
 

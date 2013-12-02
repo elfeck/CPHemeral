@@ -42,7 +42,7 @@ public:
 	Player(int sceneWidth, int sceneHeight);
 	~Player();
 
-	virtual void doLogic(long delta);
+	virtual void doLogic(double delta);
 	
 	void init(Camera& camera, ObjectAllocator* objAlloc);
 	void destroy();

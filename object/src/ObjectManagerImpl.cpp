@@ -40,7 +40,7 @@ void ObjectManagerImpl::setLog(Log* log, const char* target) {
 	if(log != 0) {
 		if(log->getTarget() == "debug") debugLog.setLogPtr(log);
 	} else if(target != 0) {
-		if(strcmp(target, "debug")) debugLog.setLogPtr(0);
+		if(strcmp(target, "debug") == 0) debugLog.setLogPtr(0);
 	}
 }
 

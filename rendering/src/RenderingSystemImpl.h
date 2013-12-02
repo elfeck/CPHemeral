@@ -47,7 +47,7 @@ public:
 	virtual void destroyGlobalPrimitive(Primitive* prmi);
 
 	virtual std::uint8_t getSysId() const;
-	virtual void execute(ObjectManager* objectManager, long delta);
+	virtual void execute(ObjectManager* objectManager, double delta);
 	
 	virtual void setLog(Log* log, const char* target);
 

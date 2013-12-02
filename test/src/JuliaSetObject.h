@@ -27,7 +27,7 @@ public:
 	JuliaSetObject();
 	~JuliaSetObject();
 
-	virtual void doLogic(long delta);
+	virtual void doLogic(double delta);
 
 	void create(cph::ObjectManager* scene, cph::RenderingAllocator* render, cph::LogicAllocator* logic);
 	void destroy();

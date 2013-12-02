@@ -30,7 +30,7 @@ public:
 	virtual void destroy();
 
 	void setSystem(LogicSystemImpl* system);
-	void executeLogic(long delta);
+	void executeLogic(double delta);
 
 };
 

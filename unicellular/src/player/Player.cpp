@@ -15,7 +15,7 @@ Player::~Player() {
 
 }
 
-void Player::doLogic(long delta) {
+void Player::doLogic(double delta) {
 	if(getInput()->isKeyReleased(Mouse::LEFT)) {
 		dest.setX(getInput()->getMouseX() - 0.5f * sceneWidth - camera->getCamera()->getX());
 		dest.setY(-1.0f * getInput()->getMouseY() + 0.5f * sceneHeight - camera->getCamera()->getY());

@@ -30,14 +30,14 @@ private:
 	Camera(const Camera& other);
 
 	void initMvpMatrix();
-	void computeMovement(long delta);
-	void computeSlide(long delta);
+	void computeMovement(double delta);
+	void computeSlide(double delta);
 
 public:
 	Camera(int sceneWidth, int sceneHeight);
 	~Camera();
 
-	virtual void doLogic(long delta);
+	virtual void doLogic(double delta);
 
 	RenderUniform* addCameraAsUniform(RenderingComponent* comp);
 	RenderUniform* addMvpMatrixAsUniform(RenderingComponent* comp);

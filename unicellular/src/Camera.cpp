@@ -33,14 +33,14 @@ void Camera::initMvpMatrix() {
 	mvpMatrix->wget()->setColumn(3, column);
  }
 
-void Camera::computeMovement(long delta) {
+void Camera::computeMovement(double delta) {
 	if(getInput()->isKeyPressed(Key::W)) camera->wget()->addVec3f(0.0f, -speed * delta, 0.0f);
 	if(getInput()->isKeyPressed(Key::A)) camera->wget()->addVec3f(speed * delta, 0.0f, 0.0f);
 	if(getInput()->isKeyPressed(Key::S)) camera->wget()->addVec3f(0.0f, speed * delta, 0.0f);
 	if(getInput()->isKeyPressed(Key::D)) camera->wget()->addVec3f(-speed * delta, 0.0f, 0.0f);
 }
 
-void Camera::computeSlide(long delta) {
+void Camera::computeSlide(double delta) {
 	if(getInput()->isKeyReleased(Key::W)) {
 		slideDirection.setY(-1.0f); 
 		slideFactor.setY(1.0f);
@@ -57,14 +57,14 @@ void Camera::computeSlide(long delta) {
 		slideDirection.setX(-1.0f); 
 		slideFactor.setX(1.0f);
 	}
-	slideFactor.mulScalar((delta + 1.0f) / (delta + 1.015f));
+	slideFactor.mulScalar((delta + 1.0f) / (delta + 1.0015f));
 	if(slideFactor.getX() < 0.000001f) slideFactor.setX(0.0f);
 	if(slideFactor.getY() < 0.000001f) slideFactor.setY(0.0f);
 	camera->wget()->addVec3f(slideDirection.getX() * speed * delta * slideFactor.getX(), 
 		slideDirection.getY() * speed * delta * slideFactor.getY(), 0.0f);
 }
 
-void Camera::doLogic(long delta) {
+void Camera::doLogic(double delta) {
 	computeMovement(delta);
 	computeSlide(delta);
 }

@@ -29,8 +29,8 @@ Log errorLog("error");
 Log debugLog("debug");
 Log looptimeLog("looptime");
 
-void mainCallback(long delta);
-void renderCallback(long delta);
+void mainCallback(double delta);
+void renderCallback(double delta);
 
 void initLogs(bool debug, bool looptime);
 void initDisplay(int argc, char** argv);
@@ -55,11 +55,11 @@ int main(int argc, char** argv) {
 	system("pause");
 }
 
-void mainCallback(long delta) {
+void mainCallback(double delta) {
 	if(scenes.getCurrentObjManager() != 0) logicSystem->execute(scenes.getCurrentObjManager(), delta);
 }
 
-void renderCallback(long delta) {
+void renderCallback(double delta) {
 	if(scenes.getCurrentObjManager() != 0) renderingSystem->execute(scenes.getCurrentObjManager(), delta);
 }
 

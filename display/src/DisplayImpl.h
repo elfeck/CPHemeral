@@ -25,10 +25,11 @@ private:
 	int mouseX, mouseY, mouseWheel;
 
 	TimeUnit timeUnit;
-	int printTimePassed, looptimeLogTime;
+	double printTimePassed;
+	int looptimeLogTime;
 
-	void (*mainCallback)(long);
-	void (*renderCallback)(long);
+	void (*mainCallback)(double);
+	void (*renderCallback)(double);
 	WindowImpl* window;
 
 	cph::Logger errorLog, debugLog, looptimeLog;
@@ -60,8 +61,8 @@ public:
 	~DisplayImpl();
 
 	virtual void initDisplay(Window* window);
-	virtual void setMainFunc(void (*)(long));
-	virtual void setRenderFunc(void (*)(long));	
+	virtual void setMainFunc(void (*)(double));
+	virtual void setRenderFunc(void (*)(double));	
 	virtual void setWindow(Window* window);
 
 	virtual void enterMainLoop();
