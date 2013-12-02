@@ -50,9 +50,9 @@ void Logger::setLocalWritebackOnLog(std::string* writebackPtr) {
 
 WriteonlyLogger& Logger::pre() {
 	if(logPtr != 0) {
-		*logPtr << logPrepos << "   ";
+		*logPtr << logPrepos << "  ";
 	} else {
-		localLog << logPrepos << "   ";
+		localLog << logPrepos << "  ";
 	}
 	return *this;
 }
