@@ -153,7 +153,7 @@ Mat4f* Mat4f::setNM(int n, int m, float value) {
 
 Mat4f* Mat4f::setColumn(int n, std::vector<float> column) {
 	if(!isValid() || !inRange(n, 0) || column.size() != getDim()) return this;
-	matrix.at(0) = column;
+	matrix.at(n) = column;
 	return this;
 }
 

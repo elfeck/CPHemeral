@@ -6,7 +6,7 @@ using namespace cph;
 
 MainScene::MainScene() :
 	sceneWidth(getDisplayWidth()), sceneHeight(getDisplayHeight()), objectManager(createObjectManager()), 
-	 camera(), player(getDisplayWidth(), getDisplayHeight())
+	 camera(getDisplayWidth(), getDisplayHeight()), player(getDisplayWidth(), getDisplayHeight())
 {
 
 }

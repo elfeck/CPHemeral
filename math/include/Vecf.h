@@ -15,6 +15,7 @@ public:
 	float length() const;
 	std::string toString() const;
 	float* toArray(float* raw) const;
+	bool isZeroVector() const;
 	
 	virtual float getN(int n) const = 0;
 	virtual Vecf* setN(int  n, float value) = 0;

@@ -44,3 +44,10 @@ float* Vecf::toArray(float* raw) const {
 	}
 	return raw;
 }
+
+bool Vecf::isZeroVector() const {
+	for(int i = 0; i < getDim(); i++) {
+		if(getN(i) != 0.0f) return false;
+	}
+	return true;
+}

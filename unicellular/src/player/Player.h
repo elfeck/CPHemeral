@@ -21,14 +21,20 @@ class Player : public Logicable {
 
 private:
 	int sceneWidth, sceneHeight;
-	Object* object;
+	float speed;
+	Vec2f dest;
 
+	Object* object;
 	RenderingComponent* renderingComp;
 	LogicComponent* logicComp;
 
+	Camera* camera;
+
 	std::vector<RenderVertex*> vertices;
-	RenderGeom* rGeom1, *rGeom2;
-	RenderUniform* scaleUniform;
+	std::vector<RenderGeom*> geoms;
+
+	PrmiVec2f* scale;
+	PrmiVec2f* offset;
 
 	void initGeom();
 

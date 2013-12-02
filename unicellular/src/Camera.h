@@ -8,28 +8,38 @@
 #include "RenderingComponent.h"
 #include "ObjectAllocator.h"
 #include "PrmiVec3f.h"
+#include "PrmiMat4f.h"
 
 
 namespace cph {
 
-class Camera : Logicable {
+class Camera : public Logicable {
 
 private:
+	int sceneWidth, sceneHeight;
 	float speed;
 
-	cph::Object* object;
-	cph::LogicComponent* logicComp;
+	Object* object;
+	LogicComponent* logicComp;
+
 	PrmiVec3f* camera;
+	PrmiMat4f* mvpMatrix;
 
 	Camera(const Camera& other);
 
+	void initMvpMatrix();
+
 public:
-	Camera();
+	Camera(int sceneWidth, int sceneHeight);
 	~Camera();
 
 	virtual void doLogic(long delta);
 
-	RenderUniform* addCameraAsUniform(RenderingComponent* comp); 
+	RenderUniform* addCameraAsUniform(RenderingComponent* comp);
+	RenderUniform* addMvpMatrixAsUniform(RenderingComponent* comp);
+
+	const Vec3f* getCamera() const;
+	const Mat4f* getMvpMatirx() const;
 
 	void init(ObjectAllocator* alloc);
 	void destroy();
