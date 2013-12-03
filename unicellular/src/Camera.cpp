@@ -57,7 +57,7 @@ void Camera::computeSlide(double delta) {
 		slideDirection.setX(-1.0f); 
 		slideFactor.setX(1.0f);
 	}
-	slideFactor.mulScalar((delta + 1.0f) / (delta + 1.0015f));
+	slideFactor.subVec2f(delta * 0.0025, delta * 0.0025);
 	if(slideFactor.getX() < 0.000001f) slideFactor.setX(0.0f);
 	if(slideFactor.getY() < 0.000001f) slideFactor.setY(0.0f);
 	camera->wget()->addVec3f(slideDirection.getX() * speed * delta * slideFactor.getX(), 
