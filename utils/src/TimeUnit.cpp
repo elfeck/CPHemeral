@@ -60,9 +60,9 @@ void TimeUnit::defaultEnd() {
 }
 
 void TimeUnit::computeMisc() {
-	if(delta <= 0) {
+	if(delta <= 0 || delta >= 20000) {
 		delta = average;
-		errorLog.pre() << "Delta " << delta << "ms <= 0! Internal error in TimeUnit" << std::endl;
+		errorLog.pre() << "Delta " << delta << "<= 0 or >= 200000! Internal error in TimeUnit" << std::endl;
 		return;
 	}
 	total += delta;
