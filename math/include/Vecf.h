@@ -16,6 +16,12 @@ public:
 	std::string toString() const;
 	float* toArray(float* raw) const;
 	bool isZeroVector() const;
+
+	bool operator==(Vecf& vec) const;
+	bool operator==(Vecf* vec) const;
+	
+	bool operator!=(Vecf& vec) const;
+	bool operator!=(Vecf* vec) const;
 	
 	virtual float getN(int n) const = 0;
 	virtual Vecf* setN(int  n, float value) = 0;

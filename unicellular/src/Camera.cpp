@@ -34,26 +34,26 @@ void Camera::initMvpMatrix() {
  }
 
 void Camera::computeMovement(double delta) {
-	if(getInput()->isKeyPressed(Key::W)) camera->wget()->addVec3f(0.0f, -speed * delta, 0.0f);
-	if(getInput()->isKeyPressed(Key::A)) camera->wget()->addVec3f(speed * delta, 0.0f, 0.0f);
-	if(getInput()->isKeyPressed(Key::S)) camera->wget()->addVec3f(0.0f, speed * delta, 0.0f);
-	if(getInput()->isKeyPressed(Key::D)) camera->wget()->addVec3f(-speed * delta, 0.0f, 0.0f);
+	if(getKeybindings().isKeyPressed(Bindings::CAMERA_UP)) camera->wget()->addVec3f(0.0f, -speed * delta, 0.0f);
+	if(getKeybindings().isKeyPressed(Bindings::CAMERA_LEFT)) camera->wget()->addVec3f(speed * delta, 0.0f, 0.0f);
+	if(getKeybindings().isKeyPressed(Bindings::CAMERA_DOWN)) camera->wget()->addVec3f(0.0f, speed * delta, 0.0f);
+	if(getKeybindings().isKeyPressed(Bindings::CAMERA_RIGHT)) camera->wget()->addVec3f(-speed * delta, 0.0f, 0.0f);
 }
 
 void Camera::computeSlide(double delta) {
-	if(getInput()->isKeyReleased(Key::W)) {
+	if(getKeybindings().isKeyReleased(Bindings::CAMERA_UP)) {
 		slideDirection.setY(-1.0f); 
 		slideFactor.setY(1.0f);
 	}
-	if(getInput()->isKeyReleased(Key::A)) {
+	if(getKeybindings().isKeyReleased(Bindings::CAMERA_LEFT)) {
 		slideDirection.setX(1.0f); 
 		slideFactor.setX(1.0f);
 	}
-	if(getInput()->isKeyReleased(Key::S)) {
+	if(getKeybindings().isKeyReleased(Bindings::CAMERA_DOWN)) {
 		slideDirection.setY(1.0f); 
 		slideFactor.setY(1.0f);
 	}
-	if(getInput()->isKeyReleased(Key::D)) {
+	if(getKeybindings().isKeyReleased(Bindings::CAMERA_RIGHT)) {
 		slideDirection.setX(-1.0f); 
 		slideFactor.setX(1.0f);
 	}

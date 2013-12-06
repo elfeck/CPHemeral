@@ -22,8 +22,9 @@ Window* window = 0;
 RenderingSystem* renderingSystem = 0;
 LogicSystem* logicSystem = 0;
 
-SceneManager scenes;
+Keybindings keybindings;
 ComponentAllocator compAlloc;
+SceneManager scenes;
 
 Log errorLog("error");
 Log debugLog("debug");
@@ -47,6 +48,8 @@ int main(int argc, char** argv) {
 
 	initRenderingSystem();
 	initLogicSystem();
+
+	keybindings.setInput(display);
 	initScenes();
 
 	display->enterMainLoop();
@@ -118,8 +121,8 @@ ComponentAllocator& cph::getComponentAllocator() {
 	return compAlloc;
 }
 
-Input* cph::getInput() {
-	return display;
+Keybindings& cph::getKeybindings() {
+	return keybindings;
 }
 
 void cph::setLog(ObjectManager* objectManager) {

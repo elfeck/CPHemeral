@@ -3,14 +3,14 @@
 
 #include "ComponentAllocator.h"
 #include "ObjectManager.h"
-#include "Input.h"
+#include "Keybindings.h"
 #include <string>
 
 
 namespace cph {
 
 	ComponentAllocator& getComponentAllocator();
-	Input* getInput();
+	Keybindings& getKeybindings();
 
 	void setLog(ObjectManager* objectManager);
 

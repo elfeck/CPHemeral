@@ -12,6 +12,7 @@
 #include "RenderGeom.h"
 #include "RenderUniform.h"
 #include "PrmiVec2f.h"
+#include "Vec2f.h"
 #include <vector>
 
 
@@ -21,8 +22,6 @@ class Player : public Logicable {
 
 private:
 	int sceneWidth, sceneHeight;
-	float speed;
-	Vec2f dest;
 
 	Object* object;
 	RenderingComponent* renderingComp;
@@ -32,10 +31,15 @@ private:
 
 	std::vector<RenderVertex*> vertices;
 	std::vector<RenderGeom*> geoms;
-
+	
 	PrmiVec2f* scale;
 	PrmiVec2f* offset;
 
+	Vec2f destination;
+	bool movementFinished;
+	float speed;
+
+	void move(double delta);
 	void initGeom();
 
 public:

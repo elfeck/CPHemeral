@@ -6,7 +6,7 @@
 using namespace cph;
 
 Player::Player(int sceneWidth, int sceneHeight) :
-	sceneWidth(sceneWidth), sceneHeight(sceneHeight), speed(0.1f), dest(0.0f, 0.0f)
+	sceneWidth(sceneWidth), sceneHeight(sceneHeight), destination(), movementFinished(true), speed(0.1f)
 {
 
 }
@@ -16,13 +16,28 @@ Player::~Player() {
 }
 
 void Player::doLogic(double delta) {
-	if(getInput()->isKeyReleased(Mouse::LEFT)) {
-		dest.setX(getInput()->getMouseX() - 0.5f * sceneWidth - camera->getCamera()->getX());
-		dest.setY(-1.0f * getInput()->getMouseY() + 0.5f * sceneHeight - camera->getCamera()->getY());
-	}
-	Vec2f step = *dest.copy().subVec2f(offset->rget())->toLength(delta * speed);
-	offset->wget()->addVec2f(step);
+	move(delta);
+
 }
+
+void Player::move(double delta) {	
+	if(getKeybindings().isKeyReleased(Bindings::PLAYER_MOVE)) {
+		destination.setX(getKeybindings().getMouseX() - 0.5f * sceneWidth - camera->getCamera()->getX());
+		destination.setY(-1.0f * getKeybindings().getMouseY() + 0.5f * sceneHeight - camera->getCamera()->getY());
+		movementFinished = false;
+	}
+	if(!movementFinished) {
+		Vec2f step = *destination.copy().subVec2f(offset->rget());
+		float dist = step.length();
+		if(speed * delta > dist) {
+			offset->wget()->setVec(destination);
+			movementFinished = true;
+		} else {
+			offset->wget()->addVec2f(step.toLength(static_cast<float>(delta * speed)));
+		}
+	}
+}
+
 
 void Player::init(Camera& camera, ObjectAllocator* objAlloc) {
 	this->camera = &camera;

@@ -50,3 +50,23 @@ bool Vecf::isZeroVector() const {
 	}
 	return true;
 }
+
+bool Vecf::operator==(Vecf& vec) const {
+	if(this->getDim() != vec.getDim()) return false;
+	for(int i = 0; i < this->getDim(); i++)	{
+		if(this->getN(i) != vec.getN(i)) return false;
+	}
+	return true;
+}
+
+bool Vecf::operator==(Vecf* vec) const {
+	return *this == *vec;
+}
+
+bool Vecf::operator!=(Vecf& vec) const {
+	return !(*this == vec);
+}
+
+bool Vecf::operator!=(Vecf* vec) const {
+	return *this != *vec;
+}
