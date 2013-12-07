@@ -17,12 +17,12 @@ namespace cph {
 class Camera : public Logicable {
 
 private:
+	Object* object;
+	LogicComponent* logicComp;
+
 	int sceneWidth, sceneHeight;
 	float speed;
 	Vec2f slideDirection, slideFactor;
-
-	Object* object;
-	LogicComponent* logicComp;
 
 	PrmiVec3f* camera;
 	PrmiMat4f* mvpMatrix;

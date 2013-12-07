@@ -21,11 +21,11 @@ namespace cph {
 class Player : public Logicable {
 
 private:
-	int sceneWidth, sceneHeight;
-
 	Object* object;
 	RenderingComponent* renderingComp;
 	LogicComponent* logicComp;
+
+	int sceneWidth, sceneHeight;
 
 	Camera* camera;
 
