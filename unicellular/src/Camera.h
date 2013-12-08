@@ -1,15 +1,10 @@
 #ifndef CAMERA_H_
 #define CAMERA_H_
 
-#include "RenderUniform.h"
-#include "Object.h"
-#include "Logicable.h"
-#include "LogicComponent.h"
-#include "RenderingComponent.h"
-#include "ObjectAllocator.h"
-#include "Vec2f.h"
-#include "PrmiVec3f.h"
-#include "PrmiMat4f.h"
+#include "CPHRendering.h"
+#include "CPHLogic.h"
+#include "CPHMath.h"
+#include "CPHObject.h"
 
 
 namespace cph {

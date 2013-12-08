@@ -13,7 +13,7 @@ class ShaderProgram {
 
 private:
 	GLuint vertHandle, fragHandle, programHandle;
-	bool initialized;
+	bool initialized, linked;
 
 	std::set<AttributeFormat> attribFormat;
 	std::string shaderId, vertSource, fragSource;
@@ -33,6 +33,7 @@ public:
 	std::string getShaderId() const;
 	GLuint getProgramHandle() const;
 	const std::set<AttributeFormat>& getAttritbuteFormat() const;
+	bool isLinked() const;
 
 	void bindGL();
 	void unbindGL();

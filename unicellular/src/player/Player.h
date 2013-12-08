@@ -1,19 +1,12 @@
 #ifndef PLAYER_H_
 #define PLAYER_H_
 
+#include <vector>
 #include "../ComponentAllocator.h"
 #include "../Camera.h"
-#include "Object.h"
-#include "RenderingComponent.h"
-#include "LogicComponent.h"
-#include "ObjectAllocator.h"
-#include "Logicable.h"
-#include "RenderVertex.h"
-#include "RenderGeom.h"
-#include "RenderUniform.h"
-#include "PrmiVec2f.h"
-#include "Vec2f.h"
-#include <vector>
+#include "CPHObject.h"
+#include "CPHLogic.h"
+#include "CPHRendering.h"
 
 
 namespace cph {
@@ -24,17 +17,13 @@ private:
 	Object* object;
 	RenderingComponent* renderingComp;
 	LogicComponent* logicComp;
-
-	int sceneWidth, sceneHeight;
-
-	Camera* camera;
-
 	std::vector<RenderVertex*> vertices;
 	std::vector<RenderGeom*> geoms;
-	
 	PrmiVec2f* scale;
 	PrmiVec2f* offset;
 
+	int sceneWidth, sceneHeight;
+	Camera* camera;
 	Vec2f destination;
 	bool movementFinished;
 	float speed;

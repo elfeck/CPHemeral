@@ -2,8 +2,8 @@
 #define KEYBINDINGS_H_
 
 #include <unordered_map>
-#include "Input.h"
-#include "Logger.h"
+#include "CPHDisplay.h"
+#include "CPHUtils.h"
 
 
 namespace cph {

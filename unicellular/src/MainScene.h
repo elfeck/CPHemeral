@@ -1,8 +1,9 @@
 #ifndef MAIN_SCENE_H_
 #define MAIN_SCENE_H_
 
-#include "ObjectManager.h"
+#include "CPHObject.h"
 #include "player/Player.h"
+#include "env/Environment.h"
 #include "Camera.h"
 
 
@@ -11,11 +12,12 @@ namespace cph {
 class MainScene {
 
 private:
-	int sceneWidth, sceneHeight;
-
 	ObjectManager* objectManager;
+	int sceneWidth, sceneHeight;
+	
 	Camera camera;
 	Player player;
+	Environment env;
 
 public:
 	MainScene();

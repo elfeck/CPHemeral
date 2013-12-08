@@ -182,6 +182,11 @@ void DisplayImpl::initDisplay(Window* window) {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
+	glDepthMask(GL_TRUE);
+	glDepthRange(1.0f, 0.0f);
+
 	initialized = true;
 }
 
@@ -210,7 +215,7 @@ void DisplayImpl::enterMainLoop() {
 				mainCallback(timeUnit.getDelta());
 
 				if(!running) break;
-				glClear(GL_COLOR_BUFFER_BIT);
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 				renderCallback(timeUnit.getDelta());
 
 				if(!running) break;

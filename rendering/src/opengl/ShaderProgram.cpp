@@ -6,14 +6,14 @@
 using namespace cph;
 
 ShaderProgram::ShaderProgram(std::string shaderPath) :
-	vertHandle(0), fragHandle(0), programHandle(0), initialized(false),
+	vertHandle(0), fragHandle(0), programHandle(0), initialized(false), linked(false),
 	attribFormat(), shaderId(shaderPath), vertSource(fileToString(shaderPath + ".vert")), fragSource(fileToString(shaderPath + ".frag"))
 {
 	processVertexShader();
 }
 
 ShaderProgram::ShaderProgram(const ShaderProgram& other) :
-	vertHandle(other.vertHandle), fragHandle(other.fragHandle), programHandle(other.programHandle), initialized(other.initialized),
+	vertHandle(other.vertHandle), fragHandle(other.fragHandle), programHandle(other.programHandle), initialized(other.initialized), linked(other.linked),
 	attribFormat(other.attribFormat), shaderId(other.shaderId), vertSource(other.vertSource), fragSource(other.fragSource)
 {
 
@@ -91,6 +91,10 @@ const std::set<AttributeFormat>& ShaderProgram::getAttritbuteFormat() const {
 	return attribFormat;
 }
 
+bool ShaderProgram::isLinked() const {
+	return linked;
+}
+
 void ShaderProgram::bindGL() {
 	if(!initialized) {
 		compileShaderGL();
@@ -160,6 +164,7 @@ void ShaderProgram::checkLinkageGL() {
 		delete[] infoLog;
 	} else {
 		getDebugLog().pre() << "No errors linking shader: " << cutFilepath(shaderId) << std::endl;
+		linked = true;
 	}
 }
 

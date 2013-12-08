@@ -1,10 +1,10 @@
 #ifndef UNICELLULAR_H_
 #define UNICELLULAR_H_
 
-#include "ComponentAllocator.h"
-#include "ObjectManager.h"
-#include "Keybindings.h"
 #include <string>
+#include "CPHObject.h"
+#include "ComponentAllocator.h"
+#include "Keybindings.h"
 
 
 namespace cph {

@@ -2,7 +2,7 @@
 #define SCENE_MANAGER_H_
 
 #include "MainScene.h"
-#include "ObjectManager.h"
+#include "CPHObject.h"
 
 
 namespace cph {
@@ -12,7 +12,6 @@ class SceneManager {
 private:
 	MainScene mainScene;
 	ObjectManager* currentManager;
-
 
 public:
 	SceneManager();

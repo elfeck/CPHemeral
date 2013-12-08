@@ -128,7 +128,13 @@ void Vao::drawGL() {
 		if(!next->isVisible()) continue;
 		if(last->nextNeedsViewportChange(*next) || last == next) next->viewportGL();
 		if(last->nextNeedsScissorChange(*next) || last == next) next->scissorGL();
-		if(last->nextNeedsShaderChange(*next) || last == next) shaderPrograms.at(next->getShaderPath()).bindGL();
+		if(last->nextNeedsShaderChange(*next) || last == next) {
+			shaderPrograms.at(next->getShaderPath()).bindGL();
+			if(!shaderPrograms.at(next->getShaderPath()).isLinked()) {
+				last = next;
+				continue;
+			}
+		}
 		next->uploadUniformsGL(shaderPrograms.at(last->getShaderPath()).getProgramHandle());
 		glDrawElements(next->getMode(), next->getIndexCount(), GL_UNSIGNED_SHORT, 
 			reinterpret_cast<GLvoid*>(next->getIndexOffset() * sizeof(GLushort)));

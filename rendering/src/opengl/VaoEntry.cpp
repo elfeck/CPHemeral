@@ -60,7 +60,7 @@ bool VaoEntry::nextNeedsScissorChange(VaoEntry& next) const {
 }
 
 bool VaoEntry::nextNeedsShaderChange(VaoEntry& next) const {
-	return shaderPath != shaderPath;
+	return shaderPath != next.shaderPath;
 }
 
 void VaoEntry::setViewportRect(int x, int y, int width, int height) {

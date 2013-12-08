@@ -1,5 +1,4 @@
 #include "../Unicellular.h"
-#include "Display.h"
 #include "Player.h"
 #include <iostream>
 
@@ -47,14 +46,14 @@ void Player::init(Camera& camera, ObjectAllocator* objAlloc) {
 	
 	renderingComp = getComponentAllocator().getRenderingAllocator()->createComponent();
 	renderingComp->setShader(getAbsolutePath().append("/shader/Player").c_str());
-	renderingComp->setVisible(true);
-	initGeom();
-
-	renderingComp->addUniform()->addLocalVec2f("scale", 10.0f, 10.0f);
+	scale = renderingComp->addUniform()->addLocalVec2f("scale", 10.0f, 10.0f);
 	offset = renderingComp->addUniform()->addLocalVec2f("offset", 0.0f, 0.0f);
 	camera.addCameraAsUniform(renderingComp);
 	camera.addMvpMatrixAsUniform(renderingComp);
+	
+	initGeom();
 
+	renderingComp->setVisible(true);
 	object->addComponent(renderingComp);
 	object->addComponent(logicComp);
 }
@@ -64,10 +63,10 @@ void Player::initGeom() {
 	vertices.push_back(renderingComp->addVertex());
 	vertices.push_back(renderingComp->addVertex());
 	vertices.push_back(renderingComp->addVertex());
-	vertices.at(0)->addLocalVec4f("vert_position", 0.0f, 1.0f, 0.0f, 1.0f);
-	vertices.at(1)->addLocalVec4f("vert_position", 0.0f, 0.0f, 0.0f, 1.0f);
-	vertices.at(2)->addLocalVec4f("vert_position", 1.0f, 0.0f, 0.0f, 1.0f);
-	vertices.at(3)->addLocalVec4f("vert_position", 1.0f, 1.0f, 0.0f, 1.0f);
+	vertices.at(0)->addLocalVec4f("vert_position", 0.0f, 1.0f, 0.4f, 1.0f);
+	vertices.at(1)->addLocalVec4f("vert_position", 0.0f, 0.0f, 0.4f, 1.0f);
+	vertices.at(2)->addLocalVec4f("vert_position", 1.0f, 0.0f, 0.4f, 1.0f);
+	vertices.at(3)->addLocalVec4f("vert_position", 1.0f, 1.0f, 0.4f, 1.0f);
 	geoms.push_back(renderingComp->addGeom());
 	geoms.push_back(renderingComp->addGeom());
 	geoms.at(0)->addVertex(vertices.at(0));

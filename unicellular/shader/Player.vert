@@ -2,10 +2,10 @@
 
 in vec4 vert_position;
 
-uniform vec2 scale;
 uniform vec2 offset;
-uniform vec3 camera;
+uniform vec2 scale;
 
+uniform vec3 camera;
 uniform mat4 mvp_matrix;
 
 

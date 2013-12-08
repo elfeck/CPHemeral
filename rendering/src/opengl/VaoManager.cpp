@@ -24,7 +24,7 @@ void VaoManager::processVaoEntry(VaoEntry* entry) {
 		for(SingleAllocator<Vao>::iterator it = vaoAlloc.begin(); it != vaoAlloc.end(); ++it) {
 			if(it->hasShader(entry->getShaderPath())) {
 				it->addVaoEntry(entry);
-				getDebugLog().pre() << "Adding [VaoEntry= " << cutFilepath(entry->getShaderPath()) << "] to existing Vao" << std::endl;
+				getDebugLog().pre() << "Adding [VaoEntry= " << cutFilepath(entry->getShaderPath()) << "] to existing Vao (existing Shader)" << std::endl;
 				break;
 			}
 		}
@@ -33,7 +33,7 @@ void VaoManager::processVaoEntry(VaoEntry* entry) {
 			for(SingleAllocator<Vao>::iterator it = vaoAlloc.begin(); it != vaoAlloc.end(); ++it) {
 				if(it->supportsShader(shaderProgram)) {
 					it->addVaoEntry(entry, &shaderProgram);
-					getDebugLog().pre() << "Adding [VaoEntry= " << cutFilepath(entry->getShaderPath()) << "] to existing Vao" << std::endl;
+					getDebugLog().pre() << "Adding [VaoEntry= " << cutFilepath(entry->getShaderPath()) << "] to existing Vao (new Shader)" << std::endl;
 					break;
 				}
 			}
@@ -41,7 +41,7 @@ void VaoManager::processVaoEntry(VaoEntry* entry) {
 				getDebugLog().pre() << "Creating new Vao for [VaoEntry= " << cutFilepath(entry->getShaderPath()) << "]" << std::endl;
 				Vao* vao = vaoAlloc.allocate();
 				vao->initGL(shaderProgram);
-				getDebugLog().pre() << "Adding VaoEntry to newly created Vao" << std::endl;
+				getDebugLog().pre() << "Adding [VaoEntry= " << cutFilepath(entry->getShaderPath()) << "] to newly created Vao" << std::endl;
 				vao->addVaoEntry(entry);
 			}
 		} else if(entry->getShaderPath() != VaoEntry::ERROR_PATH) {
