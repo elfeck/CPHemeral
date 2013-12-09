@@ -28,7 +28,8 @@ void PrmiVec2fImpl::uploadAsUniformGL(GLuint program, std::string name) {
 	}
 }
 
-void PrmiVec2fImpl::fetchVertexData(std::vector<GLfloat>& buffer) {
+void PrmiVec2fImpl::fetchVertexData(std::vector<GLfloat>& buffer, unsigned int* offset) {
+	*offset += vector.getDim();
 	buffer.push_back(vector.getX());
 	buffer.push_back(vector.getY());
 	modified = false;

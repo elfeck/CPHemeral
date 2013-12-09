@@ -17,12 +17,12 @@ private:
 	std::vector<RenderVertex*> vertices;
 	Camera* camera;
 
-	int x, y, size;
+	int x, y, size, sceneWidth, sceneHeight;
 
 	void initGeom();
 
 public:
-	EnvTile(int x, int y, int size);
+	EnvTile(int x, int y, int size, int sceneWidth, int sceneHeight);
 	~EnvTile();
 
 	void init(Camera& camera, ObjectAllocator* objAlloc);

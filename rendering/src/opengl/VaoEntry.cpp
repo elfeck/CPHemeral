@@ -10,7 +10,7 @@ const std::string VaoEntry::ERROR_PATH = "error_path";
 VaoEntry::VaoEntry() :
 	vertices(), uniforms(), geoms(), viewportRect(-1, -1, -1, -1), scissorRect(-1, -1, -1, -1),
 	shaderPath(""), mode(GL_TRIANGLES), visible(false), added(false), vertModified(false), geomModified(false),
-	indexOffset(0), indexCount(0), vertexOffset(0), allocPtr(0)
+	indexOffset(0), indexCount(0), indexBufferOffset(0), vertexBufferOffset(0), allocPtr(0)
 {
 
 }
@@ -111,22 +111,28 @@ unsigned int VaoEntry::getIndexCount() const {
 	return indexCount;
 }
 
+unsigned int VaoEntry::getIndexBufferOffset() const {
+	return indexBufferOffset;
+}
+
 void VaoEntry::fetchVertexData(std::vector<GLfloat>& buffer, unsigned int* offset, const std::set<AttributeFormat>& format) {
-	vertexOffset = *offset;
+	vertexBufferOffset = *offset;
 	for(std::map<std::uint32_t, RenderVertexImpl*>::const_iterator it = vertices.begin(); it != vertices.end(); ++it) {
-		it->second->fetchVertexData(buffer, format);
+		it->second->fetchVertexData(buffer, format, offset);
 	}
 	vertModified = false;
 }
 
-void VaoEntry::fetchIndexData(std::vector<GLushort>& buffer, unsigned int* offset) {
-	indexOffset = *offset;
+void VaoEntry::fetchIndexData(std::vector<GLushort>& buffer, unsigned int* indexOffs, unsigned int* indexBufferOffs) {
+	indexOffset = *indexOffs;
+	indexBufferOffset = *indexBufferOffs;
 	indexCount = 0;
 	for(std::map<std::uint32_t, RenderGeomImpl*>::const_iterator it = geoms.begin(); it != geoms.end(); ++it) {
-		it->second->fetchIndexData(buffer, *offset);
+		it->second->fetchIndexData(buffer, *indexOffs);
 		indexCount += it->second->getVertexCount();
 	}
-	*offset += vertices.size();
+	*indexOffs += vertices.size();
+	*indexBufferOffs += indexCount;
 	geomModified = false;
 }
 

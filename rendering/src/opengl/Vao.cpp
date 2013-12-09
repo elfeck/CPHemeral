@@ -110,8 +110,9 @@ void Vao::uploadVboGL() {
 void Vao::uploadIboGL() {
 	std::vector<GLushort> indexBuffer;
 	unsigned int indexOffset = 0;
+	unsigned int indexBufferOffset = 0;
 	for(std::vector<VaoEntry*>::iterator it = entries.begin(); it != entries.end(); ++it) {
-		(*it)->fetchIndexData(indexBuffer, &indexOffset);
+		(*it)->fetchIndexData(indexBuffer, &indexOffset, &indexBufferOffset);
 	}
 	if(indexBuffer.size() == 0) return;
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboHandle);
@@ -135,9 +136,9 @@ void Vao::drawGL() {
 				continue;
 			}
 		}
-		next->uploadUniformsGL(shaderPrograms.at(last->getShaderPath()).getProgramHandle());
+		next->uploadUniformsGL(shaderPrograms.at(next->getShaderPath()).getProgramHandle());
 		glDrawElements(next->getMode(), next->getIndexCount(), GL_UNSIGNED_SHORT, 
-			reinterpret_cast<GLvoid*>(next->getIndexOffset() * sizeof(GLushort)));
+			reinterpret_cast<GLvoid*>(next->getIndexBufferOffset() * sizeof(GLushort)));
 		shaderPrograms.at(next->getShaderPath()).unbindGL();
 		last = next;
 	}

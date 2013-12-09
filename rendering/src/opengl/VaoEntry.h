@@ -27,7 +27,7 @@ private:
 	GLenum mode;
 	bool visible, added;
 	bool vertModified, geomModified;
-	unsigned int indexOffset, indexCount, vertexOffset;
+	unsigned int indexOffset, indexCount, indexBufferOffset, vertexBufferOffset;
 
 	RenderAllocator* allocPtr;
 
@@ -62,9 +62,10 @@ public:
 
 	unsigned int getIndexOffset() const;
 	unsigned int getIndexCount() const;
+	unsigned int getIndexBufferOffset() const;
 
 	void fetchVertexData(std::vector<GLfloat>& buffer, unsigned int* offset, const std::set<AttributeFormat>& format);
-	void fetchIndexData(std::vector<GLushort>& buffer, unsigned int* offset);
+	void fetchIndexData(std::vector<GLushort>& buffer, unsigned int* indexOffs, unsigned int* indexBufferOffs);
 	
 	RenderGeomImpl* addGeom();
 	RenderVertexImpl* addVertex();

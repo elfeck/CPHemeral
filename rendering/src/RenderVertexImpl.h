@@ -48,7 +48,7 @@ public:
 	
 	virtual std::uint32_t getUniqueId() const;
 
-	void fetchVertexData(std::vector<GLfloat>& buffer, const std::set<AttributeFormat>& format) const;
+	void fetchVertexData(std::vector<GLfloat>& buffer, const std::set<AttributeFormat>& format, unsigned int* offset) const;
 	
 	int getVertexIndex() const;
 	void setVertexIndex(int vertexIndex);

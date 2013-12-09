@@ -3,10 +3,10 @@
 
 using namespace cph;
 
-Environment::Environment() :
+Environment::Environment(int sceneWidth, int sceneHeight) :
 	tileSize(2000), envTiles()
 {
-	envTiles.push_back(EnvTile(0, 0, tileSize));
+	envTiles.push_back(EnvTile(0, 0, tileSize, sceneWidth, sceneHeight));
 }
 
 Environment::~Environment() {

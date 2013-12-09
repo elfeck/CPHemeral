@@ -30,7 +30,7 @@ void PrmiMat3fImpl::uploadAsUniformGL(GLuint program, std::string name) {
 	}
 }
 
-void PrmiMat3fImpl::fetchVertexData(std::vector<GLfloat>& buffer) {
+void PrmiMat3fImpl::fetchVertexData(std::vector<GLfloat>& buffer, unsigned int* offset) {
 	modified = false;
 }
 

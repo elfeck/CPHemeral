@@ -26,7 +26,7 @@ public:
 	virtual bool isLocal() const;
 
 	virtual void uploadAsUniformGL(GLuint program, std::string name) = 0;
-	virtual void fetchVertexData(std::vector<GLfloat>& buffer) = 0;
+	virtual void fetchVertexData(std::vector<GLfloat>& buffer, unsigned int* offset) = 0;
 
 	void setLocal(bool local);
 

@@ -111,9 +111,12 @@ std::uint32_t RenderVertexImpl::getUniqueId() const {
 	return uniqueId;
 }
 
-void RenderVertexImpl::fetchVertexData(std::vector<GLfloat>& buffer, const std::set<AttributeFormat>& format) const {
+void RenderVertexImpl::fetchVertexData(std::vector<GLfloat>& buffer, const std::set<AttributeFormat>& format, 
+										unsigned int* offset) const {
 	for(std::set<AttributeFormat>::const_iterator it = format.begin(); it != format.end(); ++it) {
-		if(primitives.count(it->getOriginalName()) == 1) primitives.at(it->getOriginalName())->fetchVertexData(buffer);
+		if(primitives.count(it->getOriginalName()) == 1) {
+			primitives.at(it->getOriginalName())->fetchVertexData(buffer, offset);
+		}
 		else {
 			getErrorLog().pre() << "Vertex attribute: " << it->getOriginalName() << " not available in RenderVertex " 
 				<< uniqueId << std::endl;

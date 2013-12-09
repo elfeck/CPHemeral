@@ -46,6 +46,9 @@ void Player::init(Camera& camera, ObjectAllocator* objAlloc) {
 	
 	renderingComp = getComponentAllocator().getRenderingAllocator()->createComponent();
 	renderingComp->setShader(getAbsolutePath().append("/shader/Player").c_str());
+	renderingComp->setViewport(0, 0, sceneWidth, sceneHeight);
+	renderingComp->setScissor(0, 0, sceneWidth, sceneHeight);
+	renderingComp->setVisible(true);
 	scale = renderingComp->addUniform()->addLocalVec2f("scale", 10.0f, 10.0f);
 	offset = renderingComp->addUniform()->addLocalVec2f("offset", 0.0f, 0.0f);
 	camera.addCameraAsUniform(renderingComp);
@@ -53,7 +56,6 @@ void Player::init(Camera& camera, ObjectAllocator* objAlloc) {
 	
 	initGeom();
 
-	renderingComp->setVisible(true);
 	object->addComponent(renderingComp);
 	object->addComponent(logicComp);
 }

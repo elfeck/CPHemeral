@@ -6,7 +6,9 @@ using namespace cph;
 
 MainScene::MainScene() :
 	objectManager(createObjectManager()), sceneWidth(getDisplayWidth()), sceneHeight(getDisplayHeight()), 
-	 camera(getDisplayWidth(), getDisplayHeight()), player(getDisplayWidth(), getDisplayHeight()), env()
+	 camera(getDisplayWidth(), getDisplayHeight()), 
+	 player(getDisplayWidth(), getDisplayHeight()), 
+	 env(getDisplayWidth(), getDisplayHeight())
 {
 
 }
@@ -22,13 +24,13 @@ ObjectManager* MainScene::getObjectManager() {
 void MainScene::init() {
 	setLog(objectManager);
 	camera.init(objectManager);
-	player.init(camera, objectManager);
 	env.init(camera, objectManager);
+	player.init(camera, objectManager);
 }
 
 void MainScene::destroy() {
-	env.destroy();
 	player.destroy();
+	env.destroy();
 	camera.destroy();
 	deleteObjectManager(objectManager);
 }

@@ -4,8 +4,8 @@
 
 using namespace cph;
 
-EnvTile::EnvTile(int x, int y, int size) :
-	x(x), y(y), size(size), object(), renderingComp()
+EnvTile::EnvTile(int x, int y, int size, int sceneWidth, int sceneHeight) :
+	x(x), y(y), size(size), sceneWidth(sceneWidth), sceneHeight(sceneHeight)
 {
 
 }
@@ -19,12 +19,14 @@ void EnvTile::init(Camera& camera, ObjectAllocator* objAlloc) {
 	object = objAlloc->createObject();
 	renderingComp = getComponentAllocator().getRenderingAllocator()->createComponent();
 	renderingComp->setShader(getAbsolutePath().append("/shader/EnvTile").c_str());
+	renderingComp->setViewport(0, 0, sceneWidth, sceneHeight);
+	renderingComp->setScissor(0, 0, sceneWidth, sceneHeight);
+	renderingComp->setVisible(true);
 	camera.addCameraAsUniform(renderingComp);
 	camera.addMvpMatrixAsUniform(renderingComp);
 	
 	initGeom();
 
-	renderingComp->setVisible(true);
 	object->addComponent(renderingComp);
 }
 

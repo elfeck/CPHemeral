@@ -7,7 +7,8 @@ using namespace cph;
 
 ShaderProgram::ShaderProgram(std::string shaderPath) :
 	vertHandle(0), fragHandle(0), programHandle(0), initialized(false), linked(false),
-	attribFormat(), shaderId(shaderPath), vertSource(fileToString(shaderPath + ".vert")), fragSource(fileToString(shaderPath + ".frag"))
+	attribFormat(), shaderId(shaderPath), vertSource(fileToString(shaderPath + ".vert")), 
+	fragSource(fileToString(shaderPath +".frag"))
 {
 	processVertexShader();
 }

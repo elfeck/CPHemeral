@@ -11,11 +11,11 @@ namespace cph {
 class Environment {
 
 private:
-	int tileSize;
+	int tileSize, sceneWidth, sceneHeight;
 	std::vector<EnvTile> envTiles;
 
 public:
-	Environment();
+	Environment(int sceneWidth, int sceneHeight);
 	~Environment();
 
 	void init(Camera& camera, ObjectAllocator* objAlloc);

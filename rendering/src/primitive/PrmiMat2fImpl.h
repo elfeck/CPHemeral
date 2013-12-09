@@ -20,7 +20,7 @@ public:
 	virtual bool isLocal() const;
 
 	virtual void uploadAsUniformGL(GLuint program, std::string name);
-	virtual void fetchVertexData(std::vector<GLfloat>& buffer);
+	virtual void fetchVertexData(std::vector<GLfloat>& buffer, unsigned int* offset);
 
 	virtual Mat2f* wget();
 	virtual const Mat2f* rget() const;
